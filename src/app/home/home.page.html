@@ -1,31 +1,41 @@
-<ion-content fullscreen="true" class="background">
-  <div class="login-box">
-    <h2 class="login-title">Regístrate en Less Time</h2>
+<ion-content fullscreen="true" class="fondo">
+  <p class="texto-promocional">
+    Crea tu cuenta gratuita<br>para empresas
+  </p>
+  <p class="texto-promocional-2">
+    Prueba LT para PYMES y emprendimientos.
+  </p>
+  <div class="caja-login">
+    <div class="texto-login-arriba">
+      ¿Ya tienes una cuenta? <span class="enlace-login">Inicia sesión</span>
+    </div>
+    <h2 class="titulo-login">Regístrate en Less Time</h2>
 
-    <div class="form-group">
-      <label class="input-label">Correo electrónico</label>
-      <ion-input type="email" class="custom-input" required></ion-input>
+    <div class="grupo-formulario">
+      <label class="etiqueta">Correo electrónico</label>
+      <ion-input type="email" class="entrada" required></ion-input>
     </div>
 
-    <div class="form-group">
-      <label class="input-label">Contraseña</label>
-      <ion-input type="password" class="custom-input" required></ion-input>
-      <p class="input-hint">
+    <div class="grupo-formulario">
+      <label class="etiqueta">Contraseña</label>
+      <ion-input type="password" class="entrada" required></ion-input>
+      <p class="ayuda">
         La contraseña debe tener al menos 15 caracteres O al menos 8 caracteres, incluido un número y una letra minúscula.
       </p>
     </div>
 
-    <div class="form-group">
-      <label class="input-label">Nombre de la empresa</label>
-      <ion-input type="text" class="custom-input" required></ion-input>
-      <p class="input-hint">
+    <div class="grupo-formulario">
+      <label class="etiqueta">Nombre de la empresa</label>
+      <ion-input type="text" class="entrada" required></ion-input>
+      <p class="ayuda">
         El nombre de la empresa sólo puede contener caracteres alfanuméricos y no puede comenzar ni terminar con un guion.
       </p>
     </div>
 
-    <ion-button expand="block" class="continue-btn" routerLink="/home">
+    <ion-button expand="block" class="boton-continuar" routerLink="/home">
       Continuar
-    </ion-button>    
+    </ion-button>
   </div>
 </ion-content>
+
 

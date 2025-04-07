@@ -1,77 +1,121 @@
-ion-content {
-  --background: radial-gradient(150% 100% at 28% 105%, #000000 0%, #000000 10%, #4285F4 25%, #A4BBD3 60%);
+.fondo { 
+  --background: radial-gradient(150% 100% at 28% 105%, #1D232B 0%, #1D232B 10%, #6fa5fd 25%, #A4BBD3 60%);
   --background-size: cover;
   --background-position: center;
 }
 
-.login-box {
+.caja-login { 
   position: absolute;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
   top: 0;
   right: 0;
   height: 100%;
   width: 100%;
   max-width: 550px;
   background: rgba(255, 255, 255, 0.85);
-  padding: 4rem 2rem 2rem 2rem; /* Menos padding arriba, más balanceado */
   backdrop-filter: blur(50px);
   box-shadow: -8px 0 20px rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
   color: #000;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 2rem 2rem; /* Más compacto verticalmente */
+  justify-content: flex-start; /* Todo arriba */
 }
 
-.login-title {
-  margin-top: 0;
-  margin-bottom:  2rem;
+.titulo-login {
+  margin-top: 1;
+  margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
   color: #000;
 }
 
-.input-hint {
+.texto-login-arriba {
+  position: absolute;
+  top: 10px;
+  right: 15px;
   font-size: 0.75rem;
-  color: #555;
-  margin-top: 0.3rem;
-  margin-bottom: 1rem;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+.enlace-login {
+  font-weight: 600;
+  color: #1D232B;
+  cursor: pointer;
+}
+
+.texto-promocional { 
+  position: absolute;
+  top: 2rem;
+  left: 6rem;           /* Más a la derecha */
+  color: #000;          /* Texto negro */
+  font-size: 2rem;      /* Más grande */
+  font-weight: 600;     /* Menos grueso */
+  max-width: 400px;     /* Aumenta el ancho máximo */
+  line-height: 1.2;     /* Reduce el espacio entre líneas */
+}
+
+.texto-promocional-2 { 
+  position: absolute;
+  top: 8.3rem;           /* Antes: 4rem */
+  left: 6rem;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 90;
+  max-width: 400px;
   line-height: 1.2;
 }
 
-/* Entrada y botón */
-.form-group {
-  margin-bottom: 1.5rem;
+.grupo-formulario {
+  margin-bottom: 1rem;
 }
 
-.input-label {
+.etiqueta { 
   display: block;
   font-size: 1rem;
-  margin-bottom: 0.3rem;
+  margin: 0.2rem auto 0.2rem auto;
   color: #333;
+  width: 90%;         /* Igual que los inputs */
+  text-align: left;   /* Alineado al inicio del recuadro */
+  padding-left: 8px;  /* Alineado con el texto dentro de los inputs */
 }
 
-.custom-input {
+.entrada {
   --background: transparent;
   --color: #000;
-  height: 40px;
-  width: 80%;
-  font-size: 1rem;
+  height: 38px;
+  width: 90%;
+  font-size: 0.95rem;
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 0 12px;
+  margin: 0 auto; /* Esto los centra */
+  display: block;
 }
 
-.continue-btn {
-  margin-top: 1.5rem;           /* Más arriba */
-  width: 90%;                   /* Menos ancho */
-  height: 55px;                 /* Más alto */
-  align-self: center;           /* Centrado horizontalmente */
-  --background: #003baa;
+.ayuda {
+  font-size: 0.7rem;
+  color: #555;
+  margin: 0.2rem auto 0.6rem auto;
+  width: 90%;                    /* Igual que los inputs */
+  text-align: left;              /* Alineado al inicio del recuadro */
+  padding-left: 8px;            /* Alineado con el texto dentro de los inputs */
+}
+
+.boton-continuar { 
+  margin-top: 1rem;
+  width: 90%;
+  height: 60px; /* Grueso pero no exagerado */
+  align-self: center;
+  --background: #1D232B;
   --color: #fff;
   --border-radius: 12px;
-  text-transform: none;         /* Solo la primera letra en mayúscula */
+  text-transform: none;
   font-size: 1rem;
   font-weight: 600;
 }
