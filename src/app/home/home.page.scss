@@ -1,8 +1,17 @@
 .fondo { 
-  --background: radial-gradient(150% 100% at 28% 105%, #1D232B 0%, #1D232B 10%, #6fa5fd 25%, #A4BBD3 60%);
+  --background: radial-gradient(150% 100% at 28% 105%, #000000 0%, #000000 10%, #4285F4 25%, #A4BBD3 60%);
   --background-size: cover;
   --background-position: center;
 }
+
+.imagen-ilustracion {
+  position: absolute;
+  top: 13.5rem;
+  left: 12rem; /* Más a la derecha */
+  width: 240px;
+  height: auto;
+}
+
 
 .caja-login { 
   position: absolute;
