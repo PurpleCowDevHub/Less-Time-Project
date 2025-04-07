@@ -1,27 +1,78 @@
-#container {
-  text-align: center;
+ion-content {
+  --background: radial-gradient(150% 100% at 28% 105%, #000000 0%, #000000 10%, #4285F4 25%, #A4BBD3 60%);
+  --background-size: cover;
+  --background-position: center;
+}
 
+.login-box {
   position: absolute;
-  left: 0;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  top: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
+  width: 100%;
+  max-width: 550px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4rem 2rem 2rem 2rem; /* Menos padding arriba, más balanceado */
+  backdrop-filter: blur(50px);
+  box-shadow: -8px 0 20px rgba(0, 0, 0, 0.3);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.login-title {
+  margin-top: 0;
+  margin-bottom:  2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #000;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.input-hint {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-#container a {
-  text-decoration: none;
+/* Entrada y botón */
+.form-group {
+  margin-bottom: 1.5rem;
 }
+
+.input-label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.custom-input {
+  --background: transparent;
+  --color: #000;
+  height: 40px;
+  width: 80%;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 0 12px;
+}
+
+.continue-btn {
+  margin-top: 1.5rem;           /* Más arriba */
+  width: 90%;                   /* Menos ancho */
+  height: 55px;                 /* Más alto */
+  align-self: center;           /* Centrado horizontalmente */
+  --background: #003baa;
+  --color: #fff;
+  --border-radius: 12px;
+  text-transform: none;         /* Solo la primera letra en mayúscula */
+  font-size: 1rem;
+  font-weight: 600;
+}
+
