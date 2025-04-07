@@ -7,7 +7,7 @@
 .imagen-ilustracion {
   position: absolute;
   top: 13.5rem;
-  left: 12rem; /* Más a la derecha */
+  left: 12rem; 
   width: 240px;
   height: auto;
 }
@@ -28,8 +28,8 @@
   color: #000;
   display: flex;
   flex-direction: column;
-  padding: 2rem 2rem; /* Más compacto verticalmente */
-  justify-content: flex-start; /* Todo arriba */
+  padding: 2rem 2rem; 
+  justify-content: flex-start; 
 }
 
 .titulo-login {
@@ -61,17 +61,17 @@
 .texto-promocional { 
   position: absolute;
   top: 2rem;
-  left: 6rem;           /* Más a la derecha */
-  color: #000;          /* Texto negro */
-  font-size: 2rem;      /* Más grande */
-  font-weight: 600;     /* Menos grueso */
-  max-width: 400px;     /* Aumenta el ancho máximo */
-  line-height: 1.2;     /* Reduce el espacio entre líneas */
+  left: 6rem;         
+  color: #000;        
+  font-size: 2rem;     
+  font-weight: 600;    
+  max-width: 400px;    
+  line-height: 1.2;    
 }
 
 .texto-promocional-2 { 
   position: absolute;
-  top: 8.3rem;           /* Antes: 4rem */
+  top: 8.3rem;           
   left: 6rem;
   color: #000;
   font-size: 1rem;
@@ -89,9 +89,9 @@
   font-size: 1rem;
   margin: 0.2rem auto 0.2rem auto;
   color: #333;
-  width: 90%;         /* Igual que los inputs */
-  text-align: left;   /* Alineado al inicio del recuadro */
-  padding-left: 8px;  /* Alineado con el texto dentro de los inputs */
+  width: 90%;         
+  text-align: left;   
+  padding-left: 8px;  
 }
 
 .entrada {
@@ -103,7 +103,7 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 0 12px;
-  margin: 0 auto; /* Esto los centra */
+  margin: 0 auto; 
   display: block;
 }
 
@@ -111,15 +111,15 @@
   font-size: 0.7rem;
   color: #555;
   margin: 0.2rem auto 0.6rem auto;
-  width: 90%;                    /* Igual que los inputs */
-  text-align: left;              /* Alineado al inicio del recuadro */
-  padding-left: 8px;            /* Alineado con el texto dentro de los inputs */
+  width: 90%;                    
+  text-align: left;              
+  padding-left: 8px;            
 }
 
 .boton-continuar { 
   margin-top: 1rem;
   width: 90%;
-  height: 60px; /* Grueso pero no exagerado */
+  height: 60px; 
   align-self: center;
   --background: #1D232B;
   --color: #fff;
