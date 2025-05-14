@@ -1,5 +1,0 @@
-fastapi==0.95.2          # Framework para la API
-uvicorn==0.22.0          # Servidor para correr FastAPI
-sqlalchemy==2.0.15       # ORM para la base de datos
-python-dotenv==1.0.0     # Manejar variables de entorno
-pymysql==1.0.3           # Conector para MySQL (o psycopg2 para PostgreSQL)
