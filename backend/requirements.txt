@@ -4,3 +4,6 @@ sqlalchemy
 databases[asyncpg]
 pydantic
 python-dotenv
+asyncpg
+alembic
+httpx
