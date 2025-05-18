@@ -1,13 +1,40 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen="true" class="fondo">
+  <p class="texto-promocional">
+    Crea tu cuenta gratuita<br>para empresas
+  </p>
+  <p class="texto-promocional-2">
+    Prueba LT para PYMES y emprendimientos.
+  </p>
+  <img src="assets/images/LT.svg" alt="Ilustración" class="imagen-ilustracion">
+  <div class="caja-login">
+    <div class="texto-login-arriba">
+      ¿Ya tienes una cuenta? <span class="enlace-login">Inicia sesión</span>
+    </div>
+    <h2 class="titulo-login">Regístrate en LessTime</h2>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div class="grupo-formulario">
+      <label class="etiqueta">Correo electrónico</label>
+      <ion-input type="email" class="entrada" required></ion-input>
+    </div>
+
+    <div class="grupo-formulario">
+      <label class="etiqueta">Contraseña</label>
+      <ion-input type="password" class="entrada" required></ion-input>
+      <p class="ayuda">
+        La contraseña debe tener al menos 15 caracteres O al menos 8 caracteres, incluido un número y una letra minúscula.
+      </p>
+    </div>
+
+    <div class="grupo-formulario">
+      <label class="etiqueta">Nombre de la empresa</label>
+      <ion-input type="text" class="entrada" required></ion-input>
+      <p class="ayuda">
+        El nombre de la empresa sólo puede contener caracteres alfanuméricos y no puede comenzar ni terminar con un guion.
+      </p>
+    </div>
+
+    <ion-button expand="block" class="boton-continuar" routerLink="/home">
+      Continuar
+    </ion-button>
+  </div>
 </ion-content>
