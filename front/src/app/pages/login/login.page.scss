@@ -1,9 +1,26 @@
 .login-content {
-  --background: linear-gradient(to bottom, #a2b8ce, #3c86ff);
+  --background: none; // Desactiva el fondo por defecto de Ionic
+
+  width: 100vw;
+  height: 100vh;
+
+  background: radial-gradient(
+    ellipse 200% 100% at 50% 100%,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 25%,
+    #A4BBD3 60%
+  );
+
+  background-repeat: no-repeat;
+  background-size: cover;
+
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+
 
 .login-container {
   display: flex;
