@@ -1,3 +1,4 @@
+# app/crud.py
 from sqlalchemy.orm import Session
 from . import models
 from .security import hashear_contrasena, verificar_contrasena
@@ -15,7 +16,9 @@ def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str):
 
 def autenticar_usuario(db: Session, correo: str, contrasena: str):
     usuario = db.query(models.Usuario).filter(models.Usuario.correo == correo).first()
-    if not usuario or not verificar_contrasena(contrasena, usuario.contrasena):
+    if not usuario:
+        return None
+    if not verificar_contrasena(contrasena, usuario.contrasena):
         return None
     return usuario
 
@@ -32,8 +35,9 @@ def crear_nomina(db: Session, usuario_id: int, horas_trabajadas: float, dias_inc
     overtime = horas_extra * valor_hora_extra
 
     bruto = salario_base + incapacidad + overtime + bonificacion
-    descuentos = bruto * (aporte_salud + aporte_pension)
-    total = bruto - descuentos
+    descuento_salud = bruto * aporte_salud
+    descuento_pension = bruto * aporte_pension
+    total = bruto - descuento_salud - descuento_pension
 
     nomina = models.Nomina(
         usuario_id=usuario_id,
@@ -47,7 +51,12 @@ def crear_nomina(db: Session, usuario_id: int, horas_trabajadas: float, dias_inc
     db.add(nomina)
     db.commit()
     db.refresh(nomina)
-    return nomina
 
-def obtener_usuarios(db: Session):
-    return db.query(models.Usuario).all()
+    return {
+        "usuario_id": usuario_id,
+        "salario_bruto": bruto,
+        "descuento_salud": descuento_salud,
+        "descuento_pension": descuento_pension,
+        "salario_neto": total,
+        "periodo_pago": periodo_pago
+    }
