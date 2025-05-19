@@ -1,14 +1,17 @@
-# app/main.py
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
+from typing import Optional
+
 from . import crud, models
 from .database import engine, SessionLocal
 
+# ✅ Solo crea las tablas si no existen (ya no borra nada)
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# Dependencia para obtener la sesión de base de datos
 def get_db():
     db = SessionLocal()
     try:
@@ -16,7 +19,10 @@ def get_db():
     finally:
         db.close()
 
-# Schemas
+# ------------------------
+# 📦 Esquemas Pydantic
+# ------------------------
+
 class UsuarioRegistro(BaseModel):
     correo: str
     contrasena: str
@@ -26,13 +32,17 @@ class UsuarioLogin(BaseModel):
     correo: str
     contrasena: str
 
-class NominaEntrada(BaseModel):
+class DatosNomina(BaseModel):
     usuario_id: int
-    horas_trabajadas: int
+    horas_trabajadas: float
     dias_incapacidad: int
-    horas_extra: int
-    bonificacion: float = 0.0
+    horas_extra: float
+    bonificacion: float
     periodo_pago: str
+
+# ------------------------
+# 🌐 Endpoints de la API
+# ------------------------
 
 @app.post("/register")
 def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
@@ -48,25 +58,29 @@ def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     return {"mensaje": "Inicio de sesión exitoso", "usuario_id": user.id, "empresa": user.empresa}
 
+@app.get("/admin/usuarios")
+def listar_usuarios(db: Session = Depends(get_db)):
+    usuarios = crud.obtener_usuarios(db)
+    return [{"id": u.id, "correo": u.correo, "empresa": u.empresa} for u in usuarios]
+
 @app.post("/admin/crear_nomina")
-def crear_nomina(nomina: NominaEntrada, db: Session = Depends(get_db)):
-    empleado = db.query(models.Usuario).filter(models.Usuario.id == nomina.usuario_id).first()
-    if not empleado:
+def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
+    usuario = db.query(models.Usuario).filter(models.Usuario.id == datos.usuario_id).first()
+    if not usuario:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
-    nueva_nomina = crud.crear_nomina(
+
+    nomina = crud.crear_nomina(
         db,
-        nomina.usuario_id,
-        nomina.horas_trabajadas,
-        nomina.dias_incapacidad,
-        nomina.horas_extra,
-        nomina.bonificacion,
-        nomina.periodo_pago
+        usuario_id=datos.usuario_id,
+        horas_trabajadas=datos.horas_trabajadas,
+        dias_incapacidad=datos.dias_incapacidad,
+        horas_extra=datos.horas_extra,
+        bonificacion=datos.bonificacion,
+        periodo_pago=datos.periodo_pago
     )
     return {
-        "mensaje": "Nómina creada correctamente",
-        "salario_bruto": nueva_nomina.salario_bruto,
-        "salud": nueva_nomina.salud,
-        "pension": nueva_nomina.pension,
-        "salario_neto": nueva_nomina.salario_neto,
-        "periodo_pago": nueva_nomina.periodo_pago
+        "mensaje": "Nómina registrada",
+        "usuario_id": nomina.usuario_id,
+        "total_pagado": nomina.total,
+        "periodo": nomina.periodo_pago
     }
