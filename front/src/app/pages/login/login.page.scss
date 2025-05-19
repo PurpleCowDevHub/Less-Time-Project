@@ -1,11 +1,14 @@
 .login-content {
-  --background: none; // Desactiva el fondo por defecto de Ionic
+  --background: none; /* Desactiva el fondo por defecto de Ionic */
 
   width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 
   background: radial-gradient(
-    ellipse 200% 100% at 50% 100%,
+    ellipse 400% 100% at 50% 100%,
     #000000 0%,
     #000000 10%,
     #4285F4 25%,
@@ -13,14 +16,13 @@
   );
 
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-
 
 .login-container {
   display: flex;
