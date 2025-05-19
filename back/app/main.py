@@ -6,9 +6,9 @@ from . import crud, models
 from .database import engine, SessionLocal
 
 models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -16,7 +16,7 @@ def get_db():
     finally:
         db.close()
 
-# Pydantic Schemas
+# Schemas
 class UsuarioRegistro(BaseModel):
     correo: str
     contrasena: str
@@ -25,6 +25,14 @@ class UsuarioRegistro(BaseModel):
 class UsuarioLogin(BaseModel):
     correo: str
     contrasena: str
+
+class NominaEntrada(BaseModel):
+    usuario_id: int
+    horas_trabajadas: int
+    dias_incapacidad: int
+    horas_extra: int
+    bonificacion: float = 0.0
+    periodo_pago: str
 
 @app.post("/register")
 def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
@@ -39,3 +47,26 @@ def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     return {"mensaje": "Inicio de sesión exitoso", "usuario_id": user.id, "empresa": user.empresa}
+
+@app.post("/admin/crear_nomina")
+def crear_nomina(nomina: NominaEntrada, db: Session = Depends(get_db)):
+    empleado = db.query(models.Usuario).filter(models.Usuario.id == nomina.usuario_id).first()
+    if not empleado:
+        raise HTTPException(status_code=404, detail="Empleado no encontrado")
+    nueva_nomina = crud.crear_nomina(
+        db,
+        nomina.usuario_id,
+        nomina.horas_trabajadas,
+        nomina.dias_incapacidad,
+        nomina.horas_extra,
+        nomina.bonificacion,
+        nomina.periodo_pago
+    )
+    return {
+        "mensaje": "Nómina creada correctamente",
+        "salario_bruto": nueva_nomina.salario_bruto,
+        "salud": nueva_nomina.salud,
+        "pension": nueva_nomina.pension,
+        "salario_neto": nueva_nomina.salario_neto,
+        "periodo_pago": nueva_nomina.periodo_pago
+    }
