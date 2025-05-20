@@ -1,10 +1,11 @@
 # app/main.py
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional
 from . import crud, models
 from .database import engine, SessionLocal
+from .email_service import send_payroll_email
 
 # ✅ Solo crea las tablas si no existen
 models.Base.metadata.create_all(bind=engine)
@@ -35,6 +36,10 @@ class DatosNomina(BaseModel):
     dias_incapacidad: int
     horas_extra: float
     bonificacion: float
+    periodo_pago: str
+
+class EmailRequest(BaseModel):
+    usuario_id: int
     periodo_pago: str
 
 @app.post("/register")
@@ -101,3 +106,11 @@ def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
         "periodo_pago": resultado["periodo_pago"]
     }
 
+@app.post("/enviar-nomina")
+async def enviar_nomina(
+    request: EmailRequest,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    background_tasks.add_task(send_payroll_email, request.usuario_id, request.periodo_pago)
+    return {"message": "Correo de nómina en proceso de envío"}
