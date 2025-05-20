@@ -21,5 +21,9 @@ export const routes: Routes = [
     path: 'principal',
     loadComponent: () => import('./pages/principal/principal.page').then( m => m.PrincipalPage)
   },
+  {
+    path: 'principal',
+    loadComponent: () => import('./pages/principal/principal.page').then( m => m.PrincipalPage)
+  },
 
 ];

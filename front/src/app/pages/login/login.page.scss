@@ -8,7 +8,7 @@
   overflow: hidden;
 
   background: radial-gradient(
-    ellipse 400% 100% at 50% 100%,
+    ellipse 260% 150% at 50% 100%,
     #000000 0%,
     #000000 10%,
     #4285F4 25%,
@@ -28,11 +28,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 70px;
 }
 
 .logo {
-  width: 80px;
+  width: 100px;
   margin-bottom: 20px;
 }
 
@@ -47,7 +47,7 @@ h2 {
   padding: 20px;
   border-radius: 8px;
   width: 100%;
-  max-width: 340px;
+  max-width: 350px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
