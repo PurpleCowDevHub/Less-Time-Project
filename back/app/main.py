@@ -45,7 +45,7 @@ def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
     return {
         "mensaje": "Usuario registrado correctamente",
         "usuario_id": nuevo.id,
-        "Nombre_usuario": nuevo.correo  # Cambia a nuevo.nombre si tienes ese campo en el modelo
+        "Correo": nuevo.correo  # Cambia a nuevo.nombre si tienes ese campo en el modelo
     }
 
 @app.post("/login")
