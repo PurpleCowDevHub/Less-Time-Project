@@ -42,14 +42,28 @@ def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
     nuevo = crud.crear_usuario(db, usuario.correo, usuario.contrasena, usuario.empresa, usuario.es_admin)
     if not nuevo:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
-    return {"mensaje": "Usuario registrado correctamente", "usuario_id": nuevo.id,"Nombre_usuario": nuevo.nombre}
+    return {
+        "mensaje": "Usuario registrado correctamente",
+        "usuario_id": nuevo.id,
+        "Nombre_usuario": nuevo.correo  # Cambia a nuevo.nombre si tienes ese campo en el modelo
+    }
 
 @app.post("/login")
 def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
     user = crud.autenticar_usuario(db, usuario.correo, usuario.contrasena)
     if not user:
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-    return {"mensaje": "Inicio de sesión exitoso", "usuario_id": user.id, "empresa": user.empresa}
+
+    if user.es_admin:
+        mensaje = "Bienvenido administrador"
+    else:
+        mensaje = "Bienvenido usuario"
+
+    return {
+        "mensaje": mensaje,
+        "usuario_id": user.id,
+        "empresa": user.empresa
+    }
 
 @app.get("/admin/usuarios")
 def listar_usuarios(db: Session = Depends(get_db)):
