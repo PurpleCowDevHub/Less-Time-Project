@@ -70,6 +70,11 @@ def listar_usuarios(db: Session = Depends(get_db)):
     usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
     return [{"id": u.id, "correo": u.correo, "empresa": u.empresa} for u in usuarios]
 
+@app.get("/admin/administradores")
+def listar_administradores(db: Session = Depends(get_db)):
+    admins = db.query(models.Usuario).filter(models.Usuario.es_admin == True).all()
+    return [{"id": a.id, "correo": a.correo, "empresa": a.empresa} for a in admins]
+
 @app.post("/admin/crear_nomina")
 def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
     usuario = db.query(models.Usuario).filter(models.Usuario.id == datos.usuario_id).first()
