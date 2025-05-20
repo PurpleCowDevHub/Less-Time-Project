@@ -1,5 +1,5 @@
 # app/models.py
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
 from .database import Base
 
 class Usuario(Base):
@@ -8,6 +8,7 @@ class Usuario(Base):
     correo = Column(String(255), unique=True, index=True, nullable=False)
     contrasena = Column(String(255), nullable=False)
     empresa = Column(String(255), nullable=False)
+    es_admin = Column(Boolean, default=False)  # ✅ Campo para identificar administrador
 
 class Nomina(Base):
     __tablename__ = "nominas"
