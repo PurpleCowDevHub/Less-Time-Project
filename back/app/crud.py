@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 from . import models
 from .security import hashear_contrasena, verificar_contrasena
 
-def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str):
+def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str, es_admin: bool = False):
     usuario_existente = db.query(models.Usuario).filter(models.Usuario.correo == correo).first()
     if usuario_existente:
         return None
     hashed_pw = hashear_contrasena(contrasena)
-    nuevo_usuario = models.Usuario(correo=correo, contrasena=hashed_pw, empresa=empresa)
+    nuevo_usuario = models.Usuario(correo=correo, contrasena=hashed_pw, empresa=empresa, es_admin=es_admin)
     db.add(nuevo_usuario)
     db.commit()
     db.refresh(nuevo_usuario)

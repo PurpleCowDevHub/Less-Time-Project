@@ -2,9 +2,11 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
+from typing import Optional
 from . import crud, models
 from .database import engine, SessionLocal
 
+# ✅ Solo crea las tablas si no existen
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -16,11 +18,12 @@ def get_db():
     finally:
         db.close()
 
-# Esquemas para registro/login
+# Esquemas
 class UsuarioRegistro(BaseModel):
     correo: str
     contrasena: str
     empresa: str
+    es_admin: bool = False
 
 class UsuarioLogin(BaseModel):
     correo: str
@@ -36,10 +39,10 @@ class DatosNomina(BaseModel):
 
 @app.post("/register")
 def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
-    nuevo = crud.crear_usuario(db, usuario.correo, usuario.contrasena, usuario.empresa)
+    nuevo = crud.crear_usuario(db, usuario.correo, usuario.contrasena, usuario.empresa, usuario.es_admin)
     if not nuevo:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
-    return {"mensaje": "Usuario registrado correctamente", "usuario_id": nuevo.id}
+    return {"mensaje": "Usuario registrado correctamente", "usuario_id": nuevo.id,"Nombre_usuario": nuevo.nombre}
 
 @app.post("/login")
 def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
@@ -50,7 +53,7 @@ def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
 
 @app.get("/admin/usuarios")
 def listar_usuarios(db: Session = Depends(get_db)):
-    usuarios = db.query(models.Usuario).all()
+    usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
     return [{"id": u.id, "correo": u.correo, "empresa": u.empresa} for u in usuarios]
 
 @app.post("/admin/crear_nomina")
@@ -78,3 +81,4 @@ def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
         "salario_neto": f"${resultado['salario_neto']:,.0f}",
         "periodo_pago": resultado["periodo_pago"]
     }
+
