@@ -1,0 +1,51 @@
+<ion-content class="principal-content">
+
+  <!-- Encabezado -->
+  <div class="header">
+    <div class="logo-section">
+      <img src="assets/logo.png" alt="Less Time logo" class="logo" />
+      <span class="title">Less Time</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#">Página Principal</a>
+      <a href="#">Equipos de Trabajo</a>
+      <a href="#">Novedades</a>
+    </nav>
+    <div class="icons-section">
+      <ion-icon name="mail-outline"></ion-icon>
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      <ion-icon name="notifications-outline"></ion-icon>
+      <img src="assets/user-avatar.png" class="avatar" alt="Perfil" />
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <h2>¡Hola, Lina!</h2>
+
+    <div class="quick-access">
+      <div class="card" (click)="openSection('metricas')">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        <span>Métricas</span>
+      </div>
+      <div class="card" (click)="openSection('nomina')">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <span>Nómina</span>
+        <div class="badge">5</div>
+      </div>
+      <div class="card" (click)="openSection('horario')">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Horario</span>
+      </div>
+      <div class="card" (click)="openSection('empleados')">
+        <ion-icon name="people-outline"></ion-icon>
+        <span>Empleados</span>
+      </div>
+    </div>
+
+    <div class="reportes">
+      <h3>Reportes...</h3>
+    </div>
+  </div>
+
+</ion-content>
