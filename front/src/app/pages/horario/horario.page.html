@@ -1,0 +1,71 @@
+<ion-content fullscreen>
+  <div class="main-container">
+
+    <!-- Sidebar -->
+    <div class="side-menu">
+      <div class="logo-container">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
+      </div>
+      <ion-list lines="none">
+        <ion-item button>Home</ion-item>
+        <ion-item button>Empleado</ion-item>
+        <ion-item button>Calendario</ion-item>
+        <ion-item button>Nomina</ion-item>
+      </ion-list>
+
+      <!-- Avatar + engranaje restaurado -->
+      <div class="bottom-icons">
+        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+          <ion-avatar>
+            <img src="assets/icon/avatar.png" alt="Usuario" />
+          </ion-avatar>
+        </ion-button>
+        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="header">
+        <div>
+          <h1>Horarios</h1>
+          <span class="date"> Agosto 2025</span>
+        </div>
+        <button class="new-day-button">Nueva jornada</button>
+      </div>
+
+      <!-- Search bar -->
+      <ion-searchbar
+        placeholder="Buscar por ID, nombre o email"
+        showClearButton="always"
+      ></ion-searchbar>
+
+      <!-- Tabla dinámica -->
+      <div class="schedule-container">
+        <div class="day-columns">
+          <div
+            class="day-column"
+            *ngFor="let dia of ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']; let i = index"
+          >
+            <div class="day-header">{{ dia }}</div>
+
+            <div class="day-cell" *ngFor="let emp of empleados">
+              <ng-container *ngIf="emp.dias[i].avatar">
+              </ng-container>
+
+              <ng-container [ngSwitch]="emp.dias[i].estado">
+                <p *ngSwitchCase="'Día Festivo'" class="tag tag-red">Día Festivo</p>
+                <p *ngSwitchCase="'Incapacidad'" class="tag tag-blue">Incapacidad</p>
+                <p *ngSwitchCase="'Vacaciones'" class="tag tag-orange">Vacaciones</p>
+                <p *ngSwitchDefault>{{ emp.dias[i].estado }}</p>
+              </ng-container>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
