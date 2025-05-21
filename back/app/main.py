@@ -1,12 +1,13 @@
 # app/main.py
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query, APIRouter,status
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional, List
-from datetime import datetime
+from datetime import datetime, date
 from . import crud, models
 from .database import engine, SessionLocal
 from .email_service import send_payroll_email
+from .metrics import salario_bruto_promedio, bonificacion_promedio, horas_extra_promedio, distribucion_edades, ventas_simuladas_por_mes
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -26,6 +27,7 @@ class UsuarioRegistro(BaseModel):
     contrasena: str
     empresa: str
     es_admin: bool = False
+    fecha_nacimiento: Optional[date] = None  # Nuevo campo para la fecha de nacimiento
 
 class UsuarioLogin(BaseModel):
     correo: str
@@ -61,7 +63,14 @@ class HorarioResponse(BaseModel):
 
 @app.post("/register")
 def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
-    nuevo = crud.crear_usuario(db, usuario.correo, usuario.contrasena, usuario.empresa, usuario.es_admin)
+    nuevo = crud.crear_usuario(
+        db,
+        correo=usuario.correo,
+        contrasena=usuario.contrasena,
+        empresa=usuario.empresa,
+        es_admin=usuario.es_admin,
+        fecha_nacimiento=usuario.fecha_nacimiento
+    )
     if not nuevo:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
     return {
@@ -187,4 +196,13 @@ def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session
             })
 
     return resultado
+@app.get("/admin/metrics")
+def obtener_metricas(db: Session = Depends(get_db)):
+    return {
+        "salario_bruto_promedio": f"${salario_bruto_promedio(db):,.2f}",
+        "bonificacion_promedio": f"${bonificacion_promedio(db):,.2f}",
+        "horas_extra_promedio": round(horas_extra_promedio(db), 2),
+        "distribucion_edades": distribucion_edades(db),
+        "ventas_simuladas_por_mes": ventas_simuladas_por_mes(db)
+    }
 
