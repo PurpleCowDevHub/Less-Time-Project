@@ -154,28 +154,37 @@ def obtener_horarios(usuario_id: int, fecha: Optional[str] = Query(None), db: Se
 
 @app.get("/admin/usuarios_con_horarios")
 def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session = Depends(get_db)):
-    usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
-    fecha_dt = None
-    if fecha:
+    if fecha is None:
+        raise HTTPException(status_code=400, detail="Debe proporcionar una fecha en formato 'YYYY-MM-DD'")
+    
+    try:
         fecha_dt = datetime.strptime(fecha, "%Y-%m-%d").date()
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Formato de fecha inválido. Use 'YYYY-MM-DD'.")
+
+    usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
     resultado = []
+
     for u in usuarios:
-        query = db.query(models.HorarioSemanal).filter(models.HorarioSemanal.usuario_id == u.id)
-        if fecha_dt:
-            query = query.filter(models.HorarioSemanal.fecha == fecha_dt)
-        horarios = query.all()
-        resultado.append({
-            "id": u.id,
-            "correo": u.correo,
-            "empresa": u.empresa,
-            "horarios": [
-                {
-                    "dia_semana": h.dia_semana,
-                    "hora_entrada": h.hora_entrada,
-                    "hora_salida": h.hora_salida,
-                    "observacion": h.observacion
-                } for h in horarios
-            ]
-        })
+        horarios = db.query(models.HorarioSemanal).filter(
+            models.HorarioSemanal.usuario_id == u.id,
+            models.HorarioSemanal.fecha == fecha_dt
+        ).all()
+
+        if horarios:  # Solo incluir usuarios con horarios en esa fecha
+            resultado.append({
+                "id": u.id,
+                "correo": u.correo,
+                "empresa": u.empresa,
+                "horarios": [
+                    {
+                        "dia_semana": h.dia_semana,
+                        "hora_entrada": h.hora_entrada,
+                        "hora_salida": h.hora_salida,
+                        "observacion": h.observacion
+                    } for h in horarios
+                ]
+            })
+
     return resultado
 
