@@ -178,4 +178,3 @@ def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session
             ]
         })
     return resultado
-

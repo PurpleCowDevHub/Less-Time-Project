@@ -30,4 +30,3 @@ class HorarioSemanal(Base):
     hora_salida = Column(String(5))   # Ej: '17:00'
     observacion = Column(String(255), nullable=True)
     fecha = Column(Date, nullable=True)  # Opcional para semana específica
-
