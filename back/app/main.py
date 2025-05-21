@@ -1,5 +1,5 @@
 # app/main.py
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query, APIRouter,status
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query, APIRouter, status, Response
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional, List
@@ -206,3 +206,21 @@ def obtener_metricas(db: Session = Depends(get_db)):
         "ventas_simuladas_por_mes": ventas_simuladas_por_mes(db)
     }
 
+@app.delete("/admin/usuarios/{usuario_id}", status_code=status.HTTP_204_NO_CONTENT)
+def eliminar_usuario(
+    usuario_id: int, 
+    db: Session = Depends(get_db)
+):
+    # Verificar si el usuario es administrador (podrías añadir esta validación)
+    # if not current_user.es_admin:
+    #     raise HTTPException(status_code=403, detail="Solo administradores pueden eliminar usuarios")
+    
+    # Intentar eliminar el usuario
+    eliminado = crud.eliminar_usuario(db, usuario_id)
+    if not eliminado:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Usuario con ID {usuario_id} no encontrado"
+        )
+    
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

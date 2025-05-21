@@ -98,3 +98,39 @@ def crear_o_actualizar_horario(db: Session, usuario_id: int, dia_semana: str,
         db.add(nuevo_horario)
 
     db.commit()
+
+def eliminar_usuario(db: Session, usuario_id: int):
+    """
+    Elimina un usuario y todos sus registros relacionados (nominas, horarios)
+    
+    Args:
+        db: Sesión de base de datos
+        usuario_id: ID del usuario a eliminar
+        
+    Returns:
+        bool: True si se eliminó correctamente, False si el usuario no existe
+    """
+    # Verificar si el usuario existe
+    usuario = db.query(models.Usuario).filter(models.Usuario.id == usuario_id).first()
+    if not usuario:
+        return False
+    
+    try:
+        # Eliminar registros relacionados primero para mantener la integridad referencial
+        # Eliminar horarios del usuario
+        db.query(models.HorarioSemanal).filter(
+            models.HorarioSemanal.usuario_id == usuario_id
+        ).delete()
+        
+        # Eliminar nominas del usuario
+        db.query(models.Nomina).filter(
+            models.Nomina.usuario_id == usuario_id
+        ).delete()
+        
+        # Finalmente eliminar el usuario
+        db.delete(usuario)
+        db.commit()
+        return True
+    except Exception as e:
+        db.rollback()
+        raise e
