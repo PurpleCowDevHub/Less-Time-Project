@@ -1,13 +1,13 @@
 # app/main.py
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
+from datetime import datetime
 from . import crud, models
 from .database import engine, SessionLocal
 from .email_service import send_payroll_email
 
-# ✅ Solo crea las tablas si no existen
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -19,7 +19,8 @@ def get_db():
     finally:
         db.close()
 
-# Esquemas
+# --- Schemas ---
+
 class UsuarioRegistro(BaseModel):
     correo: str
     contrasena: str
@@ -42,6 +43,22 @@ class EmailRequest(BaseModel):
     usuario_id: int
     periodo_pago: str
 
+class HorarioCrear(BaseModel):
+    usuario_id: int
+    dia_semana: str
+    hora_entrada: Optional[str] = None
+    hora_salida: Optional[str] = None
+    observacion: Optional[str] = None
+    fecha: Optional[str] = None  # Formato 'YYYY-MM-DD'
+
+class HorarioResponse(BaseModel):
+    dia_semana: str
+    hora_entrada: Optional[str]
+    hora_salida: Optional[str]
+    observacion: Optional[str]
+
+# --- Endpoints ---
+
 @app.post("/register")
 def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
     nuevo = crud.crear_usuario(db, usuario.correo, usuario.contrasena, usuario.empresa, usuario.es_admin)
@@ -50,7 +67,7 @@ def registrar(usuario: UsuarioRegistro, db: Session = Depends(get_db)):
     return {
         "mensaje": "Usuario registrado correctamente",
         "usuario_id": nuevo.id,
-        "Correo": nuevo.correo  # Cambia a nuevo.nombre si tienes ese campo en el modelo
+        "Correo": nuevo.correo
     }
 
 @app.post("/login")
@@ -59,11 +76,7 @@ def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
 
-    if user.es_admin:
-        mensaje = "Bienvenido administrador"
-    else:
-        mensaje = "Bienvenido usuario"
-
+    mensaje = "Bienvenido administrador" if user.es_admin else "Bienvenido usuario"
     return {
         "mensaje": mensaje,
         "usuario_id": user.id,
@@ -114,3 +127,55 @@ async def enviar_nomina(
 ):
     background_tasks.add_task(send_payroll_email, request.usuario_id, request.periodo_pago)
     return {"message": "Correo de nómina en proceso de envío"}
+
+# --- Endpoints para horarios ---
+
+@app.post("/admin/horarios")
+def asignar_horario(horario: HorarioCrear, db: Session = Depends(get_db)):
+    crud.crear_o_actualizar_horario(
+        db,
+        usuario_id=horario.usuario_id,
+        dia_semana=horario.dia_semana,
+        hora_entrada=horario.hora_entrada,
+        hora_salida=horario.hora_salida,
+        observacion=horario.observacion,
+        fecha=horario.fecha
+    )
+    return {"mensaje": "Horario asignado o actualizado"}
+
+@app.get("/admin/horarios/{usuario_id}", response_model=List[HorarioResponse])
+def obtener_horarios(usuario_id: int, fecha: Optional[str] = Query(None), db: Session = Depends(get_db)):
+    query = db.query(models.HorarioSemanal).filter(models.HorarioSemanal.usuario_id == usuario_id)
+    if fecha:
+        fecha_dt = datetime.strptime(fecha, "%Y-%m-%d").date()
+        query = query.filter(models.HorarioSemanal.fecha == fecha_dt)
+    horarios = query.all()
+    return horarios
+
+@app.get("/admin/usuarios_con_horarios")
+def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session = Depends(get_db)):
+    usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
+    fecha_dt = None
+    if fecha:
+        fecha_dt = datetime.strptime(fecha, "%Y-%m-%d").date()
+    resultado = []
+    for u in usuarios:
+        query = db.query(models.HorarioSemanal).filter(models.HorarioSemanal.usuario_id == u.id)
+        if fecha_dt:
+            query = query.filter(models.HorarioSemanal.fecha == fecha_dt)
+        horarios = query.all()
+        resultado.append({
+            "id": u.id,
+            "correo": u.correo,
+            "empresa": u.empresa,
+            "horarios": [
+                {
+                    "dia_semana": h.dia_semana,
+                    "hora_entrada": h.hora_entrada,
+                    "hora_salida": h.hora_salida,
+                    "observacion": h.observacion
+                } for h in horarios
+            ]
+        })
+    return resultado
+
