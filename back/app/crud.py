@@ -92,4 +92,3 @@ def crear_o_actualizar_horario(db: Session, usuario_id: int, dia_semana: str,
         db.add(nuevo_horario)
 
     db.commit()
-
