@@ -19,56 +19,79 @@ EMAIL_ADDRESS = os.getenv("SMTP_EMAIL")
 EMAIL_PASSWORD = os.getenv("SMTP_PASSWORD")
 SENDER_NAME = os.getenv("SENDER_NAME", "Sistema de Nóminas")
 
-def send_payroll_email(usuario_id: int, periodo_pago: str):
+def send_payroll_email(usuario_id: str, periodo_pago: str):
     """
     Envía un correo electrónico con los detalles de la nómina
     Args:
-        usuario_id: ID del usuario en la base de datos
+        usuario_id: ID del usuario (puede ser el id numérico o id_usuario de 4 dígitos)
         periodo_pago: Periodo de pago (ej. '2023-12')
     Returns:
         dict: Mensaje de éxito o error
     """
     db = SessionLocal()
     try:
-        # 1. Obtener datos del usuario y nómina
-        usuario = db.query(models.Usuario).filter(models.Usuario.id == usuario_id).first()
-        if not usuario:
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        # 1. Obtener datos del usuario (buscando por id o id_usuario)
+        usuario = db.query(models.Usuario).filter(
+            (models.Usuario.id == usuario_id) |  # Intenta como integer
+            (models.Usuario.id_usuario == usuario_id)  # Intenta como string
+        ).first()
         
+        if not usuario:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Usuario con ID {usuario_id} no encontrado"
+            )
+        
+        # 2. Buscar nómina usando el id interno (integer)
         nomina = db.query(models.Nomina).filter(
-            models.Nomina.usuario_id == usuario_id,
+            models.Nomina.usuario_id == usuario.id,  # Usar el id real
             models.Nomina.periodo_pago == periodo_pago
         ).first()
         
         if not nomina:
-            raise HTTPException(status_code=404, detail="Nómina no encontrada")
+            raise HTTPException(
+                status_code=404,
+                detail=f"Nómina no encontrada para el período {periodo_pago}"
+            )
 
-        # 2. Crear el mensaje de correo
+        # 3. Crear el mensaje de correo
         msg = MIMEMultipart('alternative')
         msg['From'] = f"{SENDER_NAME} <{EMAIL_ADDRESS}>"
         msg['To'] = usuario.correo
         msg['Subject'] = f"Recibo de Nómina - {periodo_pago}"
 
-        # 3. Crear contenido del correo
+        # 4. Crear contenido del correo
         text_content = create_text_content(usuario, nomina)
         html_content = create_html_content(usuario, nomina)
 
-        # 4. Adjuntar ambas versiones
+        # 5. Adjuntar ambas versiones
         msg.attach(MIMEText(text_content, 'plain'))
         msg.attach(MIMEText(html_content, 'html'))
 
-        # 5. Enviar el correo
+        # 6. Enviar el correo
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.send_message(msg)
             
-        return {"status": "success", "message": "Correo enviado exitosamente"}
+        return {
+            "status": "success", 
+            "message": "Correo enviado exitosamente",
+            "usuario_id": usuario.id_usuario  # Devolver el id visible al usuario
+        }
         
+    except HTTPException:
+        # Re-lanzar las excepciones HTTP que ya hemos creado
+        raise
+    except smtplib.SMTPException as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Error al enviar el correo: {str(e)}"
+        )
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Error al enviar el correo: {str(e)}"
+            detail=f"Error inesperado: {str(e)}"
         )
     finally:
         db.close()

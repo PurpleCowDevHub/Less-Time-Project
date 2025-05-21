@@ -4,22 +4,89 @@ from . import models
 from .security import hashear_contrasena, verificar_contrasena
 from datetime import datetime, date
 
-def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str, es_admin: bool = False, fecha_nacimiento: date = None):
-    usuario_existente = db.query(models.Usuario).filter(models.Usuario.correo == correo).first()
+def generar_id_usuario(db: Session, es_admin: bool) -> str:
+    # Obtener el último ID generado según el tipo de usuario
+    if es_admin:
+        ultimo_usuario = db.query(models.Usuario).filter(
+            models.Usuario.es_admin == True
+        ).order_by(models.Usuario.id_usuario.desc()).first()
+        
+        if ultimo_usuario:
+            ultimo_id = int(ultimo_usuario.id_usuario)
+            nuevo_id = str(ultimo_id + 1)
+        else:
+            nuevo_id = "9000"  # ID inicial para administradores
+            
+        # Verificar que no exceda el límite
+        if int(nuevo_id) > 9999:
+            raise ValueError("Se ha alcanzado el límite de IDs para administradores")
+    else:
+        ultimo_usuario = db.query(models.Usuario).filter(
+            models.Usuario.es_admin == False
+        ).order_by(models.Usuario.id_usuario.desc()).first()
+        
+        if ultimo_usuario:
+            ultimo_id = int(ultimo_usuario.id_usuario)
+            nuevo_id = str(ultimo_id + 1)
+        else:
+            nuevo_id = "1000"  # ID inicial para usuarios normales
+            
+        # Verificar que no exceda el límite
+        if int(nuevo_id) > 8999:
+            raise ValueError("Se ha alcanzado el límite de IDs para usuarios")
+    
+    return nuevo_id.zfill(4)  # Asegura que siempre tenga 4 dígitos
+
+def crear_usuario(
+    db: Session, 
+    nombre: str,
+    apellido: str,
+    cedula: str,
+    correo: str, 
+    contrasena: str, 
+    empresa: str, 
+    es_admin: bool = False, 
+    fecha_nacimiento: date = None
+):
+    # Verificar campos vacíos
+    if not all([nombre, apellido, cedula, correo, contrasena, empresa]):
+        return None
+        
+    # Verificar duplicados con mensajes específicos
+    usuario_existente = db.query(models.Usuario).filter(
+        models.Usuario.correo == correo
+    ).first()
     if usuario_existente:
         return None
-    hashed_pw = hashear_contrasena(contrasena)
-    nuevo_usuario = models.Usuario(
-        correo=correo,
-        contrasena=hashed_pw,
-        empresa=empresa,
-        es_admin=es_admin,
-        fecha_nacimiento=fecha_nacimiento
-    )
-    db.add(nuevo_usuario)
-    db.commit()
-    db.refresh(nuevo_usuario)
-    return nuevo_usuario
+        
+    cedula_existente = db.query(models.Usuario).filter(
+        models.Usuario.cedula == cedula
+    ).first()
+    if cedula_existente:
+        return None
+        
+    try:
+        hashed_pw = hashear_contrasena(contrasena)
+        id_usuario = generar_id_usuario(db, es_admin)  # Generar ID único
+        
+        nuevo_usuario = models.Usuario(
+            id_usuario=id_usuario,  # Agregar el nuevo ID
+            nombre=nombre.strip(),
+            apellido=apellido.strip(),
+            cedula=cedula.strip(),
+            correo=correo.strip().lower(),
+            contrasena=hashed_pw,
+            empresa=empresa.strip(),
+            es_admin=es_admin,
+            fecha_nacimiento=fecha_nacimiento
+        )
+        db.add(nuevo_usuario)
+        db.commit()
+        db.refresh(nuevo_usuario)
+        return nuevo_usuario
+    except Exception as e:
+        db.rollback()
+        raise ValueError(f"Error al crear usuario: {str(e)}")
 
 def autenticar_usuario(db: Session, correo: str, contrasena: str):
     usuario = db.query(models.Usuario).filter(models.Usuario.correo == correo).first()

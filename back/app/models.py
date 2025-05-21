@@ -1,15 +1,19 @@
 # app/models.py
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, Date
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, Date, Sequence
 from .database import Base
 
 class Usuario(Base):
     __tablename__ = "usuarios"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
+    id_usuario = Column(String(4), unique=True, nullable=False)  # Nuevo campo para ID personalizado
+    nombre = Column(String(100), nullable=False)
+    apellido = Column(String(100), nullable=False)
+    cedula = Column(String(20), unique=True, nullable=False)
     correo = Column(String(255), unique=True, index=True, nullable=False)
     contrasena = Column(String(255), nullable=False)
     empresa = Column(String(255), nullable=False)
     es_admin = Column(Boolean, default=False)
-    fecha_nacimiento = Column(Date, nullable=True)  # Nuevo campo para edad
+    fecha_nacimiento = Column(Date, nullable=True)
 
 class Nomina(Base):
     __tablename__ = "nominas"
