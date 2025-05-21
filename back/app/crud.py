@@ -2,14 +2,20 @@
 from sqlalchemy.orm import Session
 from . import models
 from .security import hashear_contrasena, verificar_contrasena
-from datetime import datetime
+from datetime import datetime, date
 
-def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str, es_admin: bool = False):
+def crear_usuario(db: Session, correo: str, contrasena: str, empresa: str, es_admin: bool = False, fecha_nacimiento: date = None):
     usuario_existente = db.query(models.Usuario).filter(models.Usuario.correo == correo).first()
     if usuario_existente:
         return None
     hashed_pw = hashear_contrasena(contrasena)
-    nuevo_usuario = models.Usuario(correo=correo, contrasena=hashed_pw, empresa=empresa, es_admin=es_admin)
+    nuevo_usuario = models.Usuario(
+        correo=correo,
+        contrasena=hashed_pw,
+        empresa=empresa,
+        es_admin=es_admin,
+        fecha_nacimiento=fecha_nacimiento
+    )
     db.add(nuevo_usuario)
     db.commit()
     db.refresh(nuevo_usuario)
@@ -25,8 +31,8 @@ def autenticar_usuario(db: Session, correo: str, contrasena: str):
 
 def crear_nomina(db: Session, usuario_id: int, horas_trabajadas: float, dias_incapacidad: int,
                  horas_extra: float, bonificacion: float, periodo_pago: str):
-    valor_hora = 20000
-    valor_incapacidad = 60000
+    valor_hora = 60000
+    valor_incapacidad = 20000
     valor_hora_extra = 30000
     aporte_salud = 0.04
     aporte_pension = 0.04
@@ -92,3 +98,39 @@ def crear_o_actualizar_horario(db: Session, usuario_id: int, dia_semana: str,
         db.add(nuevo_horario)
 
     db.commit()
+
+def eliminar_usuario(db: Session, usuario_id: int):
+    """
+    Elimina un usuario y todos sus registros relacionados (nominas, horarios)
+    
+    Args:
+        db: Sesión de base de datos
+        usuario_id: ID del usuario a eliminar
+        
+    Returns:
+        bool: True si se eliminó correctamente, False si el usuario no existe
+    """
+    # Verificar si el usuario existe
+    usuario = db.query(models.Usuario).filter(models.Usuario.id == usuario_id).first()
+    if not usuario:
+        return False
+    
+    try:
+        # Eliminar registros relacionados primero para mantener la integridad referencial
+        # Eliminar horarios del usuario
+        db.query(models.HorarioSemanal).filter(
+            models.HorarioSemanal.usuario_id == usuario_id
+        ).delete()
+        
+        # Eliminar nominas del usuario
+        db.query(models.Nomina).filter(
+            models.Nomina.usuario_id == usuario_id
+        ).delete()
+        
+        # Finalmente eliminar el usuario
+        db.delete(usuario)
+        db.commit()
+        return True
+    except Exception as e:
+        db.rollback()
+        raise e

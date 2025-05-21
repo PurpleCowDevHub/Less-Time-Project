@@ -9,6 +9,7 @@ class Usuario(Base):
     contrasena = Column(String(255), nullable=False)
     empresa = Column(String(255), nullable=False)
     es_admin = Column(Boolean, default=False)
+    fecha_nacimiento = Column(Date, nullable=True)  # Nuevo campo para edad
 
 class Nomina(Base):
     __tablename__ = "nominas"
