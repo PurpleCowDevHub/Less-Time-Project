@@ -154,20 +154,41 @@ def obtener_horarios(usuario_id: int, fecha: Optional[str] = Query(None), db: Se
 
 @app.get("/admin/usuarios_con_horarios")
 def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session = Depends(get_db)):
-    usuarios = db.query(models.Usuario).filter(models.Usuario.es_admin == False).all()
     fecha_dt = None
     if fecha:
-        fecha_dt = datetime.strptime(fecha, "%Y-%m-%d").date()
+        try:
+            fecha_dt = datetime.strptime(fecha, "%Y-%m-%d").date()
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Formato de fecha inválido. Usa YYYY-MM-DD.")
+
     resultado = []
-    for u in usuarios:
-        query = db.query(models.HorarioSemanal).filter(models.HorarioSemanal.usuario_id == u.id)
-        if fecha_dt:
-            query = query.filter(models.HorarioSemanal.fecha == fecha_dt)
-        horarios = query.all()
+
+    # Obtener todos los horarios en esa fecha (opcional)
+    query = db.query(models.HorarioSemanal)
+
+    if fecha_dt:
+        query = query.filter(models.HorarioSemanal.fecha == fecha_dt)
+
+    horarios_en_fecha = query.all()
+
+    # Agrupar horarios por usuario
+    horarios_por_usuario = {}
+    for h in horarios_en_fecha:
+        if h.usuario_id not in horarios_por_usuario:
+            horarios_por_usuario[h.usuario_id] = []
+        horarios_por_usuario[h.usuario_id].append(h)
+
+    for usuario_id, horarios in horarios_por_usuario.items():
+        usuario = db.query(models.Usuario).filter(
+            models.Usuario.id == usuario_id,
+            models.Usuario.es_admin == False
+        ).first()
+        if not usuario:
+            continue
         resultado.append({
-            "id": u.id,
-            "correo": u.correo,
-            "empresa": u.empresa,
+            "id": usuario.id,
+            "correo": usuario.correo,
+            "empresa": usuario.empresa,
             "horarios": [
                 {
                     "dia_semana": h.dia_semana,
@@ -177,5 +198,7 @@ def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session
                 } for h in horarios
             ]
         })
+
     return resultado
+
 
