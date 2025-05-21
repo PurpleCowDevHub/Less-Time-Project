@@ -31,8 +31,8 @@ def autenticar_usuario(db: Session, correo: str, contrasena: str):
 
 def crear_nomina(db: Session, usuario_id: int, horas_trabajadas: float, dias_incapacidad: int,
                  horas_extra: float, bonificacion: float, periodo_pago: str):
-    valor_hora = 20000
-    valor_incapacidad = 60000
+    valor_hora = 60000
+    valor_incapacidad = 20000
     valor_hora_extra = 30000
     aporte_salud = 0.04
     aporte_pension = 0.04
