@@ -1,10 +1,14 @@
 .main-container {
   display: flex;
-  height: 100%;
+  height: 100vh;           // Altura completa de la ventana
+  overflow: hidden;
 }
 
-/* Sidebar */
 .side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
   width: 300px;
   background: linear-gradient(to bottom, #d2e6fb, #6394e2);
   color: white;
@@ -12,8 +16,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 5px;
-  position: relative;
+  border-radius: 0 5px 5px 0;
+  z-index: 100;
 
   .logo-container {
     display: flex;
@@ -32,11 +36,19 @@
       font-size: 24px;
       font-weight: bold;
     }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+
+      h2 {
+        font-size: 20px;
+      }
+    }
   }
 
   ion-list {
     width: 100%;
-    background: transparent;
+    background: transparent !important;
 
     ion-item {
       --background: transparent;
@@ -58,95 +70,120 @@
   .settings-icon {
     font-size: 24px;
     color: white;
+    cursor: pointer;
   }
 }
 
-.avatar-btn ion-avatar {
-  width: 40px;
-  height: 40px;
+.avatar-btn {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  --padding-start: 0;
+  --padding-end: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-avatar {
+    width: 40px;
+    height: 40px;
+  }
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 
-/* Main content */
 .content {
-  flex: 1;
+  margin-left: 300px;         // Para no superponer la barra lateral
   padding: 40px;
   background-color: #f4f4f4;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .profile-header {
   display: flex;
   align-items: center;
   background: white;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 20px 30px;
+  border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  gap: 45px;
+  gap: 25px;
 
   .profile-photo {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
   }
 
-  .user-info {
-    flex: 1;
+ .user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     h2 {
       margin: 0;
-      font-size: 22px;
+      font-size: 20px;
+      font-weight: 600;
     }
 
-    .puesto {
-      margin: 4px 0;
-      color: #888;
+    .estado-btn {
+      font-size: 13px;
+      font-weight: bold;
+      padding: 4px 18px;
+      height: 30px;
+      border-radius: 6px;
+      --background: #0056ec;
+      --color: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
+  }
 
-    .contacts {
-      font-size: 14px;
-      color: #555;
+  .puesto {
+    font-size: 14px;
+    color: #aaa;
+    margin: 0;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+
+  .contact-columns {
+    display: flex;
+    gap: 60px;
+
+    .contact-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      line-height: 1.6; // 👈 más interlineado
 
       p {
-        margin: 4px 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      ion-icon {
-        font-size: 16px;
+        font-size: 15px;
+        color: #444;
+        margin: 0;
       }
     }
   }
-
-  .estado-btn {
-    height: 40px;
-    font-weight: bold;
-  }
 }
 
-.tabs {
-  display: flex;
-  gap: 100px;
-  margin-bottom: 10px;
-
-  ion-button.tab {
-    font-size: 15px;
-  }
-
-  .active {
-    border: 2px solid #2b67b1;
-    background-color: #eef4ff;
-  }
-}
+        ion-icon {
+          font-size: 16px;
+          color: #2b67b1;
+        }
+      }
 
 .info-box {
   background: white;
@@ -156,27 +193,19 @@
 
   h3 {
     margin-top: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
 
-  .info-columns {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+  p {
+    margin: 20px 0;
+    font-size: 15px;
 
-    div {
-      flex: 1;
-      min-width: 200px;
-
-      p {
-        margin: 35px 0;
-        font-size: 15px;
-      }
+    strong {
+      display: inline-block;
+      min-width: 600px;
+      color: #333;
     }
   }
 }
-
-

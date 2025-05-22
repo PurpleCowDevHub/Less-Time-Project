@@ -32,46 +32,60 @@
     <div class="content">
 
       <!-- Encabezado del perfil -->
-      <div class="profile-header">
-        <img src="assets/icon/avatar.png" alt="Foto" class="profile-photo" />
+    <div class="profile-header">
+  <img src="assets/icon/avatar.png" alt="Foto" class="profile-photo" />
 
-        <div class="user-info">
-          <h2>Patricia Montserrat</h2>
-          <p class="puesto">Auxiliar contable</p>
-          <div class="contacts">
-            <p><ion-icon name="mail-outline"></ion-icon> patimont&#64;hotmail.com</p>
-            <p><ion-icon name="mail-outline"></ion-icon> patauxcont&#64;gmail.com</p>
-            <p><ion-icon name="call-outline"></ion-icon> 3153252553</p>
-            <p><strong>Ingreso:</strong> 01/10/2022</p>
-          </div>
-        </div>
+  <div class="user-info">
+    <h2>Patricia Montserrat</h2>
+    <p class="puesto">Auxiliar contable</p>
 
-        <ion-button class="estado-btn" color="primary">Empleada</ion-button>
+    <div class="contact-columns">
+      <div class="contact-column">
+        <p><ion-icon name="mail-outline"></ion-icon> patimont&#64;hotmail.com</p>
+        <p><ion-icon name="call-outline"></ion-icon> 3153252553</p>
       </div>
-
-      <!-- Navegación con botones -->
-      <div class="tabs">
-        <ion-button fill="outline" shape="round" class="tab active">Personal</ion-button>
-        <ion-button fill="clear" shape="round" class="tab">Pago</ion-button>
-        <ion-button fill="clear" shape="round" class="tab">Horario</ion-button>
-        <ion-button fill="clear" shape="round" class="tab">Desempeño</ion-button>
+      <div class="contact-column">
+        <p><ion-icon name="calendar-outline"></ion-icon> 01/10/2022</p>
+        <p><ion-icon name="mail-outline"></ion-icon> patauxcont&#64;gmail.com</p>
       </div>
+    </div>
+  </div>
 
-      <!-- Información básica -->
+  <ion-button class="estado-btn" color="primary">Empleada</ion-button>
+</div>
+
+      <!-- Botones de navegación -->
+      <ion-segment value="personal" class="tabs">
+        <ion-segment-button value="personal">
+          <ion-label>Personal</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="pago">
+          <ion-label>Pago</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="horario">
+          <ion-label>Horario</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="desempeno">
+          <ion-label>Desempeño</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <!-- Caja de información -->
       <div class="info-box">
         <h3>Información básica <ion-icon name="create-outline"></ion-icon></h3>
-
-        <div class="info-columns">
-          <div>
+        <div class="info-grid">
+          <div class="info-column">
             <p><strong>Nombre:</strong> Patricia</p>
             <p><strong>Primer apellido:</strong> Montserrat</p>
             <p><strong>Segundo apellido:</strong> Mondragon</p>
             <p><strong>Género:</strong> Binario</p>
           </div>
-          <div>
-            <p><strong>Fecha de nacimiento:</strong> 14/08/1980</p>
+          <div class="info-column">
+            <p><strong>Fecha de nacimiento:</strong> Ingreso: 14/08/1980</p>
             <p><strong>¿Tiene seguro social?:</strong> Sí</p>
             <p><strong>Seguro social:</strong> 01826334870</p>
+          </div>
+          <div class="info-column">
             <p><strong>Email personal:</strong> patimont&#64;hotmail.com</p>
             <p><strong>Email corporativo:</strong> patauxcont&#64;gmail.com</p>
           </div>
