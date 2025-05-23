@@ -29,6 +29,14 @@ export const routes: Routes = [
     path: 'perfiladmin',
     loadComponent: () => import('./pages/perfiladmin/perfiladmin.page').then( m => m.PerfiladminPage)
   },
+  {
+    path: 'nuevajornada',
+    loadComponent: () => import('./pages/nuevajornada/nuevajornada.page').then( m => m.NuevajornadaPage)
+  },
+  {
+    path: 'nomina',
+    loadComponent: () => import('./pages/nomina/nomina.page').then( m => m.NominaPage)
+  },
 
 
 ];

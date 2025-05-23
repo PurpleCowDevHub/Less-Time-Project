@@ -1,0 +1,97 @@
+/* Fondo oscuro translúcido detrás del modal */
+.fondo-modal {
+  --background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor del modal */
+.modal-container {
+  background: #fef3e2;  /* color crema */
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  max-height: 130vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.form-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+/* Título */
+h2 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Campos del formulario */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+input[type="text"],
+input[type="time"] {
+  background: #d9eafd;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+/* Checkboxes y radios */
+.checkbox-group label,
+.dias-lista label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.dias-lista {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+}
+
+/* Horas entrada/salida y almuerzo */
+.horas-dobles {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.horas-dobles > div {
+  flex: 1;
+}
+
+/* Botones */
+.botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.cancelar {
+  background-color: red;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+}
+
+.guardar {
+  background-color: limegreen;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+}

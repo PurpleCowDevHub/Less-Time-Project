@@ -1,0 +1,177 @@
+.main-container {
+  display: flex;
+  height: 100%;
+}
+
+/* Sidebar */
+.side-menu {
+  width: 300px;
+  background: linear-gradient(to bottom, #d2e6fb, #6394e2);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  position: relative;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    text-align: left;
+
+    .logo {
+    width: 50px;
+      height: auto;
+      flex-shrink: 0;
+
+    }
+
+    h2 {
+      margin: 0;
+      color: black;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      h2 {
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+  }ion-list {
+    width: 100%;
+    background: transparent !important;
+
+    ion-item {
+      --background: transparent;
+      color: white;
+      font-size: 16px;
+    }
+  }
+}  
+.bottom-icons {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+
+  .settings-icon {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.avatar-btn {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  --padding-start: 0;
+  --padding-end: 0;
+  --ion-button-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.payroll-summary {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 20px;
+
+  h2 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  p {
+    margin: 4px 0 16px 0;
+    font-weight: 500;
+  }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    text-align: center;
+    font-weight: bold;
+
+    div {
+      background: #f7f7f7;
+      padding: 12px;
+      border-radius: 8px;
+    }
+  }
+}
+
+.payroll-section {
+  background: #eaeaea;
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 16px;
+
+  .grupo-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ccc;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+
+    h3 {
+      margin: 0;
+    }
+
+    p {
+      margin: 4px 0;
+    }
+
+    .comenzar-btn {
+      background: #ffc107;
+      color: black;
+      font-weight: bold;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+
+  .progreso {
+    display: flex;
+    justify-content: space-around;
+    font-weight: 600;
+    color: #0056d2;
+
+    span {
+      padding: 8px;
+    }
+  }
+}

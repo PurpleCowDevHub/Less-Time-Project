@@ -7,7 +7,20 @@ from datetime import datetime, date
 from . import crud, models
 from .database import engine, SessionLocal
 from .email_service import send_payroll_email
-from .metrics import salario_bruto_promedio, bonificacion_promedio, horas_extra_promedio, distribucion_edades, ventas_simuladas_por_mes
+from .metrics import (
+    salario_bruto_promedio,
+    salario_bruto_sumatoria,
+    salario_neto_promedio,
+    salario_neto_sumatoria,
+    horas_trabajadas_promedio,
+    horas_trabajadas_sumatoria,
+    bonificacion_promedio,
+    bonificacion_sumatoria,
+    edad_promedio,
+    edad_sumatoria,
+    distribucion_edades,
+    ventas_simuladas_por_mes,
+)
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -206,19 +219,17 @@ def listar_administradores(db: Session = Depends(get_db)):
 
 @app.post("/admin/crear_nomina")
 def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
-    # Primero buscar por id_usuario si es necesario
     usuario = db.query(models.Usuario).filter(
-        (models.Usuario.id == datos.usuario_id) |  # Busca por id (integer)
-        (models.Usuario.id_usuario == str(datos.usuario_id))  # O por id_usuario (string)
+        (models.Usuario.id == datos.usuario_id) | 
+        (models.Usuario.id_usuario == str(datos.usuario_id))
     ).first()
     
     if not usuario:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
 
-    # Usar siempre el id (integer) para las relaciones
     resultado = crud.crear_nomina(
         db,
-        usuario_id=usuario.id,  # <-- Usar el id, no el id_usuario
+        usuario_id=usuario.id,  
         horas_trabajadas=datos.horas_trabajadas,
         dias_incapacidad=datos.dias_incapacidad,
         horas_extra=datos.horas_extra,
@@ -228,7 +239,7 @@ def crear_nomina(datos: DatosNomina, db: Session = Depends(get_db)):
 
     return {
         "mensaje": "Nómina registrada",
-        "usuario_id": usuario.id_usuario,  # <-- Mostrar id_usuario al usuario
+        "usuario_id": usuario.id_usuario,
         "salario_bruto": f"${resultado['salario_bruto']:,.0f}",
         "menos_salud_4%": f"- ${resultado['descuento_salud']:,.0f}",
         "menos_pension_4%": f"- ${resultado['descuento_pension']:,.0f}",
@@ -242,32 +253,29 @@ async def enviar_nomina(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
-    # Buscar usuario por id o id_usuario
     usuario = db.query(models.Usuario).filter(
-        (models.Usuario.id == request.usuario_id) |  # Intenta como integer
-        (models.Usuario.id_usuario == request.usuario_id)  # Intenta como string
+        (models.Usuario.id == request.usuario_id) |  
+        (models.Usuario.id_usuario == request.usuario_id)  
     ).first()
     
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     
-    # Pasar el id real (integer) a la función de background
     background_tasks.add_task(
         send_payroll_email, 
-        usuario_id=usuario.id,  # Usar el id integer para relaciones
+        usuario_id=usuario.id,  
         periodo_pago=request.periodo_pago
     )
     
     return {
         "message": "Correo de nómina en proceso de envío",
-        "usuario_id": usuario.id_usuario  # Mostrar el id_usuario al cliente
+        "usuario_id": usuario.id_usuario  
     }
 
 # --- Endpoints para horarios ---
 
 @app.post("/admin/horarios")
 def asignar_horario(horario: HorarioCrear, db: Session = Depends(get_db)):
-    # Buscar usuario por id_usuario
     usuario = db.query(models.Usuario).filter(
         models.Usuario.id_usuario == horario.usuario_id
     ).first()
@@ -277,7 +285,7 @@ def asignar_horario(horario: HorarioCrear, db: Session = Depends(get_db)):
     
     crud.crear_o_actualizar_horario(
         db,
-        usuario_id=usuario.id,  # Usar el id interno
+        usuario_id=usuario.id,  
         dia_semana=horario.dia_semana,
         hora_entrada=horario.hora_entrada,
         hora_salida=horario.hora_salida,
@@ -288,7 +296,6 @@ def asignar_horario(horario: HorarioCrear, db: Session = Depends(get_db)):
 
 @app.get("/admin/horarios/{usuario_id}", response_model=List[HorarioResponse])
 def obtener_horarios(usuario_id: str, fecha: Optional[str] = Query(None), db: Session = Depends(get_db)):
-    # Buscar usuario por id_usuario
     usuario = db.query(models.Usuario).filter(
         models.Usuario.id_usuario == usuario_id
     ).first()
@@ -324,7 +331,7 @@ def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session
 
         if horarios:
             resultado.append({
-                "id": u.id_usuario,  # Cambiar a id_usuario
+                "id": u.id_usuario,
                 "correo": u.correo,
                 "empresa": u.empresa,
                 "horarios": [
@@ -343,18 +350,24 @@ def listar_usuarios_con_horarios(fecha: Optional[str] = Query(None), db: Session
 def obtener_metricas(db: Session = Depends(get_db)):
     return {
         "salario_bruto_promedio": f"${salario_bruto_promedio(db):,.2f}",
+        "salario_bruto_sumatoria": f"${salario_bruto_sumatoria(db):,.2f}",
+        "salario_neto_promedio": f"${salario_neto_promedio(db):,.2f}",
+        "salario_neto_sumatoria": f"${salario_neto_sumatoria(db):,.2f}",
+        "horas_trabajadas_promedio": round(horas_trabajadas_promedio(db), 2),
+        "horas_trabajadas_sumatoria": round(horas_trabajadas_sumatoria(db), 2),
         "bonificacion_promedio": f"${bonificacion_promedio(db):,.2f}",
-        "horas_extra_promedio": round(horas_extra_promedio(db), 2),
+        "bonificacion_sumatoria": f"${bonificacion_sumatoria(db):,.2f}",
+        "edad_promedio": round(edad_promedio(db), 2),
+        "edad_sumatoria": edad_sumatoria(db),
         "distribucion_edades": distribucion_edades(db),
         "ventas_simuladas_por_mes": ventas_simuladas_por_mes(db)
     }
 
 @app.delete("/admin/usuarios/{usuario_id}", status_code=status.HTTP_204_NO_CONTENT)
 def eliminar_usuario(
-    usuario_id: str,  # Cambiar a str para aceptar id_usuario
+    usuario_id: str,
     db: Session = Depends(get_db)
 ):
-    # Buscar usuario por id_usuario
     usuario = db.query(models.Usuario).filter(
         models.Usuario.id_usuario == usuario_id
     ).first()
@@ -365,7 +378,6 @@ def eliminar_usuario(
             detail=f"Usuario con ID {usuario_id} no encontrado"
         )
     
-    # Pasar el id interno a la función de eliminación
     eliminado = crud.eliminar_usuario(db, usuario.id)
     if not eliminado:
         raise HTTPException(

@@ -1,0 +1,65 @@
+<ion-content fullscreen>
+  <div class="main-container">
+
+    <!-- Sidebar -->
+    <div class="side-menu">
+      <div class="logo-container">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
+      </div>
+      <ion-list lines="none">
+        <ion-item button>Home</ion-item>
+        <ion-item button>Empleado</ion-item>
+        <ion-item button>Calendario</ion-item>
+        <ion-item button>Nomina</ion-item>
+      </ion-list>
+
+      <!-- Avatar + engranaje restaurado -->
+      <div class="bottom-icons">
+        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+          <ion-avatar>
+            <img src="assets/icon/avatar.png" alt="Usuario" />
+          </ion-avatar>
+        </ion-button>
+        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="header">
+        <h1>Nómina:</h1>
+      </div>
+
+      <div class="payroll-summary">
+        <h2>Nómina quincenal</h2>
+        <p>Periodo 001/2025: 2 ene. - 8 ene.</p>
+        <div class="summary-cards">
+          <div><strong>Nº Empleados:</strong> 201</div>
+          <div><strong>Percepciones:</strong> $2,410,021.00</div>
+          <div><strong>Deducciones:</strong> $805,139.00</div>
+          <div><strong>Total:</strong> $1,604,882.00</div>
+        </div>
+      </div>
+
+      <div class="payroll-section" *ngFor="let grupo of grupos">
+        <div class="grupo-info">
+          <div>
+            <h3>{{ grupo.titulo }}</h3>
+            <p>Empleados: {{ grupo.empleados }}</p>
+            <p>Percepciones: {{ grupo.percepciones }}</p>
+            <p>Deducciones: {{ grupo.deducciones }}</p>
+            <p>Total: {{ grupo.total }}</p>
+          </div>
+          <button class="comenzar-btn">Comenzar</button>
+        </div>
+        <div class="progreso">
+          <span>1- Percepciones</span>
+          <span>2- Pagar</span>
+          <span>3- Planilla</span>
+          <span>4- Completar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
