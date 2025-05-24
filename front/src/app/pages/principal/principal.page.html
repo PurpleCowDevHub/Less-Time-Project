@@ -1,7 +1,7 @@
 <ion-content fullscreen="true" class="fondo">
   <div class="barra-superior">
-   <button class="logo-boton" (click)="irAPrincipal()">
-      <img src="assets/icon/LT.png" class="logo" alt="Logo Less Time">
+    <button class="logo-boton" (click)="irAPrincipal()">
+      <img src="assets/icon/LT.png" class="logo" alt="Logo Less Time" />
       <span class="texto-logo">Less Time</span>
     </button>
     <div class="acciones-usuario">
@@ -9,7 +9,7 @@
       <ion-icon name="chatbubbles-outline"></ion-icon>
       <ion-icon name="notifications-outline"></ion-icon>
       <button class="avatar-boton" (click)="abrirPerfil()">
-        <img src="assets/icon/avatar.png" class="avatar" alt="Avatar usuario">
+        <img src="assets/icon/avatar.png" class="avatar" alt="Avatar usuario" />
       </button>
     </div>
   </div>
@@ -19,22 +19,22 @@
 
     <div class="grid-tarjetas">
       <button ion-button class="tarjeta" (click)="navegar('metricas')">
-        <img src="assets/icon/metricas.png" class="icono" alt="Métricas">
+        <img src="assets/icon/metricas.png" class="icono" alt="Métricas" />
         <p>Métricas</p>
       </button>
 
       <button ion-button class="tarjeta" (click)="navegar('nomina')">
-        <img src="assets/icon/nomina.png" class="icono" alt="Nómina">
+        <img src="assets/icon/nomina.png" class="icono" alt="Nómina" />
         <p>Nómina</p>
       </button>
 
       <button ion-button class="tarjeta" (click)="navegar('horario')">
-        <img src="assets/icon/horario.png" class="icono" alt="Horario">
+        <img src="assets/icon/horario.png" class="icono" alt="Horario" />
         <p>Horario</p>
       </button>
 
       <button ion-button class="tarjeta" (click)="navegar('empleados')">
-        <img src="assets/icon/empleados.png" class="icono" alt="Empleados">
+        <img src="assets/icon/empleados.png" class="icono" alt="Empleados" />
         <p>Empleados</p>
       </button>
     </div>
@@ -45,9 +45,8 @@
         <ion-icon [name]="mostrarReportes ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
       </button>
 
-      <div class="contenido-reportes" *ngIf="mostrarReportes">
-        <!-- Aquí puedes añadir el contenido desplegable -->
-        <p>Aquí van los reportes detallados...</p>
+   <div class="contenido-reportes" *ngIf="mostrarReportes">
+  <p>La Nomina ha sido enviada a Simon Paipa al correo {{ correo }}</p>
       </div>
     </div>
   </div>
