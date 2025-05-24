@@ -212,26 +212,3 @@ ion-searchbar {
     }
   }
 }
-
-/* Etiquetas */
-.tag {
-  padding: 4px 10px;
-  border-radius: 12px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  white-space: nowrap;
-
-  &.tag-red {
-    background-color: #f44336;
-  }
-
-  &.tag-blue {
-    background-color: #2196f3;
-  }
-
-  &.tag-orange {
-    background-color: #ff9800;
-  }
-}

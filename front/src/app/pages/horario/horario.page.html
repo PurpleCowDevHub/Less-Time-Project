@@ -4,19 +4,19 @@
     <!-- Sidebar -->
     <div class="side-menu">
       <div class="logo-container">
-        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
-        <h2>Less Time</h2>
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" (click)="navegar('http://localhost:8101/principal')" />
+        <h2 (click)="navegar('http://localhost:8101/principal')">Less Time</h2>
       </div>
       <ion-list lines="none">
-        <ion-item button>Home</ion-item>
-        <ion-item button>Empleado</ion-item>
-        <ion-item button>Calendario</ion-item>
-        <ion-item button>Nomina</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8101/principal')">Home</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/listausuarios')">Empleado</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8101/horario')">Calendario</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8101/nomina')">Nomina</ion-item>
       </ion-list>
 
       <!-- Avatar + engranaje restaurado -->
       <div class="bottom-icons">
-        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+        <ion-button fill="clear" class="avatar-btn" (click)="irPerfilAdmin()">
           <ion-avatar>
             <img src="assets/icon/avatar.png" alt="Usuario" />
           </ion-avatar>
@@ -52,15 +52,7 @@
             <div class="day-header">{{ dia }}</div>
 
             <div class="day-cell" *ngFor="let emp of empleados">
-              <ng-container *ngIf="emp.dias[i].avatar">
-              </ng-container>
-
-              <ng-container [ngSwitch]="emp.dias[i].estado">
-                <p *ngSwitchCase="'Día Festivo'" class="tag tag-red">Día Festivo</p>
-                <p *ngSwitchCase="'Incapacidad'" class="tag tag-blue">Incapacidad</p>
-                <p *ngSwitchCase="'Vacaciones'" class="tag tag-orange">Vacaciones</p>
-                <p *ngSwitchDefault>{{ emp.dias[i].estado }}</p>
-              </ng-container>
+              <p>{{ emp.dias[i].estado }}</p>
             </div>
 
           </div>
@@ -70,3 +62,4 @@
 
   </div>
 </ion-content>
+

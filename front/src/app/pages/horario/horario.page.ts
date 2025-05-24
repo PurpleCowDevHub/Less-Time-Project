@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular'; // <-- SE AÑADE ModalController
-import { NuevajornadaPage } from '../nuevajornada/nuevajornada.page'; // <-- SE AÑADE IMPORTACIÓN
+import { IonicModule, ModalController } from '@ionic/angular';
+import { NuevajornadaPage } from '../nuevajornada/nuevajornada.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-horario',
@@ -15,72 +16,86 @@ export class HorarioPage {
   empleados = [
     {
       dias: [
-        { avatar: 'assets/avatar1.png', estado: '8:59 - 13:45' },
-        { estado: '8:59 - 13:45' },
-        { estado: 'Día Festivo' },
-        { estado: 'Incapacidad' },
-        { estado: '8:59 - 13:45' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
     {
       dias: [
-        { avatar: 'assets/avatar2.png', estado: '8:59 - 13:45' },
-        { estado: '8:59 - 13:45' },
-        { estado: 'Día Festivo' },
-        { estado: '8:59 - 13:45' },
-        { estado: 'Incapacidad' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
     {
       dias: [
-        { avatar: 'assets/avatar3.png', estado: '8:59 - 13:45' },
-        { estado: 'Vacaciones' },
-        { estado: 'Día Festivo' },
-        { estado: '8:59 - 13:45' },
-        { estado: '8:59 - 13:45' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
     {
       dias: [
-        { avatar: 'assets/avatar4.png', estado: '7:00 - 12:00' },
-        { estado: '7:00 - 12:00' },
-        { estado: '8:00 - 14:00' },
-        { estado: 'Vacaciones' },
-        { estado: '8:00 - 14:00' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
     {
       dias: [
-        { avatar: 'assets/avatar5.png', estado: 'Incapacidad' },
-        { estado: '8:30 - 12:30' },
-        { estado: 'Vacaciones' },
-        { estado: 'Día Festivo' },
-        { estado: '8:30 - 12:30' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
     {
       dias: [
-        { avatar: 'assets/avatar6.png', estado: 'Día Festivo' },
-        { estado: 'Incapacidad' },
-        { estado: '8:00 - 14:00' },
-        { estado: '8:00 - 14:00' },
-        { estado: 'Vacaciones' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
+        { estado: '' },
       ],
     },
   ];
 
-  constructor(private modalCtrl: ModalController) {} // <-- SE AÑADE CONSTRUCTOR
+  constructor(private modalCtrl: ModalController, private router: Router) {}
 
   abrirPerfil() {
     console.log('Abriendo perfil...');
     // Aquí podrías abrir un modal, popover, o navegar a otra página.
   }
 
-  async abrirNuevaJornada() { // <-- SE AÑADE FUNCIÓN PARA ABRIR MODAL
+  async abrirNuevaJornada() {
     const modal = await this.modalCtrl.create({
       component: NuevajornadaPage,
       cssClass: 'custom-modal-jornada',
     });
     await modal.present();
+  }
+
+  navegar(url: string) {
+    if (url.startsWith('http')) {
+      // Navegación externa
+      window.location.href = url;
+    } else {
+      // Navegación interna con Angular Router
+      this.router.navigateByUrl(url);
+    }
+  }
+
+  irPerfilAdmin() {
+    window.location.href = 'http://localhost:8100/perfiladmin';
   }
 }
