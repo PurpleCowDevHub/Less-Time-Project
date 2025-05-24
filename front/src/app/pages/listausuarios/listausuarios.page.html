@@ -1,0 +1,79 @@
+<ion-content fullscreen>
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="side-menu">
+      <div class="logo-container">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
+      </div>
+
+      <ion-list lines="none">
+        <ion-item button>Home</ion-item>
+        <ion-item button>Empleado</ion-item>
+        <ion-item button>Calendario</ion-item>
+        <ion-item button>Nomina</ion-item>
+      </ion-list>
+
+      <!-- Iconos inferiores -->
+      <div class="bottom-icons">
+        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+          <ion-avatar>
+            <img src="assets/icon/avatar.png" alt="Usuario" />
+          </ion-avatar>
+        </ion-button>
+        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <header class="header">
+        <h1>Lista de Empleados</h1>
+        <button class="nueva-jornada">Nuevo empleado</button>
+      </header>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          [(ngModel)]="busqueda"
+          placeholder="Buscar por nombre, ID o email"
+        />
+      </div>
+
+      <!-- Lista de empleados -->
+      <div class="empleado-list">
+        <div
+          *ngFor="let empleado of empleados"
+          class="empleado-card"
+        >
+          <img [src]="empleado.foto" alt="foto" class="empleado-foto" />
+          <div class="empleado-info">
+            <h3>{{ empleado.nombre }}</h3>
+            <p>ID: {{ empleado.id }}</p>
+            <p>Email: {{ empleado.email }}</p>
+            <p><strong>{{ empleado.tipo }}</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Título para administradores -->
+      <h2 class="admin-title">Lista de Administradores</h2>
+
+      <!-- Lista de administradores -->
+      <div class="empleado-list">
+        <div
+          *ngFor="let admin of administradores"
+          class="empleado-card"
+        >
+          <img [src]="admin.foto" alt="foto" class="empleado-foto" />
+          <div class="empleado-info">
+            <h3>{{ admin.nombre }}</h3>
+            <p>ID: {{ admin.id }}</p>
+            <p>Email: {{ admin.email }}</p>
+            <p><strong>{{ admin.tipo }}</strong></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</ion-content>
