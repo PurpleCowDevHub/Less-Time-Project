@@ -76,9 +76,10 @@
       </div>
     </div>
 
-    <div class="grupo-formulario">
-      <label class="etiqueta">¿Es administrador?</label>
-      <ion-checkbox [(ngModel)]="usuario.es_admin" class="entrada"></ion-checkbox>
+    <!-- Checkbox alineado horizontalmente -->
+    <div class="grupo-formulario fila-checkbox">
+      <label class="etiqueta-checkbox">¿Es administrador?</label>
+      <ion-checkbox [(ngModel)]="usuario.es_admin"></ion-checkbox>
     </div>
 
     <ion-button expand="block" class="boton-continuar" (click)="registrarUsuario()">
