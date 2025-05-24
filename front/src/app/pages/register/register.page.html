@@ -5,35 +5,84 @@
   <p class="texto-promocional-2">
     Prueba LT para PYMES y emprendimientos.
   </p>
-  <img src="assets/images/LT.svg" alt="Ilustración" class="imagen-ilustracion">
+
   <div class="caja-login">
     <div class="texto-login-arriba">
       ¿Ya tienes una cuenta? <span class="enlace-login">Inicia sesión</span>
     </div>
+
     <h2 class="titulo-login">Regístrate en LessTime</h2>
 
     <div class="grupo-formulario">
+      <label class="etiqueta">Nombre</label>
+      <ion-input class="entrada" [(ngModel)]="usuario.nombre"></ion-input>
+    </div>
+
+    <div class="grupo-formulario">
+      <label class="etiqueta">Apellido</label>
+      <ion-input class="entrada" [(ngModel)]="usuario.apellido"></ion-input>
+    </div>
+
+    <div class="grupo-formulario">
+      <label class="etiqueta">Cédula</label>
+      <ion-input class="entrada" [(ngModel)]="usuario.cedula"></ion-input>
+    </div>
+
+    <div class="grupo-formulario">
       <label class="etiqueta">Correo electrónico</label>
-      <ion-input type="email" class="entrada" required></ion-input>
+      <ion-input type="email" class="entrada" [(ngModel)]="usuario.correo"></ion-input>
     </div>
 
     <div class="grupo-formulario">
       <label class="etiqueta">Contraseña</label>
-      <ion-input type="password" class="entrada" required></ion-input>
+      <ion-input type="password" class="entrada" [(ngModel)]="usuario.contrasena"></ion-input>
       <p class="ayuda">
-        La contraseña debe tener al menos 15 caracteres O al menos 8 caracteres, incluido un número y una letra minúscula.
+        La contraseña debe tener al menos 8 caracteres, una mayúscula y al menos un número.
       </p>
     </div>
 
     <div class="grupo-formulario">
+      <label class="etiqueta">Confirmar contraseña</label>
+      <ion-input type="password" class="entrada" [(ngModel)]="usuario.confirmar_contrasena"></ion-input>
+    </div>
+
+    <div class="grupo-formulario">
       <label class="etiqueta">Nombre de la empresa</label>
-      <ion-input type="text" class="entrada" required></ion-input>
+      <ion-input class="entrada" [(ngModel)]="usuario.empresa"></ion-input>
       <p class="ayuda">
         El nombre de la empresa sólo puede contener caracteres alfanuméricos y no puede comenzar ni terminar con un guion.
       </p>
     </div>
 
-    <ion-button expand="block" class="boton-continuar" routerLink="/home">
+    <div class="grupo-formulario">
+      <label class="etiqueta">Fecha de nacimiento</label>
+      <div class="fecha-container">
+        <ion-input type="number" class="entrada-fecha" placeholder="Día" min="1" max="31" [(ngModel)]="dia"></ion-input>
+        <ion-select class="entrada-fecha" [(ngModel)]="mes" placeholder="Mes">
+          <ion-select-option value="01">Enero</ion-select-option>
+          <ion-select-option value="02">Febrero</ion-select-option>
+          <ion-select-option value="03">Marzo</ion-select-option>
+          <ion-select-option value="04">Abril</ion-select-option>
+          <ion-select-option value="05">Mayo</ion-select-option>
+          <ion-select-option value="06">Junio</ion-select-option>
+          <ion-select-option value="07">Julio</ion-select-option>
+          <ion-select-option value="08">Agosto</ion-select-option>
+          <ion-select-option value="09">Septiembre</ion-select-option>
+          <ion-select-option value="10">Octubre</ion-select-option>
+          <ion-select-option value="11">Noviembre</ion-select-option>
+          <ion-select-option value="12">Diciembre</ion-select-option>
+        </ion-select>
+        <ion-input type="number" class="entrada-fecha" placeholder="Año" min="1950" [max]="maxAnio" [(ngModel)]="anio"></ion-input>
+      </div>
+    </div>
+
+    <!-- Checkbox alineado horizontalmente -->
+    <div class="grupo-formulario fila-checkbox">
+      <label class="etiqueta-checkbox">¿Es administrador?</label>
+      <ion-checkbox [(ngModel)]="usuario.es_admin"></ion-checkbox>
+    </div>
+
+    <ion-button expand="block" class="boton-continuar" (click)="registrarUsuario()">
       Continuar
     </ion-button>
   </div>
