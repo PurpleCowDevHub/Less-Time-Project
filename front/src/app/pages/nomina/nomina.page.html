@@ -1,22 +1,20 @@
 <ion-content fullscreen>
   <div class="main-container">
-
     <!-- Sidebar -->
     <div class="side-menu">
-      <div class="logo-container">
+      <div class="logo-container" (click)="irAPrincipal()" style="cursor: pointer;">
         <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
         <h2>Less Time</h2>
       </div>
       <ion-list lines="none">
-        <ion-item button>Home</ion-item>
-        <ion-item button>Empleado</ion-item>
-        <ion-item button>Calendario</ion-item>
-        <ion-item button>Nomina</ion-item>
+        <ion-item button (click)="irAPrincipal()">Home</ion-item>
+        <ion-item button (click)="irAEmpleados()">Empleado</ion-item>
+        <ion-item button (click)="irACalendario()">Calendario</ion-item>
+        <ion-item button (click)="irANomina()">Nomina</ion-item>
       </ion-list>
 
-      <!-- Avatar + engranaje restaurado -->
       <div class="bottom-icons">
-        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+        <ion-button fill="clear" class="avatar-btn" (click)="irAPerfilAdmin()">
           <ion-avatar>
             <img src="assets/icon/avatar.png" alt="Usuario" />
           </ion-avatar>
@@ -60,6 +58,53 @@
           <span>4- Completar</span>
         </div>
       </div>
+
+  
+
+      <!-- NUEVO Apartado: Datos para la nómina -->
+      <div class="datos-nomina">
+        <h2>Datos para la nómina</h2>
+        <ion-item>
+          <ion-label position="floating">Usuario ID</ion-label>
+          <ion-input [(ngModel)]="usuarioId" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Horas trabajadas</ion-label>
+          <ion-input [(ngModel)]="horasTrabajadas" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Días de incapacidad</ion-label>
+          <ion-input [(ngModel)]="diasIncapacidad" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Horas extra</ion-label>
+          <ion-input [(ngModel)]="horasExtra" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Bonificación</ion-label>
+          <ion-input [(ngModel)]="bonificacion" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Período de pago</ion-label>
+          <ion-input [(ngModel)]="periodoPago" type="text"></ion-input>
+        </ion-item>
+        <div class="boton-guardar">
+          <ion-button color="success" expand="block" (click)="guardarDatosNomina()">Guardar</ion-button>
+        </div>
+      </div>
+
+      <!-- NUEVO Apartado: Enviar nómina -->
+      <div class="enviar-nomina-dos">
+        <h2>Enviar nómina</h2>
+        <ion-item>
+          <ion-label position="floating">ID de nómina</ion-label>
+          <ion-input [(ngModel)]="idEnvioNomina" type="text"></ion-input>
+        </ion-item>
+        <div class="boton-enviar">
+          <ion-button color="primary" expand="block" (click)="enviarNominaConDatos()">Enviar</ion-button>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>
+

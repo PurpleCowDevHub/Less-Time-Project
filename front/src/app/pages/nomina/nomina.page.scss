@@ -1,9 +1,9 @@
 .main-container {
   display: flex;
-  height: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Sidebar */
 .side-menu {
   width: 300px;
   background: linear-gradient(to bottom, #d2e6fb, #6394e2);
@@ -13,50 +13,55 @@
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
 
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 40px;
-    text-align: left;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  text-align: left;
 
-    .logo {
+  .logo {
     width: 50px;
-      height: auto;
-      flex-shrink: 0;
+    height: auto;
+    flex-shrink: 0;
+  }
 
-    }
+  h2 {
+    margin: 0;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
 
     h2 {
-      margin: 0;
-      color: black;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.2;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      align-items: center;
-      h2 {
-        font-size: 20px;
-        text-align: center;
-      }
-    }
-  }ion-list {
-    width: 100%;
-    background: transparent !important;
-
-    ion-item {
-      --background: transparent;
-      color: white;
-      font-size: 16px;
+      font-size: 20px;
+      text-align: center;
     }
   }
-}  
+}
+
+ion-list {
+  width: 100%;
+  background: transparent !important;
+
+  ion-item {
+    --background: transparent;
+    color: white;
+    font-size: 16px;
+  }
+}
+
 .bottom-icons {
   position: absolute;
   bottom: 20px;
@@ -98,6 +103,12 @@
   }
 }
 
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
 .payroll-summary {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -111,14 +122,14 @@
   }
 
   p {
-    margin: 4px 0 16px 0;
+    margin: 10px 0 16px 0;
     font-weight: 500;
   }
 
   .summary-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 30px;
     text-align: center;
     font-weight: bold;
 
@@ -172,6 +183,37 @@
 
     span {
       padding: 8px;
+    }
+  }
+}
+
+.datos-nomina,
+.enviar-nomina-dos {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 40px;
+
+  h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  ion-item {
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+
+  .boton-guardar,
+  .boton-enviar {
+    display: flex;
+    justify-content: center;
+
+    ion-button {
+      width: 200px;
+      font-weight: bold;
     }
   }
 }
