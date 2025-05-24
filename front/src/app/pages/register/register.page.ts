@@ -12,9 +12,28 @@ import { IonicModule } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
+  usuario = {
+    nombre: '',
+    apellido: '',
+    cedula: '',
+    correo: '',
+    contrasena: '',
+    confirmar_contrasena: '',
+    empresa: '',
+    es_admin: false,
+    fecha_nacimiento: ''
+  };
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  registrarUsuario() {
+    console.log(this.usuario);
+    // Aquí se puede integrar con FastAPI u otro backend
   }
 
 }
+
+
+
