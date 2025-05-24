@@ -12,7 +12,6 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     FormsModule,
     IonicModule,
-
   ]
 })
 export class ListausuariosPage {
@@ -39,9 +38,17 @@ export class ListausuariosPage {
   get listaCompleta() {
     return [...this.empleados, ...this.administradores];
   }
-  abrirPerfil() {
-    console.log('Abriendo perfil...');
-    // Aquí podrías abrir un modal, popover, o navegar a otra página.
+
+  navegar(url: string) {
+    if (url.startsWith('http')) {
+      window.location.href = url;
+    } else {
+      // Aquí podrías usar router si lo importas y lo inyectas
+      window.location.href = url; // Por ahora uso window.location para simplificar
+    }
   }
 
+  abrirPerfil() {
+    console.log('Abriendo perfil...');
+  }
 }

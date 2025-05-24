@@ -107,80 +107,121 @@ ion-content {
   }
 }
 
-/* Contenido principal con scroll */
+/* Contenido principal */
 .main-content {
   flex: 1;
   background: white;
   padding: 2rem;
   overflow-y: auto;
   height: 100vh;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    .nueva-jornada {
-      background-color: #8cc63f;
-      border: none;
-      padding: 0.5rem 1rem;
-      color: white;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
   }
 
-  .search-bar input {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.5rem;
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre input y botón */
+  }
+
+  .eliminar-usuario{
+    background-color: #d14242;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .search-input {
+    padding: 0.4rem 0.7rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    max-width: 300px;
+  }
+}
+
+
+.header .search-input {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 500px;
+}
+
+
+  .eliminar-usuario {
+    background-color: #d14242;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transform: translateX(10px); /* ← Mover botón */
   }
 
-  .empleado-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+.search-input {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 280px; /* 🔁 antes max-width, ahora ancho fijo más amplio */
+  font-size: 0.9rem;
+}
 
-   .empleado-card {
-  background: #fdfaf5;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
+
+.empleado-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
-  cursor: pointer; // 👈 Esto lo hace clickeable
-  transition: box-shadow 0.2s, transform 0.15s, background-color 0.2s;
+  margin-top: 1.5rem;
 
-  &:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-    background-color: #f7f1e9;
-  }
+  .empleado-card {
+    background: #fdfaf5;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s, background-color 0.2s;
 
-  .empleado-foto {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .empleado-info {
-    h3 {
-      margin: 0;
-      font-size: 1.1rem;
+    &:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+      background-color: #f7f1e9;
     }
 
-    p {
-      margin: 0.2rem 0;
-      font-size: 0.85rem;
-      color: #666;
+    .empleado-foto {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .empleado-info {
+      h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      p {
+        margin: 0.2rem 0;
+        font-size: 0.85rem;
+        color: #666;
+      }
     }
   }
 }
-  }}
