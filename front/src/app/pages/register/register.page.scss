@@ -133,3 +133,35 @@
   font-size: 1rem;
   font-weight: 600;
 }
+
+.fecha-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  gap: 8px;
+}
+
+.entrada-fecha {
+  --background: transparent;
+  --color: #000;
+  height: 38px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0 12px;
+  flex: 1;
+  
+  &.entrada-fecha:first-child {
+    flex: 0.8;
+  }
+  
+  &.entrada-fecha:last-child {
+    flex: 1.2;
+  }
+}
+
+ion-select {
+  --padding-start: 8px;
+  --padding-end: 8px;
+}

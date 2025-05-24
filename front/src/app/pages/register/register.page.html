@@ -5,7 +5,6 @@
   <p class="texto-promocional-2">
     Prueba LT para PYMES y emprendimientos.
   </p>
-  <img src="assets/images/LT.svg" alt="Ilustración" class="imagen-ilustracion">
 
   <div class="caja-login">
     <div class="texto-login-arriba">
@@ -57,7 +56,24 @@
 
     <div class="grupo-formulario">
       <label class="etiqueta">Fecha de nacimiento</label>
-      <ion-datetime class="entrada" presentation="date" [(ngModel)]="usuario.fecha_nacimiento"></ion-datetime>
+      <div class="fecha-container">
+        <ion-input type="number" class="entrada-fecha" placeholder="Día" min="1" max="31" [(ngModel)]="dia"></ion-input>
+        <ion-select class="entrada-fecha" [(ngModel)]="mes" placeholder="Mes">
+          <ion-select-option value="01">Enero</ion-select-option>
+          <ion-select-option value="02">Febrero</ion-select-option>
+          <ion-select-option value="03">Marzo</ion-select-option>
+          <ion-select-option value="04">Abril</ion-select-option>
+          <ion-select-option value="05">Mayo</ion-select-option>
+          <ion-select-option value="06">Junio</ion-select-option>
+          <ion-select-option value="07">Julio</ion-select-option>
+          <ion-select-option value="08">Agosto</ion-select-option>
+          <ion-select-option value="09">Septiembre</ion-select-option>
+          <ion-select-option value="10">Octubre</ion-select-option>
+          <ion-select-option value="11">Noviembre</ion-select-option>
+          <ion-select-option value="12">Diciembre</ion-select-option>
+        </ion-select>
+        <ion-input type="number" class="entrada-fecha" placeholder="Año" min="1950" [max]="maxAnio" [(ngModel)]="anio"></ion-input>
+      </div>
     </div>
 
     <div class="grupo-formulario">
@@ -70,6 +86,3 @@
     </ion-button>
   </div>
 </ion-content>
-
-
-
