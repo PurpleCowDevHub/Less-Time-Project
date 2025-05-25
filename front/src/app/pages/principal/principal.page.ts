@@ -30,10 +30,10 @@ export class PrincipalPage implements OnInit {
         this.router.navigate(['/metricas']);
         break;
       case 'nomina':
-        window.location.href = 'http://localhost:8101/nomina';
+        window.location.href = 'http://localhost:8100/nomina';
         break;
       case 'horario':
-        window.location.href = 'http://localhost:8101/horario';
+        window.location.href = 'http://localhost:8100/horario';
         break;
       case 'empleados':
         window.location.href = 'http://localhost:8100/listausuarios';
