@@ -8,7 +8,7 @@
 
 /* Contenedor del modal */
 .modal-container {
-  background: #fef3e2;  /* color crema */
+  background: #fef3e2;
   border-radius: 20px;
   padding: 2rem;
   max-width: 600px;
@@ -18,7 +18,6 @@
   display: flex;
   flex-direction: column;
 }
-
 
 .form-scroll::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
@@ -49,7 +48,6 @@ input[type="time"] {
 }
 
 /* Checkboxes y radios */
-.checkbox-group label,
 .dias-lista label {
   display: flex;
   align-items: center;
@@ -62,7 +60,7 @@ input[type="time"] {
   gap: 0.25rem;
 }
 
-/* Horas entrada/salida y almuerzo */
+/* Horas entrada/salida */
 .horas-dobles {
   display: flex;
   gap: 1rem;
@@ -94,4 +92,38 @@ input[type="time"] {
   padding: 0.5rem 1.5rem;
   border-radius: 10px;
   border: none;
+}
+
+/* Fecha estilo día-mes-año */
+.fecha-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  gap: 8px;
+}
+
+.entrada-fecha {
+  --background: transparent;
+  --color: #000;
+  height: 38px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0 12px;
+  flex: 1;
+  text-align: center;
+
+  &.entrada-fecha:first-child {
+    flex: 0.8;
+  }
+
+  &.entrada-fecha:last-child {
+    flex: 1.2;
+  }
+}
+
+.etiqueta {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }

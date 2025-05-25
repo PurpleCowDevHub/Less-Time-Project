@@ -3,27 +3,60 @@
     <h2>Nueva jornada</h2>
 
     <form class="form-scroll">
+      <!-- Usuario o ID -->
       <div class="form-row">
-        <label>Nombre*</label>
+        <label>Usuario o ID*</label>
         <input type="text" />
       </div>
 
+      <!-- Observación -->
       <div class="form-row">
-        <label>Tipo de jornada*</label>
+        <label>Observación*</label>
         <input type="text" />
       </div>
 
-      <div class="form-row checkbox-group">
-        <label><input type="checkbox" /> Usar el mismo horario de trabajo para todos los días</label>
-        <label><input type="checkbox" /> Agregar horario de almuerzo</label>
-        <label><input type="checkbox" /> Incluir asistencias en nómina</label>
-      </div>
-
+      <!-- Fecha (día - mes - año) -->
       <div class="form-row">
-        <label>Suma de horas para jornada*</label>
-        <input type="text" />
+        <label>Fecha*</label>
+        <div class="fecha-container">
+          <ion-input
+            type="number"
+            class="entrada-fecha"
+            placeholder="Día"
+            min="1"
+            max="31"
+            [(ngModel)]="dia"
+            (ionBlur)="validarDia()">
+          </ion-input>
+
+          <ion-select class="entrada-fecha" [(ngModel)]="mes" placeholder="Mes">
+            <ion-select-option value="01">Enero</ion-select-option>
+            <ion-select-option value="02">Febrero</ion-select-option>
+            <ion-select-option value="03">Marzo</ion-select-option>
+            <ion-select-option value="04">Abril</ion-select-option>
+            <ion-select-option value="05">Mayo</ion-select-option>
+            <ion-select-option value="06">Junio</ion-select-option>
+            <ion-select-option value="07">Julio</ion-select-option>
+            <ion-select-option value="08">Agosto</ion-select-option>
+            <ion-select-option value="09">Septiembre</ion-select-option>
+            <ion-select-option value="10">Octubre</ion-select-option>
+            <ion-select-option value="11">Noviembre</ion-select-option>
+            <ion-select-option value="12">Diciembre</ion-select-option>
+          </ion-select>
+
+          <ion-input
+            type="number"
+            class="entrada-fecha"
+            placeholder="Año"
+            min="1950"
+            [max]="maxAnio"
+            [(ngModel)]="anio"
+            (ionBlur)="validarAnio()">
+          </ion-input>
+        </div>
       </div>
 
+      <!-- Días de trabajo -->
       <div class="form-row dias">
         <label>Días de trabajo*</label>
         <div class="dias-lista">
@@ -37,28 +70,19 @@
         </div>
       </div>
 
+      <!-- Horas entrada y salida (campo texto para ingresar horas) -->
       <div class="form-row horas-dobles">
         <div>
-          <label>Hora de entrada*</label>
-          <input type="time" />
+          <label>Hora de entrada* </label>
+          <input type="text" placeholder="Ej. 08:30" [(ngModel)]="horaEntrada" />
         </div>
         <div>
-          <label>Hora de salida*</label>
-          <input type="time" />
+          <label>Hora de salida*  </label>
+          <input type="text" placeholder="Ej. 17:00" [(ngModel)]="horaSalida" />
         </div>
       </div>
 
-      <div class="form-row horas-dobles">
-        <div>
-          <label>Hora de inicio de almuerzo</label>
-          <input type="time" />
-        </div>
-        <div>
-          <label>Hora de fin de almuerzo</label>
-          <input type="time" />
-        </div>
-      </div>
-
+      <!-- Botones -->
       <div class="botones">
         <button type="button" class="cancelar" (click)="cerrarModal()">Cancelar</button>
         <button type="submit" class="guardar">Guardar</button>
