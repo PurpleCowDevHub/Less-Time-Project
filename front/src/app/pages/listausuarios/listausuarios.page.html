@@ -27,15 +27,6 @@
 
     <!-- Contenido principal -->
     <main class="main-content">
-
-      <!-- 🔍 Diagnóstico visual -->
-      <p *ngIf="empleados.length === 0" style="color: red; font-weight: bold;">
-        ⚠️ No se encontraron empleados. Verifica si vienen vacíos o hay error en renderizado.
-      </p>
-      <p *ngIf="empleados.length > 0" style="color: green; font-weight: bold;">
-        ✅ Se cargaron {{ empleados.length }} empleados correctamente.
-      </p>
-
       <header class="header">
         <h1>Lista de Empleados</h1>
         <div class="header-actions">

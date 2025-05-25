@@ -1,3 +1,4 @@
+// src/app/pages/listausuarios/listausuarios.page.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -72,6 +73,7 @@ export class ListausuariosPage implements OnInit {
             this.userService.eliminarUsuario(id).subscribe({
               next: () => {
                 this.mostrarAlerta('Usuario eliminado correctamente.');
+                this.busqueda = ''; // Limpia el campo de búsqueda
                 this.cargarUsuarios();
               },
               error: err => {
@@ -104,5 +106,6 @@ export class ListausuariosPage implements OnInit {
     console.log('Abriendo perfil...');
   }
 }
+
 
 
