@@ -7,10 +7,22 @@
         <h2>Less Time</h2>
       </div>
       <ion-list lines="none">
-        <ion-item button (click)="irAPrincipal()">Home</ion-item>
-        <ion-item button (click)="irAEmpleados()">Empleado</ion-item>
-        <ion-item button (click)="irACalendario()">Calendario</ion-item>
-        <ion-item button (click)="irANomina()">Nomina</ion-item>
+        <ion-item button (click)="irAPrincipal()">
+          <ion-icon name="home-outline"></ion-icon>
+          Home
+        </ion-item>
+        <ion-item button (click)="irAEmpleados()">
+          <ion-icon name="people-outline"></ion-icon>
+          Empleado
+        </ion-item>
+        <ion-item button (click)="irACalendario()">
+          <ion-icon name="calendar-outline"></ion-icon>
+          Calendario
+        </ion-item>
+        <ion-item button (click)="irANomina()" class="selected">
+          <ion-icon name="cash-outline"></ion-icon>
+          Nomina
+        </ion-item>
       </ion-list>
 
       <div class="bottom-icons">
@@ -19,7 +31,6 @@
             <img src="assets/icon/avatar.png" alt="Usuario" />
           </ion-avatar>
         </ion-button>
-        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
       </div>
     </div>
 
@@ -63,42 +74,53 @@
       <div class="datos-nomina">
         <h2>Crear Nueva Nómina</h2>
         
-        <ion-item>
-          <ion-label position="floating">ID del Empleado</ion-label>
-          <ion-input [(ngModel)]="usuarioId" type="text" required></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Horas trabajadas</ion-label>
-          <ion-input [(ngModel)]="horasTrabajadas" type="number" min="0" step="0.5"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Días de incapacidad</ion-label>
-          <ion-input [(ngModel)]="diasIncapacidad" type="number" min="0"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Horas extra</ion-label>
-          <ion-input [(ngModel)]="horasExtra" type="number" min="0" step="0.5"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Bonificación ($)</ion-label>
-          <ion-input [(ngModel)]="bonificacion" type="number" min="0"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Período de pago (MM-YYYY)</ion-label>
-          <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: 11-2023" required></ion-input>
-        </ion-item>
-        
-        <div class="boton-guardar">
-          <ion-button color="success" expand="block" (click)="guardarDatosNomina()">
-            <ion-icon slot="start" name="save-outline"></ion-icon>
-            Guardar Nómina
-          </ion-button>
+        <div class="input-grid">
+          <div class="input-group">
+            <label class="input-label">ID del Empleado</label>
+            <ion-item>
+              <ion-input [(ngModel)]="usuarioId" type="text" required></ion-input>
+            </ion-item>
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Horas trabajadas</label>
+            <ion-item>
+              <ion-input [(ngModel)]="horasTrabajadas" type="number" min="0" step="0.5"></ion-input>
+            </ion-item>
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Días de incapacidad</label>
+            <ion-item>
+              <ion-input [(ngModel)]="diasIncapacidad" type="number" min="0"></ion-input>
+            </ion-item>
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Horas extra</label>
+            <ion-item>
+              <ion-input [(ngModel)]="horasExtra" type="number" min="0" step="0.5"></ion-input>
+            </ion-item>
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Bonificación ($)</label>
+            <ion-item>
+              <ion-input [(ngModel)]="bonificacion" type="number" min="0"></ion-input>
+            </ion-item>
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Período de pago (Mes y año)</label>
+            <ion-item>
+              <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: Mayo 2025" required></ion-input>
+            </ion-item>
+          </div>
         </div>
+        
+        <ion-button color="success" expand="block" (click)="guardarDatosNomina()">
+          Guardar Nómina
+        </ion-button>
       </div>
 
       <!-- Apartado: Enviar nómina -->
@@ -111,23 +133,20 @@
         </ion-item>
         
         <ion-item>
-          <ion-label position="floating">Período de pago (MM-YYYY)</ion-label>
-          <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: 11-2023" required></ion-input>
+          <ion-label position="floating">Período de pago (Mes y año)</ion-label>
+          <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: Mayo 2025" required></ion-input>
         </ion-item>
         
-        <div class="boton-enviar">
-          <ion-button color="primary" expand="block" (click)="enviarNominaConDatos()">
-            <ion-icon slot="start" name="mail-outline"></ion-icon>
-            Enviar Nómina
-          </ion-button>
-        </div>
+        <ion-button color="primary" expand="block" (click)="enviarNominaConDatos()">
+          Enviar Nómina
+        </ion-button>
       </div>
 
       <!-- Sección de información adicional -->
       <div class="info-adicional">
         <h3>Instrucciones:</h3>
         <p>1. Complete todos los campos obligatorios (marcados con *)</p>
-        <p>2. Para el período de pago use el formato MM-YYYY (ej: 11-2023)</p>
+        <p>2. Para el período de pago escriba el mes y año (ej: Mayo 2025)</p>
         <p>3. Guarde la nómina antes de enviarla por correo</p>
         <p>4. El mismo ID de empleado se usará para ambas operaciones</p>
       </div>

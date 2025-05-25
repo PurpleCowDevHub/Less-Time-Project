@@ -1,18 +1,44 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-color: #4285F4;
+$secondary-color: #A4BBD3;
+$dark-color: #1D232B;
+$input-border: #e0e0e0;
+$input-radius: 10px;
+$font-main: 'Poppins', sans-serif;
+
+:host {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
+    }
+  }
+}
+
 .main-container {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  font-family: $font-main;
 }
 
 .side-menu {
   width: 300px;
-  background: linear-gradient(to bottom, #d2e6fb, #6394e2);
-  color: white;
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 65%,
+    #A4BBD3 100%
+  );
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 5px;
+  align-items: center; // Cambiado de flex-start a center
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   position: sticky;
   top: 0;
   height: 100vh;
@@ -21,33 +47,22 @@
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: flex-start; // Cambiado de center a flex-start
   gap: 12px;
   margin-bottom: 40px;
-  text-align: left;
-
+  width: 100%;
+  padding-left: 20px; // Añadido para dar un margen izquierdo consistente
+  
   .logo {
     width: 50px;
     height: auto;
-    flex-shrink: 0;
   }
 
   h2 {
     margin: 0;
-    color: black;
+    color: white;
     font-size: 24px;
-    font-weight: bold;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-
-    h2 {
-      font-size: 20px;
-      text-align: center;
-    }
+    font-weight: 600;
   }
 }
 
@@ -57,25 +72,47 @@ ion-list {
 
   ion-item {
     --background: transparent;
-    color: white;
+    --border-radius: 10px;
+    --border-width: 1.5px; // Aumentado para hacer el borde más visible
+    --border-style: solid;
+    --border-color: rgba(255, 255, 255, 0.5); // Aumentado la opacidad del borde
+    color: rgba(255, 255, 255, 0.9); // Texto más blanco
     font-size: 16px;
+    width: 90%;
+    margin: 0 0 8px 4px; // Cambiado: eliminado 'auto' y añadido margen izquierdo
+    transition: all 0.3s ease;
+    
+    &::part(native) {
+      padding-left: 16px;
+    }
+
+    ion-icon {
+      margin-right: 12px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9); // Iconos más blancos
+    }
+
+    &:hover {
+      --background: rgba(255, 255, 255, 0.15);
+      --border-color: rgba(255, 255, 255, 0.8); // Borde más blanco en hover
+      transform: translateX(5px);
+    }
+
+    &.selected {
+      --background: rgba(255, 255, 255, 0.2);
+      --border-color: rgba(255, 255, 255, 1); // Borde completamente blanco cuando está seleccionado
+      font-weight: 500;
+    }
   }
 }
 
 .bottom-icons {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px; // Cambiado de 20px a 10px para bajar más el botón
+  left: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-
-  .settings-icon {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
+  align-items: flex-start;
+  width: auto;
 }
 
 .avatar-btn {
@@ -91,129 +128,253 @@ ion-list {
   justify-content: center;
 
   ion-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 50px; // Aumentar tamaño
+    height: 50px; // Aumentar tamaño
+    border: 2px solid white; // Añadir borde blanco
+    
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 }
 
 .content {
   flex: 1;
-  padding: 20px;
+  padding: 2rem;
   overflow-y: auto;
+  background: #f5f7fa;
+  color: $dark-color; // Añadido color base
 }
 
 .payroll-summary {
   background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 16px;
-  border-radius: 12px;
-  margin-top: 20px;
+  border-radius: $input-radius;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
 
   h2 {
-    margin-top: 0;
-    font-size: 20px;
-  }
-
-  p {
-    margin: 10px 0 16px 0;
+    color: $dark-color;
     font-weight: 500;
+    margin-bottom: 1rem;
   }
 
   .summary-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    text-align: center;
-    font-weight: bold;
+    gap: 1.5rem;
 
     div {
-      background: #f7f7f7;
-      padding: 12px;
-      border-radius: 8px;
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: $input-radius;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      color: $dark-color; // Añadido color base
+      
+      strong {
+        color: $primary-color;
+        font-weight: 600;
+      }
     }
   }
 }
 
 .payroll-section {
-  background: #eaeaea;
-  margin-top: 20px;
-  border-radius: 12px;
-  padding: 16px;
+  background: #fff;
+  border-radius: $input-radius;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 
   .grupo-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #ccc;
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 12px;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: $input-radius;
 
-    h3 {
-      margin: 0;
-    }
-
-    p {
-      margin: 4px 0;
+    h3, p {
+      color: $dark-color;
     }
 
     .comenzar-btn {
-      background: #ffc107;
-      color: black;
-      font-weight: bold;
-      padding: 10px 16px;
+      background: $primary-color;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 100px;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      font-weight: 500;
+      font-family: $font-main;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(66,133,244,0.2);
+
+      &:hover {
+        background: color.adjust($primary-color, $lightness: -10%);
+        transform: translateY(-1px);
+      }
     }
   }
 
   .progreso {
     display: flex;
     justify-content: space-around;
-    font-weight: 600;
-    color: #0056d2;
-
+    margin-top: 1.5rem;
+    
     span {
-      padding: 8px;
+      color: $dark-color;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      position: relative;
+
+      &:not(:last-child):after {
+        content: '';
+        position: absolute;
+        right: -50%;
+        top: 50%;
+        width: 100%;
+        height: 2px;
+        background: $secondary-color;
+      }
     }
   }
 }
 
-.datos-nomina,
-.enviar-nomina-dos {
+.datos-nomina {
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 40px;
+  border-radius: $input-radius;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 
   h2 {
-    margin-bottom: 16px;
-    font-size: 20px;
-    font-weight: bold;
+    color: $dark-color;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .input-label {
+      color: $dark-color;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-left: 0.25rem;
+    }
+
+    ion-item {
+      --background: #fff;
+      --border-color: #{$input-border};
+      --border-radius: 8px;
+      --border-width: 1.5px;
+      --border-style: solid;
+      --padding-start: 0.75rem;
+      margin: 0;
+      
+      &:hover {
+        --border-color: #{$primary-color};
+      }
+
+      ion-input {
+        --padding-start: 0;
+        --padding-end: 0.75rem;
+        font-family: $font-main;
+      }
+    }
+  }
+}
+
+
+.enviar-nomina-dos {
+  background: #fff;
+  border-radius: $input-radius;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  h2 {
+    color: $dark-color;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
   }
 
   ion-item {
-    margin-bottom: 12px;
-    border-radius: 8px;
-  }
+    --background: #fff;
+    --border-color: #{$input-border};
+    --border-radius: #{$input-radius};
+    --border-width: 1.5px;
+    --border-style: solid;
+    margin-bottom: 1rem;
+    --color: #{$dark-color}; // Añadido color para los inputs
+    
+    &:hover {
+      --border-color: #{$primary-color};
+    }
 
-  .boton-guardar,
-  .boton-enviar {
-    display: flex;
-    justify-content: center;
+    ion-label {
+      color: $dark-color;
+      font-weight: 500;
+    }
 
-    ion-button {
-      width: 200px;
-      font-weight: bold;
+    ion-input {
+      --padding-start: 1rem;
+      --padding-end: 1rem;
+      font-family: $font-main;
     }
   }
+}
+
+.info-adicional {
+  background: #f8fafc;
+  border-radius: $input-radius;
+  padding: 1.5rem;
+  margin-top: 2rem;
+
+  h3 {
+    color: $dark-color;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $dark-color;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+ion-content {
+  font-family: $font-main;
+  color: $dark-color;
+  
+  ::ng-deep {
+    * {
+      color: $dark-color;
+    }
+  }
+}
+
+ion-item, 
+ion-label, 
+ion-input, 
+button, 
+p, 
+h1, h2, h3, h4, h5, h6,
+span {
+  font-family: $font-main !important;
 }

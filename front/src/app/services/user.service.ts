@@ -24,6 +24,18 @@ interface EmailResponse {
   usuario_id: string;
 }
 
+interface RegistroPayload {
+  nombre: string;
+  apellido: string;
+  cedula: string;
+  correo: string;
+  contrasena: string;
+  confirmar_contrasena: string;
+  empresa: string;
+  es_admin: boolean;
+  fecha_nacimiento?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +44,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  // Servicios de autenticación
   login(correo: string, contrasena: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
       correo,
@@ -39,6 +52,11 @@ export class UserService {
     });
   }
 
+  registrar(usuario: RegistroPayload): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, usuario);
+  }
+
+  // Servicios de administración de usuarios
   obtenerUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios`);
   }
@@ -51,7 +69,7 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/admin/usuarios/${id}`);
   }
 
-  // Nuevos servicios para nómina
+  // Servicios de nómina
   crearNomina(
     usuario_id: string,
     horas_trabajadas: number,
