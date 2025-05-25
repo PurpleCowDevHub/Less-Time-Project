@@ -38,16 +38,5 @@
         <p>Empleados</p>
       </button>
     </div>
-
-    <div class="seccion-reportes">
-      <button class="boton-reporte" (click)="toggleReportes()">
-        Reportes
-        <ion-icon [name]="mostrarReportes ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
-      </button>
-
-   <div class="contenido-reportes" *ngIf="mostrarReportes">
-  <p>La Nomina ha sido enviada a Simon Paipa al correo {{ correo }}</p>
-      </div>
-    </div>
   </div>
 </ion-content>
