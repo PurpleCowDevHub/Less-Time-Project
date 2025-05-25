@@ -28,6 +28,27 @@ export class ListausuariosPage implements OnInit {
     private alertController: AlertController
   ) {}
 
+  // Métodos de navegación del side menu
+  irAPrincipal() {
+    window.location.href = 'http://localhost:8100/principal';
+  }
+
+  irAEmpleados() {
+    window.location.href = 'http://localhost:8100/listausuarios';
+  }
+
+  irACalendario() {
+    window.location.href = 'http://localhost:8100/horario';
+  }
+
+  irANomina() {
+    window.location.href = 'http://localhost:8100/nomina';
+  }
+
+  irAPerfilAdmin() {
+    window.location.href = 'http://localhost:8100/perfiladmin';
+  }
+
   ngOnInit() {
     this.cargarUsuarios();
   }
