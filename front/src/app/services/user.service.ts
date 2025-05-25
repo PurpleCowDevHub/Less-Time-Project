@@ -26,17 +26,14 @@ export class UserService {
   }
 
   obtenerUsuarios(): Observable<any[]> {
-    // ❌ Falta el prefijo admin en la URL
     return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios`); // ✅ URL corregida
   }
 
   obtenerAdministradores(): Observable<any[]> {
-    // ❌ Falta el prefijo admin en la URL
     return this.http.get<any[]>(`${this.apiUrl}/admin/administradores`); // ✅ URL corregida
   }
 
   eliminarUsuario(id: string): Observable<void> {
-    // ❌ Falta el prefijo admin en la URL
     return this.http.delete<void>(`${this.apiUrl}/admin/usuarios/${id}`); // ✅ URL corregida
   }
 }
