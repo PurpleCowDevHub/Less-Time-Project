@@ -1,37 +1,44 @@
 <ion-content fullscreen>
   <div class="main-container">
     <!-- Sidebar --> 
-<div class="side-menu">
-  <div class="logo-container" (click)="navegar('http://localhost:8101/principal')" style="cursor:pointer;">
-    <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
-    <h2>Less Time</h2>
-  </div>
+    <div class="side-menu">
+      <div class="logo-container" (click)="navegar('http://localhost:8101/principal')" style="cursor:pointer;">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
+      </div>
 
-  <ion-list lines="none">
-    <ion-item button (click)="navegar('http://localhost:8101/principal')">Home</ion-item>
-    <ion-item button (click)="navegar('http://localhost:8100/listausuarios')">Empleado</ion-item>
-    <ion-item button (click)="navegar('http://localhost:8101/horario')">Calendario</ion-item>
-    <ion-item button (click)="navegar('http://localhost:8101/nomina')">Nomina</ion-item>
-  </ion-list>
+      <ion-list lines="none">
+        <ion-item button (click)="navegar('http://localhost:8101/principal')">Home</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/listausuarios')">Empleado</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8101/horario')">Calendario</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8101/nomina')">Nomina</ion-item>
+      </ion-list>
 
-  <!-- Iconos inferiores -->
-  <div class="bottom-icons">
-    <ion-button fill="clear" class="avatar-btn" (click)="navegar('http://localhost:8100/perfiladmin')">
-      <ion-avatar>
-        <img src="assets/icon/avatar.png" alt="Usuario" />
-      </ion-avatar>
-    </ion-button>
-    <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
-  </div>
-</div>
-
+      <!-- Iconos inferiores -->
+      <div class="bottom-icons">
+        <ion-button fill="clear" class="avatar-btn" (click)="navegar('http://localhost:8100/perfiladmin')">
+          <ion-avatar>
+            <img src="assets/icon/avatar.png" alt="Usuario" />
+          </ion-avatar>
+        </ion-button>
+        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
+      </div>
+    </div>
 
     <!-- Contenido principal -->
     <main class="main-content">
+
+      <!-- 🔍 Diagnóstico visual -->
+      <p *ngIf="empleados.length === 0" style="color: red; font-weight: bold;">
+        ⚠️ No se encontraron empleados. Verifica si vienen vacíos o hay error en renderizado.
+      </p>
+      <p *ngIf="empleados.length > 0" style="color: green; font-weight: bold;">
+        ✅ Se cargaron {{ empleados.length }} empleados correctamente.
+      </p>
+
       <header class="header">
         <h1>Lista de Empleados</h1>
         <div class="header-actions">
-          <!-- 🔁 Input a la izquierda del botón -->
           <input
             type="text"
             [(ngModel)]="busqueda"

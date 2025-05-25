@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+// src/app/pages/listausuarios/listausuarios.page.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-empleado-lista',
@@ -12,39 +15,45 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     FormsModule,
     IonicModule,
+    HttpClientModule
   ]
 })
-export class ListausuariosPage {
+export class ListausuariosPage implements OnInit {
   busqueda: string = '';
+  empleados: any[] = [];
+  administradores: any[] = [];
 
-  empleados = [
-    { id: 'E001', nombre: 'Ana Torres', email: 'ana.torres@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E002', nombre: 'Luis Gómez', email: 'luis.gomez@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E003', nombre: 'María López', email: 'maria.lopez@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E004', nombre: 'Carlos Ruiz', email: 'carlos.ruiz@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E005', nombre: 'Laura Fernández', email: 'laura.fernandez@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E006', nombre: 'Jorge Martínez', email: 'jorge.martinez@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E007', nombre: 'Sofía Díaz', email: 'sofia.diaz@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E008', nombre: 'Ricardo Morales', email: 'ricardo.morales@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E009', nombre: 'Elena Castro', email: 'elena.castro@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' },
-    { id: 'E010', nombre: 'Mario Sánchez', email: 'mario.sanchez@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Empleado' }
-  ];
+  constructor(private userService: UserService) {}
 
-  administradores = [
-    { id: 'A001', nombre: 'Pedro Admin', email: 'pedro.admin@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Administrador' },
-    { id: 'A002', nombre: 'Carla Admin', email: 'carla.admin@empresa.com', foto: 'assets/icon/avatar.png', tipo: 'Administrador' }
-  ];
+  ngOnInit() {
+    this.userService.obtenerUsuarios().subscribe(data => {
+      console.log("Usuarios obtenidos:", data); // 🔍 depuración
+      this.empleados = data.map(usuario => ({
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.correo, // ✅ corregido
+        tipo: 'Empleado',
+        foto: 'assets/icon/avatar.png'
+      }));
+    });
 
-  get listaCompleta() {
-    return [...this.empleados, ...this.administradores];
+    this.userService.obtenerAdministradores().subscribe(data => {
+      console.log("Administradores obtenidos:", data); // 🔍 depuración
+      this.administradores = data.map(admin => ({
+        id: admin.id,
+        nombre: admin.nombre,
+        email: admin.correo, // ✅ corregido
+        tipo: 'Administrador',
+        foto: 'assets/icon/avatar.png'
+      }));
+    });
   }
 
   navegar(url: string) {
     if (url.startsWith('http')) {
       window.location.href = url;
     } else {
-      // Aquí podrías usar router si lo importas y lo inyectas
-      window.location.href = url; // Por ahora uso window.location para simplificar
+      window.location.href = url;
     }
   }
 
@@ -52,3 +61,4 @@ export class ListausuariosPage {
     console.log('Abriendo perfil...');
   }
 }
+

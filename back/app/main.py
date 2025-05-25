@@ -1,5 +1,6 @@
 # app/main.py
 from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, Query, APIRouter, status, Response
+from fastapi.middleware.cors import CORSMiddleware  # ⬆️ Importación CORS
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, validator
 from typing import Optional, List
@@ -26,6 +27,15 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# ✅ Middleware CORS para permitir peticiones desde Ionic (frontend)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8100"],  # ✔️ Cambiar si usas otro puerto
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 def get_db():
     db = SessionLocal()
     try:
@@ -33,7 +43,7 @@ def get_db():
     finally:
         db.close()
 
-# --- Schemas ---
+# —————————————————— SCHEMAS ——————————————————
 
 class UsuarioRegistro(BaseModel):
     nombre: str
@@ -102,12 +112,12 @@ class EmailRequest(BaseModel):
     periodo_pago: str
 
 class HorarioCrear(BaseModel):
-    usuario_id: str  # Cambiado de int a str para aceptar id_usuario
+    usuario_id: str
     dia_semana: str
     hora_entrada: Optional[str] = None
     hora_salida: Optional[str] = None
     observacion: Optional[str] = None
-    fecha: Optional[str] = None  # Formato 'YYYY-MM-DD'
+    fecha: Optional[str] = None
 
 class HorarioResponse(BaseModel):
     dia_semana: str
