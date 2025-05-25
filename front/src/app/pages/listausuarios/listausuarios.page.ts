@@ -1,8 +1,7 @@
-// src/app/pages/listausuarios/listausuarios.page.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,42 +22,87 @@ export class ListausuariosPage implements OnInit {
   empleados: any[] = [];
   administradores: any[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarios() {
     this.userService.obtenerUsuarios().subscribe(data => {
-      console.log("Usuarios obtenidos:", data); // 🔍 depuración
-      this.empleados = data.map(usuario => ({
-        id: usuario.id,
-        nombre: usuario.nombre,
-        email: usuario.correo, // ✅ corregido
+      this.empleados = data.map(u => ({
+        id: u.id,
+        nombre: u.nombre,
+        email: u.correo,
         tipo: 'Empleado',
         foto: 'assets/icon/avatar.png'
       }));
     });
 
     this.userService.obtenerAdministradores().subscribe(data => {
-      console.log("Administradores obtenidos:", data); // 🔍 depuración
-      this.administradores = data.map(admin => ({
-        id: admin.id,
-        nombre: admin.nombre,
-        email: admin.correo, // ✅ corregido
+      this.administradores = data.map(a => ({
+        id: a.id,
+        nombre: a.nombre,
+        email: a.correo,
         tipo: 'Administrador',
         foto: 'assets/icon/avatar.png'
       }));
     });
   }
 
-  navegar(url: string) {
-    if (url.startsWith('http')) {
-      window.location.href = url;
-    } else {
-      window.location.href = url;
+  async eliminarUsuario() {
+    const id = this.busqueda.trim();
+
+    if (!id) {
+      this.mostrarAlerta('Por favor ingresa un ID válido.');
+      return;
     }
+
+    const confirm = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: `¿Estás seguro de eliminar al usuario con ID <strong>${id}</strong>?`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.userService.eliminarUsuario(id).subscribe({
+              next: () => {
+                this.mostrarAlerta('Usuario eliminado correctamente.');
+                this.cargarUsuarios();
+              },
+              error: err => {
+                console.error(err);
+                this.mostrarAlerta('Error al eliminar el usuario.');
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    await confirm.present();
+  }
+
+  async mostrarAlerta(mensaje: string) {
+    const alerta = await this.alertController.create({
+      header: 'Aviso',
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alerta.present();
+  }
+
+  navegar(url: string) {
+    window.location.href = url;
   }
 
   abrirPerfil() {
     console.log('Abriendo perfil...');
   }
 }
+
 

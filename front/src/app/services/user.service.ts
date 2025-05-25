@@ -18,4 +18,8 @@ export class UserService {
   obtenerAdministradores(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/administradores`);
   }
+  eliminarUsuario(id: string): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}`);
 }
+}
+
