@@ -202,7 +202,8 @@ def login(usuario: UsuarioLogin, db: Session = Depends(get_db)):
     return {
         "mensaje": mensaje,
         "usuario_id": user.id_usuario,
-        "empresa": user.empresa
+        "empresa": user.empresa,
+        "nombre": f"{user.nombre} {user.apellido}"  # Añadimos el nombre completo
     }
 
 # En main.py, actualizar los endpoints de listado:

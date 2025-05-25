@@ -12,13 +12,15 @@ import { Router } from '@angular/router';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class PrincipalPage implements OnInit {
-  usuario: string = ''; // Asigna según lógica real
+    usuario: string = '';
   mostrarReportes: boolean = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     console.log('Página principal cargada');
+    // Obtener el nombre del usuario del localStorage
+    this.usuario = localStorage.getItem('nombreUsuario') || 'Usuario';
   }
 
   navegar(destino: string) {

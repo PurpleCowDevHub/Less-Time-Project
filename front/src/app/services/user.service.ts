@@ -7,6 +7,7 @@ interface LoginResponse {
   mensaje: string;
   usuario_id: string;
   empresa: string;
+  nombre: string;
 }
 
 @Injectable({

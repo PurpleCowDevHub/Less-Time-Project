@@ -44,6 +44,10 @@ export class LoginPage {
       next: (response) => {
         this.isLoading = false;
         console.log('Login exitoso:', response);
+        
+        // Guardar el nombre en localStorage
+        localStorage.setItem('nombreUsuario', response.nombre || 'Usuario');
+        
         // Redirigir según el tipo de usuario
         if (response.mensaje.includes('administrador')) {
           this.router.navigate(['/perfiladmin']);
