@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$font-main: 'Poppins', sans-serif;
+$primary-color: #4285F4;
+$secondary-color: #A4BBD3;
+$dark-color: #1D232B;
+
 ion-content {
   --background: white;
+  font-family: $font-main;
 }
 
 .main-container {
@@ -46,6 +54,7 @@ ion-content {
       color: white;
       font-size: 24px;
       font-weight: 600;
+      font-family: $font-main;
     }
   }
 
@@ -61,6 +70,7 @@ ion-content {
       --border-color: rgba(255, 255, 255, 0.5);
       color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
+      font-family: $font-main;
       width: 90%;
       margin: 0 0 8px 4px;
       transition: all 0.3s ease;
@@ -72,7 +82,6 @@ ion-content {
       ion-icon {
         margin-right: 12px;
         font-size: 20px;
-        color: rgba(255, 255, 255, 0.9);
       }
 
       &:hover {
@@ -143,7 +152,8 @@ ion-content {
 
   h1 {
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: $font-main;
     margin-bottom: 0.5rem;
   }
 
@@ -210,17 +220,35 @@ ion-content {
         margin: 0;
         font-size: 1.1rem;
         color: black;
+        font-family: $font-main;
       }
 
       p {
         margin: 0.2rem 0;
         font-size: 0.85rem;
         color: #333;
-      }
-
-      strong {
-        color: #000;
+        font-family: $font-main;
       }
     }
   }
+}
+
+:host {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
+    }
+  }
+}
+
+ion-item, 
+ion-label, 
+ion-input, 
+button, 
+p, 
+h1, h2, h3, h4, h5, h6,
+span {
+  font-family: $font-main !important;
 }
