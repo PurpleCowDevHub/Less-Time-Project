@@ -13,7 +13,7 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000'; // Ajusta esta URL
+  private apiUrl = 'http://localhost:8000'; // ✅ URL base correcta
 
   constructor(private http: HttpClient) { }
 
@@ -23,17 +23,21 @@ export class UserService {
       contrasena
     });
   }
-    obtenerUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios`);
+
+  obtenerUsuarios(): Observable<any[]> {
+    // ❌ Falta el prefijo admin en la URL
+    return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios`); // ✅ URL corregida
   }
 
   obtenerAdministradores(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/administradores`);
+    // ❌ Falta el prefijo admin en la URL
+    return this.http.get<any[]>(`${this.apiUrl}/admin/administradores`); // ✅ URL corregida
   }
-  eliminarUsuario(id: string): Observable<void> {
-  return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}`);
-}
 
+  eliminarUsuario(id: string): Observable<void> {
+    // ❌ Falta el prefijo admin en la URL
+    return this.http.delete<void>(`${this.apiUrl}/admin/usuarios/${id}`); // ✅ URL corregida
+  }
 }
 
 
