@@ -1,23 +1,31 @@
 <ion-content class="login-content" fullscreen>
   <div class="login-container">
     <img src="assets/icon/LT.png" alt="Logo LessTime" class="logo" />
-    <h2>Inicio de Sesión en LT</h2>
+    <h2>Inicio de sesión en LT</h2>
 
     <div class="login-box">
-      <label for="email">Email o Nombre de empresa</label>
-      <input type="text" [(ngModel)]="email" placeholder="Email" />
+      <label>Correo electrónico</label>
+      <input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo">
 
-      <label for="password">Contraseña</label>
-      <input type="password" [(ngModel)]="password" placeholder="Contraseña" />
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña">
+
+      <!-- Mostrar mensaje de error -->
+      <ion-text color="danger" *ngIf="errorMessage">
+        <p class="error-message">{{ errorMessage }}</p>
+      </ion-text>
+
+      <button (click)="login()" [disabled]="isLoading">
+        <ion-spinner *ngIf="isLoading"></ion-spinner>
+        <span *ngIf="!isLoading">Continuar</span>
+      </button>
 
       <div class="forgot-password">
         <a href="#">¿Recordar contraseña?</a>
       </div>
 
-      <button (click)="login()">Continuar</button>
-
       <div class="register-link">
-        ¿Nuevo en LessTime? <a href="#">Crea una cuenta.</a>
+        ¿Nuevo en LessTime? <a [routerLink]="['/register']">Crea una cuenta.</a>
       </div>
     </div>
   </div>
