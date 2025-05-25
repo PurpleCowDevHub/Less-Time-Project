@@ -1,3 +1,4 @@
+// src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,4 +23,17 @@ export class UserService {
       contrasena
     });
   }
+    obtenerUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios`);
+  }
+
+  obtenerAdministradores(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/administradores`);
+  }
+  eliminarUsuario(id: string): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}`);
 }
+
+}
+
+

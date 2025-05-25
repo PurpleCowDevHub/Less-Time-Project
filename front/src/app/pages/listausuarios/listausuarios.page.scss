@@ -115,6 +115,7 @@ ion-content {
   overflow-y: auto;
   height: 100vh;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -131,35 +132,8 @@ ion-content {
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Espacio entre input y botón */
+    gap: 0.5rem;
   }
-
-  .eliminar-usuario{
-    background-color: #d14242;
-    border: none;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .search-input {
-    padding: 0.4rem 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-width: 300px;
-  }
-}
-
-
-.header .search-input {
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  max-width: 500px;
-}
-
 
   .eliminar-usuario {
     background-color: #d14242;
@@ -169,17 +143,19 @@ ion-content {
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
-    transform: translateX(10px); /* ← Mover botón */
+    transform: translateX(10px);
   }
 
-.search-input {
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 280px; /* 🔁 antes max-width, ahora ancho fijo más amplio */
-  font-size: 0.9rem;
+  .search-input {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 280px;
+    font-size: 0.9rem;
+    background-color: white;
+    color: black;
+  }
 }
-
 
 .empleado-list {
   display: grid;
@@ -215,12 +191,17 @@ ion-content {
       h3 {
         margin: 0;
         font-size: 1.1rem;
+        color: black;
       }
 
       p {
         margin: 0.2rem 0;
         font-size: 0.85rem;
-        color: #666;
+        color: #333;
+      }
+
+      strong {
+        color: #000;
       }
     }
   }
