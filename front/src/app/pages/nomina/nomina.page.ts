@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+// Update the import path below if user.service.ts is located elsewhere
+import { UserService } from '../../services/user.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-nomina',
@@ -11,6 +14,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class NominaPage {
+  // Datos de ejemplo para la vista
   grupos = [
     {
       titulo: 'Sueldos y salarios',
@@ -28,7 +32,7 @@ export class NominaPage {
     },
   ];
 
-  idNomina: string = '';
+  // Variables para el formulario
   usuarioId: string = '';
   horasTrabajadas: number = 0;
   diasIncapacidad: number = 0;
@@ -37,8 +41,14 @@ export class NominaPage {
   periodoPago: string = '';
   idEnvioNomina: string = '';
 
+  constructor(
+    private userService: UserService,
+    private alertController: AlertController
+  ) {}
+
+  // Métodos de navegación
   irAPrincipal() {
-    window.location.href = 'http://localhost:8101/principal';
+    window.location.href = 'http://localhost:8100/principal';
   }
 
   irAEmpleados() {
@@ -46,39 +56,85 @@ export class NominaPage {
   }
 
   irACalendario() {
-    window.location.href = 'http://localhost:8101/horario';
+    window.location.href = 'http://localhost:8100/horario';
   }
 
   irANomina() {
-    window.location.href = 'http://localhost:8101/nomina';
+    window.location.href = 'http://localhost:8100/nomina';
   }
 
   irAPerfilAdmin() {
     window.location.href = 'http://localhost:8100/perfiladmin';
   }
 
-  guardarNomina() {
-    console.log(`Guardando nómina con ID: ${this.idNomina}`);
+  // Método para crear nómina
+  async guardarDatosNomina() {
+    // Validación básica
+    if (!this.usuarioId || !this.periodoPago) {
+      await this.mostrarAlerta('Error', 'ID de empleado y período de pago son obligatorios');
+      return;
+    }
+
+    try {
+      const response = await this.userService.crearNomina(
+        this.usuarioId,
+        this.horasTrabajadas || 0,
+        this.diasIncapacidad || 0,
+        this.horasExtra || 0,
+        this.bonificacion || 0,
+        this.periodoPago
+      ).toPromise();
+
+      await this.mostrarAlerta('Éxito', 'Nómina creada exitosamente');
+      console.log('Nómina creada:', response);
+      
+      // Prellenamos el ID para envío automático
+      this.idEnvioNomina = this.usuarioId;
+
+    } catch (error) {
+      console.error('Error al crear nómina:', error);
+      await this.mostrarAlerta('Error', 'No se pudo crear la nómina. Verifique los datos');
+    }
   }
 
-  guardarDatosNomina() {
-    console.log('Datos para nómina:', {
-      usuarioId: this.usuarioId,
-      horasTrabajadas: this.horasTrabajadas,
-      diasIncapacidad: this.diasIncapacidad,
-      horasExtra: this.horasExtra,
-      bonificacion: this.bonificacion,
-      periodoPago: this.periodoPago,
+  // Método para enviar nómina por correo
+  async enviarNominaConDatos() {
+    if (!this.idEnvioNomina || !this.periodoPago) {
+      await this.mostrarAlerta('Error', 'ID de empleado y período de pago son obligatorios');
+      return;
+    }
+
+    try {
+      const response = await this.userService.enviarNomina(
+        this.idEnvioNomina,
+        this.periodoPago
+      ).toPromise();
+
+      await this.mostrarAlerta('Éxito', 'Nómina enviada exitosamente');
+      console.log('Nómina enviada:', response);
+
+    } catch (error) {
+      console.error('Error al enviar nómina:', error);
+      await this.mostrarAlerta('Error', 'No se pudo enviar la nómina. Verifique los datos');
+    }
+  }
+
+  // Método auxiliar para mostrar alertas
+  private async mostrarAlerta(titulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['OK']
     });
+    await alert.present();
   }
 
-  enviarNominaConDatos() {
-    console.log('Enviando nómina con ID:', this.idEnvioNomina);
+  // Métodos de ejemplo (pueden eliminarse si no se usan)
+  guardarNomina() {
+    console.log('Método guardarNomina() llamado');
   }
 
   enviarNomina() {
-    console.log('Enviar nómina básico con ID:', this.idNomina);
+    console.log('Método enviarNomina() llamado');
   }
 }
-
-
