@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .login-content {
   --background: none;
 
@@ -33,48 +35,62 @@
 }
 
 .logo {
-  width: 100px;
-  margin-bottom: 20px;
+  width: 170px; // Un poco más grande
+  margin-bottom: 20px; // Reducido de 30px a 20px
+  display: block; // Asegura que la imagen sea un bloque
+  margin-left: auto; // Centra horizontalmente
+  margin-right: auto; // Centra horizontalmente
 }
 
 h2 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  margin-top: 0; // Asegura que no haya espacio extra arriba
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); // Sombra más intensa y difuminada
 }
 
 .login-box {
   background: #ffffff;
-  padding: 25px 20px;
-  border-radius: 12px;
+  padding: 35px 30px;
+  border-radius: 15px;
   width: 100%;
-  max-width: 380px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+              0 4px 10px rgba(0, 0, 0, 0.15); // Sombra más profunda y difuminada
+  font-family: 'Poppins', sans-serif;
 }
 
 .login-box label {
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 8px;
   display: block;
-  color: #333;
+  color: #1D232B;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .login-box input {
+  font-family: 'Poppins', sans-serif;
   width: 100%;
-  padding: 10px;
-  margin-top: 4px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1.1rem;
   background-color: #ffffff;
-  color: #000000;
+  color: #1D232B;
+  transition: border-color 0.3s ease;
 
-  box-shadow: none;
-  outline: none;
-  appearance: none;
+  &:focus {
+    border-color: #4285F4;
+    outline: none;
+  }
 }
 
 .forgot-password {
@@ -90,34 +106,58 @@ h2 {
 
 button {
   width: 100%;
-  background-color: #7cc31f;
+  background-color: #0ed50a;
   color: #fff;
-  padding: 12px;
+  padding: 15px;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1.2rem;
   cursor: pointer;
-  margin-bottom: 12px;
+  margin: 25px 0;
+  transition: all 0.3s ease; // Cambiado para incluir la transición de la sombra
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); // Sombra en negro más difuminada
+
+  &:hover {
+    background-color: #0da80a;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); // Sombra hover más intensa
+    transform: translateY(-1px);
+  }
 }
 
 .register-link {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  margin-top: 2px; /* <- más cerca del botón */
-  text-align: center;
+  gap: 5px;
+  font-size: 1rem;
+  color: #1D232B;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); // Sombra de texto más notable
+
+  a {
+    font-weight: 500;
+    color: #4285F4;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-.register-link a {
-  font-weight: bold;
-  color: #3c86ff;
-  text-decoration: none;
-  font-size: 0.85rem;
-  margin-top: 4px;
+.error-message {
+  font-family: 'Poppins', sans-serif;
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 

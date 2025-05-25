@@ -10,7 +10,6 @@
       <label>Contraseña</label>
       <input type="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña">
 
-      <!-- Mostrar mensaje de error -->
       <ion-text color="danger" *ngIf="errorMessage">
         <p class="error-message">{{ errorMessage }}</p>
       </ion-text>
@@ -19,10 +18,6 @@
         <ion-spinner *ngIf="isLoading"></ion-spinner>
         <span *ngIf="!isLoading">Continuar</span>
       </button>
-
-      <div class="forgot-password">
-        <a href="#">¿Recordar contraseña?</a>
-      </div>
 
       <div class="register-link">
         ¿Nuevo en LessTime? <a [routerLink]="['/register']">Crea una cuenta.</a>
