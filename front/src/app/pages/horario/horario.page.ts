@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-horario',
-  templateUrl: './Horario.page.html',
-  styleUrls: ['./Horario.page.scss'],
+  templateUrl: './horario.page.html',
+  styleUrls: ['./horario.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
