@@ -1,12 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .fondo {
-  --background: #f4f5f8;
+  --background: radial-gradient(
+    ellipse 260% 150% at 50% 110%,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 25%,
+    #A4BBD3 60%
+  );
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .barra-superior {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #cbd9ea;
+  background-color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -44,13 +60,13 @@
   gap: 1.5rem;
   
   ion-icon {
-    font-size: 1.5rem;
-    color: #1d4a7b;  // Cambiado de #9c0505 a #1d4a7b para mantener consistencia con el tema
+    font-size: 1.8rem; // Aumentado de 1.5rem
+    color: #1D232B;
     cursor: pointer;
     transition: color 0.3s ease;
 
     &:hover {
-      color: #153a6b;  // Color más oscuro al hacer hover
+      color: #353b42;
     }
   }
 
@@ -70,12 +86,12 @@
     }
     
     ion-icon {
-      font-size: 24px;
-      color: #1d4a7b !important;  // Cambiado para mantener consistencia
+      font-size: 28px; // Aumentado de 24px
+      color: #1D232B !important;
       display: block;
 
       &:hover {
-        color: #153a6b !important;  // Color más oscuro al hacer hover
+        color: #353b42 !important;
       }
     }
   }
@@ -86,8 +102,8 @@
   background: none;
   border-radius: 50%;
   overflow: hidden;
-  width: 50px;
-  height: 50px;
+  width: 60px; // Aumentado de 50px
+  height: 60px; // Aumentado de 50px
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,8 +118,8 @@
 }
 
 .avatar {
-  width:50px;
-  height: 50px;
+  width: 60px; // Aumentado de 50px
+  height: 60px; // Aumentado de 50px
   border-radius: 50%;
   border: 4px solid #fff;
 }
@@ -115,9 +131,12 @@
 }
 
 .saludo {
-  font-size: 1.5rem;
-  color: #1d4a7b;
-  margin: 1rem 0 2rem 0;
+  font-size: 2.2rem; // Reducido de 2.5rem
+  color: white;
+  margin: 0.5rem 0 1.5rem 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; // Reducido de 600
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .grid-tarjetas {
@@ -128,7 +147,9 @@
 }
 
 .tarjeta {
-  background-color: #1d4a7b;
+  background-color: rgba(29, 35, 43, 0.8); // Color original con transparencia
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: white;
   border-radius: 12px;
   padding: 1.5rem;
@@ -144,13 +165,11 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #153a6b;
+    background-color: rgba(53, 59, 66, 0.9);
     transform: translateY(-3px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    transform: translateY(1px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
   }
 
   .icono {
@@ -162,7 +181,9 @@
 
   p {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.4rem; // Aumentado de 1.1rem
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; // Añadido para mejor legibilidad
   }
 }
 
@@ -223,23 +244,29 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   border: none;
   background: none;
   cursor: pointer;
   padding: 0;
+  margin-right: auto; // Empuja el botón hacia la izquierda
 
   .logo {
-    height: 50px;
+    height: 65px; // Logo más grande
   }
 
   .texto-logo {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 600;
-    color: #1d4a7b;
+    color: #1D232B;
+    font-family: 'Poppins', sans-serif;
   }
 
   &:hover {
     opacity: 0.8;
   }
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
 }
