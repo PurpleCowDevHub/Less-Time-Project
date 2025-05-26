@@ -101,7 +101,7 @@ export class DatosPage implements OnInit {
   }
 
   irAPrincipal() {
-    window.location.href = 'http://localhost:8100/home';
+    window.location.href = 'http://localhost:8100/principal';
   }
 
   irAEmpleados() {
