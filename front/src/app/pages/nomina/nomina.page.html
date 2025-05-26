@@ -35,38 +35,17 @@
     </div>
 
     <!-- Main content -->
-    <div class="content">
-      <div class="header">
+   <div class="content">
+      <div class="header titulo-nomina">
         <h1>Nómina:</h1>
       </div>
 
       <div class="payroll-summary">
-        <h2>Nómina quincenal</h2>
-        <p>Periodo 001/2025: 2 ene. - 8 ene.</p>
         <div class="summary-cards">
           <div><strong>Nº Empleados:</strong> 201</div>
-          <div><strong>Percepciones:</strong> $2,410,021.00</div>
-          <div><strong>Deducciones:</strong> $805,139.00</div>
+          <div><strong>Salario neto pagado:</strong> $2,410,021.00</div>
+          <div><strong>Bonificaciones:</strong> $805,139.00</div>
           <div><strong>Total:</strong> $1,604,882.00</div>
-        </div>
-      </div>
-
-      <div class="payroll-section" *ngFor="let grupo of grupos">
-        <div class="grupo-info">
-          <div>
-            <h3>{{ grupo.titulo }}</h3>
-            <p>Empleados: {{ grupo.empleados }}</p>
-            <p>Percepciones: {{ grupo.percepciones }}</p>
-            <p>Deducciones: {{ grupo.deducciones }}</p>
-            <p>Total: {{ grupo.total }}</p>
-          </div>
-          <button class="comenzar-btn">Comenzar</button>
-        </div>
-        <div class="progreso">
-          <span>1- Percepciones</span>
-          <span>2- Pagar</span>
-          <span>3- Planilla</span>
-          <span>4- Completar</span>
         </div>
       </div>
 
@@ -123,24 +102,32 @@
         </ion-button>
       </div>
 
-      <!-- Apartado: Enviar nómina -->
-      <div class="enviar-nomina-dos">
-        <h2>Enviar Nómina por Correo</h2>
-        
-        <ion-item>
-          <ion-label position="floating">ID del Empleado</ion-label>
-          <ion-input [(ngModel)]="idEnvioNomina" type="text" required></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">Período de pago (Mes y año)</ion-label>
-          <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: Mayo 2025" required></ion-input>
-        </ion-item>
-        
-        <ion-button color="primary" expand="block" (click)="enviarNominaConDatos()">
-          Enviar Nómina
-        </ion-button>
-      </div>
+    
+<!-- Apartado: Enviar Nómina -->
+<div class="enviar-nomina-dos">
+  <h2>Enviar Nómina por Correo</h2>
+
+  <div class="form-grid">
+    <div>
+      <label class="input-label">ID del Empleado</label>
+      <ion-item>
+        <ion-input [(ngModel)]="idEnvioNomina" type="text" required></ion-input>
+      </ion-item>
+    </div>
+
+    <div>
+      <label class="input-label">Período de pago (Mes y año)</label>
+      <ion-item>
+        <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: Mayo 2025" required></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-button color="primary" expand="block" (click)="enviarNominaConDatos()">
+    Enviar Nómina
+  </ion-button>
+</div>
+
 
       <!-- Sección de información adicional -->
       <div class="info-adicional">

@@ -271,11 +271,11 @@ ion-list {
     gap: 0.5rem;
 
     .input-label {
-      color: $dark-color;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-left: 0.25rem;
-    }
+  color: $dark-color;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
 
     ion-item {
       --background: #fff;
@@ -337,6 +337,17 @@ ion-list {
       font-family: $font-main;
     }
   }
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
 .info-adicional {
@@ -344,6 +355,7 @@ ion-list {
   border-radius: $input-radius;
   padding: 1.5rem;
   margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 
   h3 {
     color: $dark-color;
@@ -378,3 +390,22 @@ h1, h2, h3, h4, h5, h6,
 span {
   font-family: $font-main !important;
 }
+.titulo-nomina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7f0ff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0;
+    color: #2a4db7;
+    font-weight: 600;
+    font-size: 2rem;
+    // NO font-family aquí para que herede la global
+  }
+}
+
