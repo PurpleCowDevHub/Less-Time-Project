@@ -58,9 +58,11 @@ export class HorarioPage {
   async abrirNuevaJornada() {
     const modal = await this.modalCtrl.create({
       component: NuevajornadaPage,
-      cssClass: 'custom-modal-jornada',
+      cssClass: 'modal-fullscreen',
+      backdropDismiss: true,
+      showBackdrop: true,
     });
-    await modal.present();
+    return await modal.present();
   }
 
   navegar(url: string) {

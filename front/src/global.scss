@@ -35,3 +35,23 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.modal-fullscreen {
+  --backdrop-opacity: 0;
+  --background: transparent;
+
+  &::part(backdrop) {
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    animation: backdropFade 0.3s forwards;
+  }
+}
+
+@keyframes backdropFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

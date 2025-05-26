@@ -11,11 +11,12 @@ $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
 // Fondo oscuro translúcido detrás del modal
 .fondo-modal {
-  --background: rgba(0, 0, 0, 0.3);
+  --background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  height: 100%;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 // Contenedor del modal
@@ -23,22 +24,25 @@ $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background: $card-bg;
   border-radius: 16px;
   padding: 2rem;
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  box-shadow: $shadow;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh; // Reducido de 90vh a 85vh
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 52%; // Ajustado de 55% a 52% para subirlo un poco
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  animation: fadeInUp 0.3s ease-out;
+  overflow-y: auto; // Añadido para permitir scroll
+  -ms-overflow-style: none;  /* Para IE y Edge */
+  scrollbar-width: none;     /* Para Firefox */
 }
 
 // Estilo del scrollbar dentro del modal
 .modal-container::-webkit-scrollbar {
-  width: 8px;
-}
-.modal-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  width: 0;  // Cambiado de 8px a 0
+  display: none;  // Ocultar scrollbar
 }
 
 // Título
@@ -181,5 +185,33 @@ ion-select {
   border: 1px solid #d0d5dd;
   padding: 0 12px;
   font-size: 0.95rem;
+}
+
+// Ajustar el estilo del formulario para scroll
+.form-scroll {
+  max-height: calc(85vh - 4rem); // Altura máxima considerando el padding
+  overflow-y: auto;
+  padding-right: 0;  // Eliminar el padding que dejaba espacio para el scrollbar
+}
+
+// Ajustar la animación
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
