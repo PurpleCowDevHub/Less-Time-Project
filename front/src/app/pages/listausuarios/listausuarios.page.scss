@@ -145,17 +145,10 @@ ion-content {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 1rem;
-
-  h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    font-family: $font-main;
-    margin-bottom: 0.5rem;
-  }
 
   .header-actions {
     display: flex;
@@ -192,9 +185,10 @@ ion-content {
   margin-top: 1.5rem;
 
   .empleado-card {
-    background: #fdfaf5;
+    background: #f3f6fb; // NUEVO color con más contraste
     padding: 1rem;
     border-radius: 10px;
+    border: 1px solid #dbe6f3; // borde sutil para realce
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -205,7 +199,7 @@ ion-content {
     &:hover {
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       transform: translateY(-2px);
-      background-color: #f7f1e9;
+      background-color: #e6edf7;
     }
 
     .empleado-foto {
@@ -233,9 +227,18 @@ ion-content {
   }
 }
 
+.titulo-seccion {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1D232B;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-family: $font-main;
+}
+
 :host {
   font-family: $font-main;
-  
+
   ::ng-deep {
     * {
       font-family: $font-main;
@@ -243,11 +246,11 @@ ion-content {
   }
 }
 
-ion-item, 
-ion-label, 
-ion-input, 
-button, 
-p, 
+ion-item,
+ion-label,
+ion-input,
+button,
+p,
 h1, h2, h3, h4, h5, h6,
 span {
   font-family: $font-main !important;
