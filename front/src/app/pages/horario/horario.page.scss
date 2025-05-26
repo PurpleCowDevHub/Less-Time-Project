@@ -3,7 +3,6 @@
 
 $primary-color: #4285F4;
 $secondary-color: #A4BBD3;
-$dark-color: #1D232B;
 $font-main: 'Poppins', sans-serif;
 
 :host {
@@ -62,7 +61,6 @@ $font-main: 'Poppins', sans-serif;
     }
   }
 
-
   ion-list {
     width: 100%;
     background: transparent !important;
@@ -103,6 +101,7 @@ $font-main: 'Poppins', sans-serif;
     }
   }
 }
+
 .bottom-icons {
   position: absolute;
   bottom: 10px;
@@ -136,130 +135,4 @@ $font-main: 'Poppins', sans-serif;
       object-fit: cover;
     }
   }
-}
-
- 
-/* Main content */
-.content {
-  flex: 1;
-  padding: 20px;
-}
-
-.header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  h1 {
-    font-size: 28px;
-    margin: 0;
-  }
-
-  .date {
-    font-weight: bold;
-    display: block;
-    margin-top: 4px;
-    font-size: 14px;
-  }
-
-  .new-day-button {
-    background-color: #74c000;
-    color: black;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-}
-
-/* Searchbar */
-ion-searchbar {
-  --background: #2a6a9c;
-  --color: white;
-  --placeholder-color: white;
-  color: white;
-  border-radius: 10px;
-  margin-top: 20px;
-
-  input {
-    color: white !important;
-  }
-
-  .searchbar-input-container input::placeholder {
-    color: white !important;
-    opacity: 1;
-  }
-}
-
-/* Tabla de horarios */
-.schedule-container {
-  margin-top: 30px;
-  background-color: #fdf7e9;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-}
-
-.day-columns {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.day-column {
-  flex: 1;
-
-  .day-header {
-    background: #f0f0f0;
-    padding: 12px;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 12px;
-    margin-bottom: 10px;
-  }
-
-   .day-cell {
-    background: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-    min-height: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.2s;
-
-    &:hover {
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-bottom: 6px;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-}
-
-/* Asegurarse que todos los elementos usen Poppins */
-ion-item, 
-ion-label, 
-ion-input, 
-button, 
-p, 
-h1, h2, h3, h4, h5, h6,
-span,
-ion-searchbar,
-.day-header,
-.day-cell {
-  font-family: $font-main !important;
 }

@@ -34,41 +34,6 @@
       </div>
     </div>
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="header">
-        <div>
-          <h1>Horarios</h1>
-          <span class="date"> Agosto 2025</span>
-        </div>
-        <!-- Se agrega el (click) para abrir el modal -->
-        <button class="new-day-button" (click)="abrirNuevaJornada()">Nueva jornada</button>
-      </div>
-
-      <!-- Search bar -->
-      <ion-searchbar
-        placeholder="Buscar por ID, nombre o email"
-        showClearButton="always"
-      ></ion-searchbar>
-
-      <!-- Tabla dinámica -->
-      <div class="schedule-container">
-        <div class="day-columns">
-          <div
-            class="day-column"
-            *ngFor="let dia of ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']; let i = index"
-          >
-            <div class="day-header">{{ dia }}</div>
-
-            <div class="day-cell" *ngFor="let emp of empleados">
-              <p>{{ emp.dias[i].estado }}</p>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </ion-content>
 
