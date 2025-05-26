@@ -36,23 +36,14 @@
 
     <!-- Contenido principal -->
     <main class="main-content">
-      <!-- Header con buscador y botón -->
-      <header class="header">
-        <div class="header-actions">
-          <input
-            type="text"
-            [(ngModel)]="busqueda"
-            placeholder="Ingresar ID de usuario a eliminar"
-            class="search-input"
-          />
-          <button class="eliminar-usuario" (click)="eliminarUsuario()">Eliminar usuario</button>
-        </div>
-      </header>
 
-      <!-- Título Lista de empleados -->
-      <h1 class="titulo-seccion">Lista de empleados</h1>
+      <!-- Encabezado tipo caja azul claro -->
+      <div class="header-box">
+        <h1>Lista de empleados</h1>
+      </div>
 
-      <!-- Lista de empleados -->
+      <!-- Sección empleados -->
+      <h2 class="section-title">Empleados:</h2>
       <div class="empleado-list">
         <div *ngFor="let empleado of empleados" class="empleado-card">
           <img [src]="empleado.foto" alt="foto" class="empleado-foto" />
@@ -65,10 +56,8 @@
         </div>
       </div>
 
-      <!-- Título Lista de administradores -->
-      <h1 class="titulo-seccion">Lista de administradores</h1>
-
-      <!-- Lista de administradores -->
+      <!-- Sección administradores -->
+      <h2 class="section-title">Administradores:</h2>
       <div class="empleado-list">
         <div *ngFor="let admin of administradores" class="empleado-card">
           <img [src]="admin.foto" alt="foto" class="empleado-foto" />
@@ -80,6 +69,22 @@
           </div>
         </div>
       </div>
+
+      <!-- Barra fija inferior derecha -->
+      <div class="footer-actions">
+        <input
+          type="text"
+          [(ngModel)]="busqueda"
+          placeholder="Ingresar ID de usuario a eliminar"
+          class="search-input"
+        />
+        <button class="eliminar-usuario" (click)="eliminarUsuario()">Eliminar usuario</button>
+      </div>
+
+      <!-- Espacio adicional para permitir scroll debajo de la barra -->
+      <div class="scroll-buffer"></div>
+
     </main>
   </div>
 </ion-content>
+
