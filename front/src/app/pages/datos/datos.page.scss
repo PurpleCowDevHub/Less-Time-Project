@@ -37,7 +37,7 @@ $font-main: 'Poppins', sans-serif;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; // Cambiado de flex-start a center
+  align-items: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   position: sticky;
   top: 0;
@@ -47,11 +47,11 @@ $font-main: 'Poppins', sans-serif;
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: flex-start; // Cambiado de center a flex-start
+  justify-content: flex-start;
   gap: 12px;
   margin-bottom: 40px;
   width: 100%;
-  padding-left: 20px; // Añadido para dar un margen izquierdo consistente
+  padding-left: 20px;
   
   .logo {
     width: 50px;
@@ -73,13 +73,13 @@ ion-list {
   ion-item {
     --background: transparent;
     --border-radius: 10px;
-    --border-width: 1.5px; // Aumentado para hacer el borde más visible
+    --border-width: 1.5px;
     --border-style: solid;
-    --border-color: rgba(255, 255, 255, 0.5); // Aumentado la opacidad del borde
-    color: rgba(255, 255, 255, 0.9); // Texto más blanco
+    --border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 16px;
     width: 90%;
-    margin: 0 0 8px 4px; // Cambiado: eliminado 'auto' y añadido margen izquierdo
+    margin: 0 0 8px 4px;
     transition: all 0.3s ease;
     
     &::part(native) {
@@ -89,18 +89,18 @@ ion-list {
     ion-icon {
       margin-right: 12px;
       font-size: 20px;
-      color: rgba(255, 255, 255, 0.9); // Iconos más blancos
+      color: rgba(255, 255, 255, 0.9);
     }
 
     &:hover {
       --background: rgba(255, 255, 255, 0.15);
-      --border-color: rgba(255, 255, 255, 0.8); // Borde más blanco en hover
+      --border-color: rgba(255, 255, 255, 0.8);
       transform: translateX(5px);
     }
 
     &.selected {
       --background: rgba(255, 255, 255, 0.2);
-      --border-color: rgba(255, 255, 255, 1); // Borde completamente blanco cuando está seleccionado
+      --border-color: rgba(255, 255, 255, 1);
       font-weight: 500;
     }
   }
@@ -108,7 +108,7 @@ ion-list {
 
 .bottom-icons {
   position: absolute;
-  bottom: 10px; // Cambiado de 20px a 10px para bajar más el botón
+  bottom: 10px;
   left: 20px;
   display: flex;
   align-items: flex-start;
@@ -128,9 +128,9 @@ ion-list {
   justify-content: center;
 
   ion-avatar {
-    width: 50px; // Aumentar tamaño
-    height: 50px; // Aumentar tamaño
-    border: 2px solid white; // Añadir borde blanco
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
     
     img {
       width: 100%;
@@ -139,4 +139,112 @@ ion-list {
       object-fit: cover;
     }
   }
+}
+
+.content-container {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f4f5f7;
+}
+
+/* Nuevo estilo para el título Resumen de Nómina */
+.titulo-nomina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7f0ff;  // azul claro
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+  margin-bottom: 30px;
+
+  h1 {
+    margin: 0;
+    color: #2a4db7;  // azul oscuro para texto
+    font-weight: 600;
+    font-size: 28px;
+    font-family: $font-main;
+  }
+}
+
+
+.resumen-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.resumen-row {
+  display: flex;
+  gap: 20px;
+}
+
+.center-row {
+  justify-content: center;
+
+  .resumen-card {
+    flex: 0 0 300px; // ancho fijo igual que las cajas pequeñas
+    max-width: 300px;
+  }
+}
+
+.resumen-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s ease;
+  flex: 1;
+  min-width: 0;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  h3 {
+    margin-bottom: 10px;
+    color: #000000;  // <--- Aquí lo cambias a negro
+    font-size: 20px;
+  }
+
+  p {
+    margin: 4px 0;
+    font-weight: 500;
+    color: #2d3436;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 4px 0;
+      font-size: 15px;
+    }
+  }
+&.ventas {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+       background-color: #e7f0ff;  // mismo color que la caja del título resumen de nómina
+      color: #2a4db7;            // quitamos el gris
+      color: #000000;                 // negro para el texto
+      font-weight: 600;
+    }
+
+    td {
+      color: #2f3542;
+    }
+  }
+}
 }
