@@ -2,9 +2,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { 
+  peopleOutline, 
+  calendarOutline, 
+  cashOutline,
+  barChartOutline 
+} from 'ionicons/icons';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-empleado-lista',
@@ -26,7 +34,14 @@ export class ListausuariosPage implements OnInit {
   constructor(
     private userService: UserService,
     private alertController: AlertController
-  ) {}
+  ) {
+    addIcons({
+      peopleOutline,
+      calendarOutline,
+      cashOutline,
+      barChartOutline
+    });
+  }
 
   // Métodos de navegación del side menu
   irAPrincipal() {
@@ -47,6 +62,10 @@ export class ListausuariosPage implements OnInit {
 
   irAPerfilAdmin() {
     window.location.href = 'http://localhost:8100/perfiladmin';
+  }
+
+  irADatos() {
+    window.location.href = 'http://localhost:8100/datos';
   }
 
   ngOnInit() {

@@ -70,7 +70,6 @@ ion-content {
       --border-color: rgba(255, 255, 255, 0.5);
       color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
-      font-family: $font-main;
       width: 90%;
       margin: 0 0 8px 4px;
       transition: all 0.3s ease;
@@ -81,7 +80,8 @@ ion-content {
 
       ion-icon {
         margin-right: 12px;
-        font-size: 20px;
+        font-size: 24px; // Ajustado para coincidir con nómina
+        color: rgba(255, 255, 255, 0.9);
       }
 
       &:hover {

@@ -7,13 +7,13 @@
         <h2>Less Time</h2>
       </div>
       <ion-list lines="none">
-        <ion-item button (click)="irAPrincipal()">
-          <ion-icon name="home-outline"></ion-icon>
-          Home
+        <ion-item button (click)="irADatos()">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          Datos
         </ion-item>
         <ion-item button (click)="irAEmpleados()">
           <ion-icon name="people-outline"></ion-icon>
-          Empleado
+          Empleados
         </ion-item>
         <ion-item button (click)="irACalendario()">
           <ion-icon name="calendar-outline"></ion-icon>
@@ -37,16 +37,7 @@
     <!-- Main content -->
    <div class="content">
       <div class="header titulo-nomina">
-        <h1>Nómina:</h1>
-      </div>
-
-      <div class="payroll-summary">
-        <div class="summary-cards">
-          <div><strong>Nº Empleados:</strong> 201</div>
-          <div><strong>Salario neto pagado:</strong> $2,410,021.00</div>
-          <div><strong>Bonificaciones:</strong> $805,139.00</div>
-          <div><strong>Total:</strong> $1,604,882.00</div>
-        </div>
+        <h1>Nómina</h1>
       </div>
 
       <!-- Apartado: Datos para la nómina -->
@@ -111,7 +102,7 @@
     <div class="input-group">
       <label class="input-label">ID del Empleado</label>
       <ion-item>
-        <ion-input [(ngModel)]="idEnvioNomina" type="text" required></ion-input>
+        <ion-input [(ngModel)]="usuarioId" type="text" required></ion-input>
       </ion-item>
     </div>
     
@@ -132,7 +123,7 @@
       <!-- Sección de información adicional -->
       <div class="info-adicional">
         <h3>Instrucciones:</h3>
-        <p>1. Complete todos los campos obligatorios (marcados con *)</p>
+        <p>1. Complete todos los campos, son obligatorios</p>
         <p>2. Para el período de pago escriba el mes y año (ej: Mayo 2025)</p>
         <p>3. Guarde la nómina antes de enviarla por correo</p>
         <p>4. El mismo ID de empleado se usará para ambas operaciones</p>

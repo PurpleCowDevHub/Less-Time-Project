@@ -2,6 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { 
+  peopleOutline, 
+  calendarOutline, 
+  cashOutline,
+  barChartOutline 
+} from 'ionicons/icons';
 // Update the import path below if user.service.ts is located elsewhere
 import { UserService } from '../../services/user.service';
 import { AlertController } from '@ionic/angular';
@@ -29,7 +36,14 @@ export class NominaPage {
   constructor(
     private userService: UserService,
     private alertController: AlertController
-  ) {}
+  ) {
+    addIcons({
+      peopleOutline,
+      calendarOutline,
+      cashOutline,
+      barChartOutline
+    });
+  }
 
   // Métodos de navegación
   irAPrincipal() {
@@ -50,6 +64,10 @@ export class NominaPage {
 
   irAPerfilAdmin() {
     window.location.href = 'http://localhost:8100/perfiladmin';
+  }
+
+    irADatos() {
+    window.location.href = 'http://localhost:8100/datos';
   }
 
   // Método para crear nómina
