@@ -153,20 +153,21 @@ ion-list {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e7f0ff;  // azul claro
+  background-color: #e7f0ff;
   padding: 1rem 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 
   h1 {
     margin: 0;
-    color: #2a4db7;  // azul oscuro para texto
+    color: #2a4db7;
     font-weight: 600;
-    font-size: 28px;
-    font-family: $font-main;
+    font-size: 2rem;
+    // NO font-family aquí para que herede la global
   }
 }
+
 
 
 .resumen-grid {
