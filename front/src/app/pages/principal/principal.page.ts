@@ -3,6 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import {
+  mailOutline,
+  chatbubblesOutline,
+  notificationsOutline,
+  logOutOutline
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-principal',
@@ -15,12 +22,20 @@ export class PrincipalPage implements OnInit {
     usuario: string = '';
   mostrarReportes: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    addIcons({
+      mailOutline,
+      chatbubblesOutline,
+      notificationsOutline,
+      logOutOutline
+    });
+  }
 
   ngOnInit() {
     console.log('Página principal cargada');
-    // Obtener el nombre del usuario del localStorage
-    this.usuario = localStorage.getItem('nombreUsuario') || 'Usuario';
+    // Obtener el nombre completo del usuario del localStorage
+    const nombreCompleto = localStorage.getItem('nombreUsuario');
+    this.usuario = nombreCompleto || 'Usuario';
   }
 
   navegar(destino: string) {
@@ -60,4 +75,14 @@ export class PrincipalPage implements OnInit {
   }
   correo: string = 'Simon8rm@gmail.com';
 
+  cerrarSesion() {
+    console.log('Cerrando sesión...');
+    // Limpiar datos específicos
+    localStorage.removeItem('nombreUsuario');
+    localStorage.removeItem('usuario_id');
+    // Limpiar todo el localStorage
+    localStorage.clear();
+    this.usuario = '';
+    this.router.navigate(['/login']);
+  }
 }

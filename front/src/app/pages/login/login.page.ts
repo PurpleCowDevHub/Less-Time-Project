@@ -46,11 +46,12 @@ export class LoginPage {
         console.log('Login exitoso:', response);
         
         // Guardar el nombre en localStorage
-        localStorage.setItem('nombreUsuario', response.nombre || 'Usuario');
+        localStorage.setItem('nombreUsuario', response.nombre);
+        localStorage.setItem('usuario_id', response.usuario_id);
         
         // Redirigir según el tipo de usuario
         if (response.mensaje.includes('administrador')) {
-          this.router.navigate(['/perfiladmin']);
+          this.router.navigate(['/principal']);
         } else {
           this.router.navigate(['/principal']);
         }
