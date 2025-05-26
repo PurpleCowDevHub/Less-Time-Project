@@ -20,62 +20,19 @@ import {
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class HorarioPage {
-  empleados = [
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-    {
-      dias: [
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-        { estado: '' },
-      ],
-    },
-  ];
+  usuarioId: string = '';
+  fecha: string = '';
+  fechaListar: string = '';
+
+  usuariosConHorario: Array<{
+    id: string;
+    correo: string;
+    empresa: string;
+    diaSemana: string;
+    horaEntrada: string;
+    horaSalida: string;
+    observacion: string;
+  }> = [];
 
   constructor(private modalCtrl: ModalController, private router: Router) {
     addIcons({
@@ -88,7 +45,6 @@ export class HorarioPage {
 
   abrirPerfil() {
     console.log('Abriendo perfil...');
-    // Aquí podrías abrir un modal, popover, o navegar a otra página.
   }
 
   async abrirNuevaJornada() {
@@ -101,15 +57,49 @@ export class HorarioPage {
 
   navegar(url: string) {
     if (url.startsWith('http')) {
-      // Navegación externa
       window.location.href = url;
     } else {
-      // Navegación interna con Angular Router
       this.router.navigateByUrl(url);
     }
   }
 
   irPerfilAdmin() {
     window.location.href = 'http://localhost:8100/perfiladmin';
+  }
+
+  buscarHorario() {
+    console.log('Buscando horario para Usuario ID:', this.usuarioId, 'en fecha:', this.fecha);
+    // Implementar la lógica para obtener horario aquí
+  }
+
+  listarUsuarios() {
+    if (!this.fechaListar) {
+      alert('Por favor ingresa una fecha para listar.');
+      return;
+    }
+
+    console.log('Listando usuarios con horarios para la fecha:', this.fechaListar);
+
+    // Simulación de datos
+    this.usuariosConHorario = [
+      {
+        id: 'U001',
+        correo: 'usuario1@example.com',
+        empresa: 'Empresa A',
+        diaSemana: 'Lunes',
+        horaEntrada: '08:00 AM',
+        horaSalida: '05:00 PM',
+        observacion: 'Sin novedades',
+      },
+      {
+        id: 'U002',
+        correo: 'usuario2@example.com',
+        empresa: 'Empresa B',
+        diaSemana: 'Lunes',
+        horaEntrada: '09:00 AM',
+        horaSalida: '06:00 PM',
+        observacion: 'Reunión por la tarde',
+      },
+    ];
   }
 }
