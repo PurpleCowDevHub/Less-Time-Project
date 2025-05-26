@@ -15,7 +15,7 @@ $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; // ❌ IMPORTANTE: evita scroll adicional
+  overflow: hidden;
 }
 
 // Contenedor del modal
@@ -29,7 +29,7 @@ $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   box-shadow: $shadow;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; // ✅ scroll solo en el modal
+  overflow-y: auto;
 }
 
 // Estilo del scrollbar dentro del modal
@@ -64,12 +64,14 @@ h2 {
   }
 
   input[type="text"],
-  input[type="time"] {
+  input[type="time"],
+  input[type="number"] {
     background: $input-bg;
     border: 1px solid #d0d5dd;
     border-radius: $input-radius;
     padding: 0.65rem 1rem;
     font-size: 0.95rem;
+    color: #1d232b; // ✅ Color de texto oscuro visible
   }
 }
 
@@ -139,7 +141,7 @@ h2 {
 
   .entrada-fecha {
     --background: $input-bg;
-    --color: #1d232b;
+    --color: #1d232b; // ✅ para texto visible
     border: 1px solid #d0d5dd;
     border-radius: $input-radius;
     height: 40px;
@@ -157,3 +159,27 @@ h2 {
     }
   }
 }
+
+// Estilos adicionales para Ionic inputs y selects
+ion-input {
+  --background: #f1f5f9;
+  --color: #1d232b;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --border-radius: 12px;
+  --border-color: #d0d5dd;
+  border: 1px solid #d0d5dd;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+ion-select {
+  --background: #f1f5f9;
+  --color: #1d232b;
+  --border-radius: 12px;
+  --border-color: #d0d5dd;
+  border: 1px solid #d0d5dd;
+  padding: 0 12px;
+  font-size: 0.95rem;
+}
+
