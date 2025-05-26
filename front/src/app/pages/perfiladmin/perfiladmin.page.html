@@ -3,56 +3,59 @@
 
     <!-- Sidebar -->
     <div class="side-menu">
-      <div class="logo-container">
+      <div class="logo-container" (click)="irAPrincipal()" style="cursor: pointer;">
         <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
         <h2>Less Time</h2>
       </div>
-
       <ion-list lines="none">
-        <ion-item button>Home</ion-item>
-        <ion-item button>Empleado</ion-item>
-        <ion-item button>Calendario</ion-item>
-        <ion-item button>Nomina</ion-item>
+        <ion-item button (click)="irADatos()">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          Datos
+        </ion-item>
+        <ion-item button (click)="irAEmpleados()">
+          <ion-icon name="people-outline"></ion-icon>
+          Empleados
+        </ion-item>
+        <ion-item button (click)="irACalendario()">
+          <ion-icon name="calendar-outline"></ion-icon>
+          Calendario
+        </ion-item>
+        <ion-item button (click)="irANomina()">
+          <ion-icon name="cash-outline"></ion-icon>
+          Nomina
+        </ion-item>
       </ion-list>
 
       <div class="bottom-icons">
-        <ion-button fill="clear" class="avatar-btn" (click)="abrirPerfil()">
+        <ion-button fill="clear" class="avatar-btn" (click)="irAPerfilAdmin()">
           <ion-avatar>
             <img src="assets/icon/avatar.png" alt="Usuario" />
           </ion-avatar>
-        </ion-button>
-
-        <ion-button fill="clear">
-          <ion-icon slot="icon-only" name="settings-outline" class="settings-icon"></ion-icon>
         </ion-button>
       </div>
     </div>
 
     <!-- Main content -->
     <div class="content">
-
       <!-- Encabezado del perfil -->
-    <div class="profile-header">
-  <img src="assets/icon/avatar.png" alt="Foto" class="profile-photo" />
-
-  <div class="user-info">
-    <h2>Patricia Montserrat</h2>
-    <p class="puesto">Auxiliar contable</p>
-
-    <div class="contact-columns">
-      <div class="contact-column">
-        <p><ion-icon name="mail-outline"></ion-icon> patimont&#64;hotmail.com</p>
-        <p><ion-icon name="call-outline"></ion-icon> 3153252553</p>
+      <div class="profile-header">
+        <img src="assets/icon/avatar.png" alt="Foto" class="profile-photo" />
+        <div class="user-info">
+          <h2>Nombre del Usuario</h2>
+          <p class="puesto">Puesto</p>
+          <div class="contact-columns">
+            <div class="contact-column">
+              <p><ion-icon name="mail-outline"></ion-icon> correoejemplo.com</p>
+              <p><ion-icon name="call-outline"></ion-icon> Teléfono</p>
+            </div>
+            <div class="contact-column">
+              <p><ion-icon name="calendar-outline"></ion-icon> Fecha de ingreso</p>
+              <p><ion-icon name="mail-outline"></ion-icon> correo.corporativoejemplo.com</p>
+            </div>
+          </div>
+        </div>
+        <ion-button class="estado-btn" color="primary">Estado</ion-button>
       </div>
-      <div class="contact-column">
-        <p><ion-icon name="calendar-outline"></ion-icon> 01/10/2022</p>
-        <p><ion-icon name="mail-outline"></ion-icon> patauxcont&#64;gmail.com</p>
-      </div>
-    </div>
-  </div>
-
-  <ion-button class="estado-btn" color="primary">Empleada</ion-button>
-</div>
 
       <!-- Botones de navegación -->
       <ion-segment value="personal" class="tabs">
@@ -75,23 +78,40 @@
         <h3>Información básica <ion-icon name="create-outline"></ion-icon></h3>
         <div class="info-grid">
           <div class="info-column">
-            <p><strong>Nombre:</strong> Patricia</p>
-            <p><strong>Primer apellido:</strong> Montserrat</p>
-            <p><strong>Segundo apellido:</strong> Mondragon</p>
-            <p><strong>Género:</strong> Binario</p>
+            <p>
+              <strong>Nombre</strong>
+            </p>
+            <p>
+              <strong>Primer apellido</strong>
+            </p>
+            <p>
+              <strong>Segundo apellido</strong>
+            </p>
           </div>
           <div class="info-column">
-            <p><strong>Fecha de nacimiento:</strong> Ingreso: 14/08/1980</p>
-            <p><strong>¿Tiene seguro social?:</strong> Sí</p>
-            <p><strong>Seguro social:</strong> 01826334870</p>
+            <p>
+              <strong>Fecha de nacimiento</strong>
+            </p>
+            <p>
+              <strong>¿Tiene seguro social?</strong>
+            </p>
+            <p>
+              <strong>Seguro social</strong>
+            </p>
           </div>
           <div class="info-column">
-            <p><strong>Email personal:</strong> patimont&#64;hotmail.com</p>
-            <p><strong>Email corporativo:</strong> patauxcont&#64;gmail.com</p>
+            <p>
+              <strong>Email personal</strong>
+            </p>
+            <p>
+              <strong>Email corporativo</strong>
+            </p>
+            <p>
+              <strong>Género</strong>
+            </p>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </ion-content>

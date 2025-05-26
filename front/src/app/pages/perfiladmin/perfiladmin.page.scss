@@ -1,7 +1,36 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-color: #4285F4;
+$secondary-color: #A4BBD3;
+$dark-color: #1D232B;
+$font-main: 'Poppins', sans-serif;
+
+:host {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
+    }
+  }
+}
+
+// Asegurar que todos los elementos usen Poppins
+ion-item, 
+ion-label, 
+ion-input, 
+button, 
+p, 
+h1, h2, h3, h4, h5, h6,
+span {
+  font-family: $font-main !important;
+}
+
 .main-container {
   display: flex;
-  height: 100vh;           // Altura completa de la ventana
-  overflow: hidden;
+  min-height: 100vh;  // Cambiar height por min-height
+  background-color: #f4f4f4;
 }
 
 .side-menu {
@@ -10,21 +39,32 @@
   left: 0;
   height: 100vh;
   width: 300px;
-  background: linear-gradient(to bottom, #d2e6fb, #6394e2);
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 65%,
+    #A4BBD3 100%
+  );
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0 5px 5px 0;
-  z-index: 100;
-
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  
   .logo-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
     margin-bottom: 40px;
-
+    width: 100%;
+    padding-left: 20px;
+    
     .logo {
       width: 50px;
       height: auto;
@@ -32,17 +72,9 @@
 
     h2 {
       margin: 0;
-      color: black;
+      color: white;
       font-size: 24px;
-      font-weight: bold;
-    }
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-
-      h2 {
-        font-size: 20px;
-      }
+      font-weight: 600;
     }
   }
 
@@ -52,144 +84,116 @@
 
     ion-item {
       --background: transparent;
-      color: white;
+      --border-radius: 10px;
+      --border-width: 1.5px;
+      --border-style: solid;
+      --border-color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
+      width: 90%;
+      margin: 0 0 8px 4px;
+      transition: all 0.3s ease;
+      
+      &::part(native) {
+        padding-left: 16px;
+      }
+
+      ion-icon {
+        margin-right: 12px;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      &:hover {
+        --background: rgba(255, 255, 255, 0.15);
+        --border-color: rgba(255, 255, 255, 0.8);
+        transform: translateX(5px);
+      }
+
+      &.selected {
+        --background: rgba(255, 255, 255, 0.2);
+        --border-color: rgba(255, 255, 255, 1);
+        font-weight: 500;
+      }
+    }
+  }
+
+  .bottom-icons {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    display: flex;
+    align-items: flex-start;
+    width: auto;
+  }
+
+  .avatar-btn {
+    padding: 0;
+    margin: 0;
+    height: auto;
+    width: auto;
+    --padding-start: 0;
+    --padding-end: 0;
+    --ion-button-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-avatar {
+      width: 50px;
+      height: 50px;
+      border: 2px solid white;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
     }
   }
 }
 
-.bottom-icons {
-  position: absolute;
-  bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-
-  .settings-icon {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-}
-
-.avatar-btn {
-  padding: 0;
-  margin: 0;
-  height: auto;
-  width: auto;
-  --padding-start: 0;
-  --padding-end: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ion-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-}
-
 .content {
-  margin-left: 300px;         // Para no superponer la barra lateral
-  padding: 40px;
-  background-color: #f4f4f4;
-  height: 100vh;
+  flex: 1;
+  margin-left: 300px;
+  padding: 2rem;
+  background: #f5f7fa;
+  color: $dark-color;
+  min-height: 100vh;
   overflow-y: auto;
+  max-width: calc(100vw - 300px); // Asegura que no exceda el ancho disponible
 }
 
 .profile-header {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap; // Permite que los elementos se envuelvan en pantallas pequeñas
+  align-items: flex-start;
   background: white;
-  padding: 20px 30px;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   gap: 25px;
 
-  .profile-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
- .user-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h2 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .estado-btn {
-      font-size: 13px;
-      font-weight: bold;
-      padding: 4px 18px;
-      height: 30px;
-      border-radius: 6px;
-      --background: #0056ec;
-      --color: white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-  }
-
-  .puesto {
-    font-size: 14px;
-    color: #aaa;
-    margin: 0;
-    margin-top: 6px;
-    margin-bottom: 16px;
-  }
-
-  .contact-columns {
-    display: flex;
-    gap: 60px;
-
-    .contact-column {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      line-height: 1.6; // 👈 más interlineado
-
-      p {
-        font-size: 15px;
-        color: #444;
-        margin: 0;
-      }
+  .user-info {
+    flex: 1;
+    min-width: 280px; // Asegura un ancho mínimo antes de envolver
+    
+    .contact-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
     }
   }
 }
-
-        ion-icon {
-          font-size: 16px;
-          color: #2b67b1;
-        }
-      }
 
 .info-box {
   background: white;
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
 
   h3 {
     margin-top: 0;
@@ -198,14 +202,55 @@
     margin-bottom: 20px;
   }
 
-  p {
-    margin: 20px 0;
-    font-size: 15px;
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    
+    .info-column {
+      p {
+        margin: 12px 0;
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
 
-    strong {
-      display: inline-block;
-      min-width: 600px;
-      color: #333;
+        strong {
+          display: block;
+          color: #333;
+          font-weight: 600;
+          min-width: auto; // Eliminar el min-width fijo
+        }
+      }
+    }
+  }
+}
+
+// Ajustes para los tabs
+.tabs {
+  margin: 20px 0;
+  background: white;
+  border-radius: 10px;
+  padding: 5px;
+  
+  ion-segment-button {
+    --background-checked: #{$primary-color};
+    --color-checked: white;
+    --indicator-color: transparent;
+    min-height: 45px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+
+ion-content {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
     }
   }
 }
