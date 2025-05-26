@@ -1,3 +1,4 @@
+// src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -40,20 +41,23 @@ interface RegistroPayload {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://localhost:8000'; // URL base del backend
 
   constructor(private http: HttpClient) {}
 
-  // Autenticación
+  // Servicios de autenticación
   login(correo: string, contrasena: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { correo, contrasena });
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
+      correo,
+      contrasena
+    });
   }
 
   registrar(usuario: RegistroPayload): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, usuario);
   }
 
-  // Administración
+  // Servicios de administración de usuarios
   obtenerUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios`);
   }
@@ -66,7 +70,7 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/admin/usuarios/${id}`);
   }
 
-  // Nómina
+  // Servicios de nómina
   crearNomina(
     usuario_id: string,
     horas_trabajadas: number,
@@ -92,7 +96,7 @@ export class UserService {
     });
   }
 
-  // 🔵 Obtener métricas para el dashboard
+  // ✅ Servicio para obtener métricas
   obtenerMetricas(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/admin/metrics`);
   }
