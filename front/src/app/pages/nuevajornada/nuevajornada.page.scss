@@ -2,28 +2,33 @@
 
 // Paleta del diseño general
 $card-bg: #ffffff;
-$primary-bg: #f5f7fa;
-$input-bg: #f1f5f9;
-$button-green: #34c759;
-$button-red: #ff3b30;
+$primary-blue: #1e3d59;
+$light-blue: #A4BBD3;
+$medium-blue: #4285F4;
+$dark-blue: #1e3d59;
+$input-bg: #f5f7fa;
+$button-green: #2ecc71;
+$button-red: #dc3545;
+$accent-color: #A4BBD3;
 $input-radius: 12px;
 $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
 // Fondo oscuro translúcido detrás del modal
 .fondo-modal {
-  --background: transparent;
+  --background: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: backdropFadeIn 0.4s ease-out forwards;
 }
 
 // Contenedor del modal
 .modal-container {
+  font-family: 'Poppins', sans-serif;
   background: $card-bg;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 2.5rem;
   width: 90%;
   max-width: 500px;
   max-height: 85vh; // Reducido de 90vh a 85vh
@@ -49,9 +54,9 @@ $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 h2 {
   text-align: center;
   font-weight: 600;
-  font-size: 1.4rem;
-  color: #1d232b;
-  margin-bottom: 1.5rem;
+  font-size: 2rem; // Aumentado de 1.6rem a 2rem
+  color: $dark-blue;
+  margin-bottom: 2rem;
 }
 
 // Campos del formulario
@@ -62,20 +67,28 @@ h2 {
 
   label {
     font-size: 0.95rem;
-    color: #333;
+    color: $medium-blue;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
   }
 
   input[type="text"],
   input[type="time"],
   input[type="number"] {
-    background: $input-bg;
-    border: 1px solid #d0d5dd;
+    background: white;
+    border: 1.5px solid $light-blue;
     border-radius: $input-radius;
     padding: 0.65rem 1rem;
     font-size: 0.95rem;
-    color: #1d232b; // ✅ Color de texto oscuro visible
+    color: $dark-blue; // ✅ Color de texto oscuro visible
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    
+    &:focus {
+      border: 1.5px solid $medium-blue;
+      box-shadow: 0 0 0 1px rgba($medium-blue, 0.1);
+      transform: none;
+    }
   }
 }
 
@@ -87,12 +100,12 @@ h2 {
 
   label {
     font-size: 0.9rem;
-    color: #333;
+    color: $dark-blue;
   }
 
   input[type="checkbox"] {
-    margin-right: 6px;
-    accent-color: $button-green;
+    margin-right: 8px;
+    accent-color: $medium-blue;
   }
 }
 
@@ -120,20 +133,35 @@ h2 {
   button {
     padding: 0.6rem 1.8rem;
     border-radius: $input-radius;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .cancelar {
-    background-color: $button-red;
-    color: white;
+    background-color: transparent;
+    border: 2px solid $button-red;
+    color: $button-red;
+    
+    &:hover {
+      background-color: $button-red;
+      color: white;
+    }
   }
 
   .guardar {
-    background-color: $button-green;
+    background-color: $dark-blue;
     color: white;
+    
+    &:hover {
+      background-color: $medium-blue;
+    }
   }
 }
 
@@ -165,33 +193,49 @@ h2 {
 }
 
 // Estilos adicionales para Ionic inputs y selects
-ion-input {
-  --background: #f1f5f9;
+ion-input, ion-select {
+  --background: white;
   --color: #1d232b;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --border-radius: 12px;
-  --border-color: #d0d5dd;
-  border: 1px solid #d0d5dd;
+  --border-color: #2d4b6b;
+  --placeholder-opacity: 0.7;
+  --placeholder-color: #666;
+  border: 1.5px solid #2d4b6b;
   font-size: 0.95rem;
   text-align: center;
 }
 
+// Agregar estos estilos específicos para ion-select
 ion-select {
-  --background: #f1f5f9;
-  --color: #1d232b;
-  --border-radius: 12px;
-  --border-color: #d0d5dd;
-  border: 1px solid #d0d5dd;
-  padding: 0 12px;
-  font-size: 0.95rem;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  
+  &::part(text) {
+    color: #1d232b;
+  }
+  
+  &::part(placeholder) {
+    color: #666;
+    opacity: 1;
+  }
+  
+  &::part(icon) {
+    color: #2d4b6b;
+    opacity: 1;
+  }
 }
 
 // Ajustar el estilo del formulario para scroll
 .form-scroll {
-  max-height: calc(85vh - 4rem); // Altura máxima considerando el padding
+  max-height: calc(85vh - 4rem);
   overflow-y: auto;
-  padding-right: 0;  // Eliminar el padding que dejaba espacio para el scrollbar
+  padding-right: 0;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+  
+  &::-webkit-scrollbar {
+    display: none;           /* Chrome, Safari and Opera */
+    width: 0;
+  }
 }
 
 // Ajustar la animación
@@ -212,6 +256,15 @@ ion-select {
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes backdropFadeIn {
+  0% {
+    --background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    --background: rgba(0, 0, 0, 0.4);
   }
 }
 
