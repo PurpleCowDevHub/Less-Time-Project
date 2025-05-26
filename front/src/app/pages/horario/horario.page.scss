@@ -1,3 +1,21 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-color: #4285F4;
+$secondary-color: #A4BBD3;
+$dark-color: #1D232B;
+$font-main: 'Poppins', sans-serif;
+
+:host {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
+    }
+  }
+}
+
 .main-container {
   display: flex;
   height: 100%;
@@ -6,45 +24,41 @@
 /* Sidebar */
 .side-menu {
   width: 300px;
-  background: linear-gradient(to bottom, #d2e6fb, #6394e2);
-  color: white;
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 65%,
+    #A4BBD3 100%
+  );
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 5px;
-  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  height: 100vh;
 
   .logo-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
     margin-bottom: 40px;
-    text-align: left;
-
+    width: 100%;
+    padding-left: 20px;
+    
     .logo {
-    width: 50px;
+      width: 50px;
       height: auto;
-      flex-shrink: 0;
-
     }
 
     h2 {
       margin: 0;
-      color: black;
+      color: white;
       font-size: 24px;
-      font-weight: bold;
-      line-height: 1.2;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      align-items: center;
-      h2 {
-        font-size: 20px;
-        text-align: center;
-      }
+      font-weight: 600;
     }
   }
 
@@ -55,25 +69,47 @@
 
     ion-item {
       --background: transparent;
-      color: white;
+      --border-radius: 10px;
+      --border-width: 1.5px;
+      --border-style: solid;
+      --border-color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
+      width: 90%;
+      margin: 0 0 8px 4px;
+      transition: all 0.3s ease;
+      
+      &::part(native) {
+        padding-left: 16px;
+      }
+
+      ion-icon {
+        margin-right: 12px;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      &:hover {
+        --background: rgba(255, 255, 255, 0.15);
+        --border-color: rgba(255, 255, 255, 0.8);
+        transform: translateX(5px);
+      }
+
+      &.selected {
+        --background: rgba(255, 255, 255, 0.2);
+        --border-color: rgba(255, 255, 255, 1);
+        font-weight: 500;
+      }
     }
   }
 }
 .bottom-icons {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
+  left: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-
-  .settings-icon {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
+  align-items: flex-start;
+  width: auto;
 }
 
 .avatar-btn {
@@ -89,15 +125,16 @@
   justify-content: center;
 
   ion-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 }
 
@@ -211,4 +248,18 @@ ion-searchbar {
       margin: 0;
     }
   }
+}
+
+/* Asegurarse que todos los elementos usen Poppins */
+ion-item, 
+ion-label, 
+ion-input, 
+button, 
+p, 
+h1, h2, h3, h4, h5, h6,
+span,
+ion-searchbar,
+.day-header,
+.day-cell {
+  font-family: $font-main !important;
 }

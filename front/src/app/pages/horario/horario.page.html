@@ -1,27 +1,36 @@
 <ion-content fullscreen>
   <div class="main-container">
-
     <!-- Sidebar -->
     <div class="side-menu">
-      <div class="logo-container">
-        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" (click)="navegar('http://localhost:8101/principal')" />
-        <h2 (click)="navegar('http://localhost:8101/principal')">Less Time</h2>
+      <div class="logo-container" (click)="navegar('http://localhost:8101/principal')" style="cursor: pointer;">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
       </div>
       <ion-list lines="none">
-        <ion-item button (click)="navegar('http://localhost:8101/principal')">Home</ion-item>
-        <ion-item button (click)="navegar('http://localhost:8100/listausuarios')">Empleado</ion-item>
-        <ion-item button (click)="navegar('http://localhost:8101/horario')">Calendario</ion-item>
-        <ion-item button (click)="navegar('http://localhost:8101/nomina')">Nomina</ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/datos')">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          Datos
+        </ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/listausuarios')">
+          <ion-icon name="people-outline"></ion-icon>
+          Empleados
+        </ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/horario')" class="selected">
+          <ion-icon name="calendar-outline"></ion-icon>
+          Calendario
+        </ion-item>
+        <ion-item button (click)="navegar('http://localhost:8100/nomina')">
+          <ion-icon name="cash-outline"></ion-icon>
+          Nomina
+        </ion-item>
       </ion-list>
 
-      <!-- Avatar + engranaje restaurado -->
       <div class="bottom-icons">
         <ion-button fill="clear" class="avatar-btn" (click)="irPerfilAdmin()">
           <ion-avatar>
             <img src="assets/icon/avatar.png" alt="Usuario" />
           </ion-avatar>
         </ion-button>
-        <ion-icon name="settings-outline" class="settings-icon"></ion-icon>
       </div>
     </div>
 

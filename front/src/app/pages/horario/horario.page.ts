@@ -4,6 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { NuevajornadaPage } from '../nuevajornada/nuevajornada.page';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import {
+  peopleOutline,
+  calendarOutline,
+  cashOutline,
+  barChartOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-horario',
@@ -70,7 +77,14 @@ export class HorarioPage {
     },
   ];
 
-  constructor(private modalCtrl: ModalController, private router: Router) {}
+  constructor(private modalCtrl: ModalController, private router: Router) {
+    addIcons({
+      peopleOutline,
+      calendarOutline,
+      cashOutline,
+      barChartOutline,
+    });
+  }
 
   abrirPerfil() {
     console.log('Abriendo perfil...');
