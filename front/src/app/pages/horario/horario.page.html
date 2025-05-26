@@ -71,25 +71,34 @@
           </ion-button>
         </form>
 
-        <!-- Solo mantener la información básica aquí -->
+        <!-- Reemplazar la sección de resultado-horario con esto: -->
         <div class="resultado-horario">
-          <div class="resultado-row">
+          <div *ngIf="errorMensaje" class="error-message">
+            {{ errorMensaje }}
+          </div>
+          
+          <div class="resultado-row" *ngFor="let horario of horarioDetallado">
             <div class="resultado-item">
               <strong>Día de la semana</strong>
-              <p>Lunes</p>
+              <p>{{horario.dia_semana}}</p>
             </div>
             <div class="resultado-item">
               <strong>Hora de entrada</strong>
-              <p>08:00 AM</p>
+              <p>{{horario.hora_entrada}}</p>
             </div>
             <div class="resultado-item">
               <strong>Hora de salida</strong>
-              <p>05:00 PM</p>
+              <p>{{horario.hora_salida}}</p>
             </div>
             <div class="resultado-item">
               <strong>Observación</strong>
-              <p>Sin novedades</p>
+              <p>{{horario.observacion || 'Sin observaciones'}}</p>
             </div>
+          </div>
+          
+          <!-- Mensaje cuando no hay resultados -->
+          <div *ngIf="horarioDetallado.length === 0 && !errorMensaje" class="no-resultados">
+            No se encontraron horarios para esta fecha
           </div>
         </div>
       </div>
@@ -132,10 +141,10 @@
                 <td>{{usuario.id}}</td>
                 <td>{{usuario.correo}}</td>
                 <td>{{usuario.empresa}}</td>
-                <td>{{usuario.diaSemana}}</td>
-                <td>{{usuario.horaEntrada}}</td>
-                <td>{{usuario.horaSalida}}</td>
-                <td>{{usuario.observacion}}</td>
+                <td>{{usuario.dia_semana}}</td>
+                <td>{{usuario.hora_entrada}}</td>
+                <td>{{usuario.hora_salida}}</td>
+                <td>{{usuario.observacion || 'Sin observaciones'}}</td>
               </tr>
             </tbody>
           </table>

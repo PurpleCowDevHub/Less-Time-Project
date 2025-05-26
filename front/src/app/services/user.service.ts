@@ -61,4 +61,20 @@ export class UserService {
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/horarios`, payload);
   }
+
+  obtenerHorario(usuarioId: string, fecha: string) {
+    return this.http.get<HorarioDetalle[]>(`${this.apiUrl}/admin/horarios/${usuarioId}?fecha=${fecha}`);
+  }
+
+  listarUsuariosConHorarios(fecha: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios_con_horarios?fecha=${fecha}`);
+  }
+}
+
+// Añadir estas interfaces
+export interface HorarioDetalle {
+  dia_semana: string;
+  hora_entrada: string;
+  hora_salida: string;
+  observacion: string;
 }

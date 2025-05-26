@@ -201,11 +201,16 @@ $font-main: 'Poppins', sans-serif;
         --padding-top: 8px;
         --padding-bottom: 8px;
         --placeholder-color: #95a5a6;
+        --color: #2d3436; // Añadir color del texto
         font-size: 15px;
         border: 1.5px solid #dfe6e9;
         border-radius: 6px;
         background: #fff;
         margin-top: 4px;
+
+        &::part(native) {
+          color: #2d3436; // Asegurar que el texto sea visible
+        }
       }
     }
   }
@@ -341,4 +346,20 @@ $font-main: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 2rem;
   }
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.no-resultados {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
 }

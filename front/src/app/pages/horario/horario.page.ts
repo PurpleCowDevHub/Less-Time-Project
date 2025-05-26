@@ -5,6 +5,7 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { NuevajornadaPage } from '../nuevajornada/nuevajornada.page';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
+import { UserService, HorarioDetalle } from '../../services/user.service';
 import {
   peopleOutline,
   calendarOutline,
@@ -33,20 +34,15 @@ export class HorarioPage {
   usuarioId: string = '';
   fecha: string = '';
   fechaListar: string = '';
+  errorMensaje: string = '';
+  horarioDetallado: HorarioDetalle[] = [];
+  usuariosConHorario: any[] = [];
 
-  usuariosConHorario: Array<{
-    id: string;
-    correo: string;
-    empresa: string;
-    diaSemana: string;
-    horaEntrada: string;
-    horaSalida: string;
-    observacion: string;
-  }> = [];
-
-  horarioDetallado: HorarioDetallado | null = null;
-
-  constructor(private modalCtrl: ModalController, private router: Router) {
+  constructor(
+    private modalCtrl: ModalController,
+    private router: Router,
+    private userService: UserService
+  ) {
     addIcons({
       peopleOutline,
       calendarOutline,
@@ -80,50 +76,41 @@ export class HorarioPage {
   }
 
   buscarHorario() {
-    console.log('Buscando horario para Usuario ID:', this.usuarioId, 'en fecha:', this.fecha);
-    // Implementar la lógica para obtener horario aquí
+    if (!this.usuarioId || !this.fecha) {
+      this.errorMensaje = 'Por favor complete todos los campos';
+      return;
+    }
 
-    // Aquí deberías hacer tu llamada al servicio para obtener los datos
-    // Por ahora simularemos datos de ejemplo
-    this.horarioDetallado = {
-      id: this.usuarioId,
-      correo: 'usuario@ejemplo.com',
-      empresa: 'Empresa Ejemplo',
-      diaSemana: 'Lunes',
-      horaEntrada: '08:00 AM',
-      horaSalida: '05:00 PM',
-      observacion: 'Sin novedades'
-    };
+    this.userService.obtenerHorario(this.usuarioId, this.fecha).subscribe({
+      next: (horarios) => {
+        this.horarioDetallado = horarios;
+        this.errorMensaje = '';
+      },
+      error: (error) => {
+        this.errorMensaje = 'Error al obtener el horario: ' + error.message;
+        console.error('Error:', error);
+      },
+    });
   }
 
   listarUsuarios() {
     if (!this.fechaListar) {
-      alert('Por favor ingresa una fecha para listar.');
+      this.errorMensaje = 'Por favor ingrese una fecha para listar';
       return;
     }
 
-    console.log('Listando usuarios con horarios para la fecha:', this.fechaListar);
-
-    // Simulación de datos
-    this.usuariosConHorario = [
-      {
-        id: 'U001',
-        correo: 'usuario1@example.com',
-        empresa: 'Empresa A',
-        diaSemana: 'Lunes',
-        horaEntrada: '08:00 AM',
-        horaSalida: '05:00 PM',
-        observacion: 'Sin novedades',
+    this.userService.listarUsuariosConHorarios(this.fechaListar).subscribe({
+      next: (usuarios) => {
+        this.usuariosConHorario = usuarios.map((usuario) => ({
+          ...usuario,
+          ...usuario.horarios[0], // Expandir el primer horario del usuario
+        }));
+        this.errorMensaje = '';
       },
-      {
-        id: 'U002',
-        correo: 'usuario2@example.com',
-        empresa: 'Empresa B',
-        diaSemana: 'Lunes',
-        horaEntrada: '09:00 AM',
-        horaSalida: '06:00 PM',
-        observacion: 'Reunión por la tarde',
+      error: (error) => {
+        this.errorMensaje = 'Error al listar usuarios: ' + error.message;
+        console.error('Error:', error);
       },
-    ];
+    });
   }
 }
