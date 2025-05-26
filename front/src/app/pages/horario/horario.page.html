@@ -36,49 +36,42 @@
 
     <!-- Contenido principal -->
     <div class="content">
-
-      <!-- NUEVO BOTÓN EN LA PARTE SUPERIOR DERECHA -->
-      <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-        <ion-button color="primary" shape="round" (click)="navegar('http://localhost:8100/nuevajornada')">
-          Nueva jornada
-        </ion-button>
+      <div class="titulo-horario">
+        <h1>Horario</h1>
       </div>
 
       <div class="horario-section">
-        <!-- Header con título y botón Nueva jornada -->
         <div class="header-section">
-          <h2>Obtener horario</h2>
-          <ion-button color="primary" shape="round" (click)="abrirNuevaJornada()">
-            Nueva jornada
-          </ion-button>
+          <h2 style="text-align: center;">Obtener horario</h2>
         </div>
 
         <form (ngSubmit)="buscarHorario()" #horarioForm="ngForm" class="form-row">
-          <ion-item class="input-field">
-            <ion-label position="floating">Usuario ID</ion-label>
+          <div class="input-field">
+            <ion-label>Usuario ID</ion-label>
             <ion-input
               type="text"
               [(ngModel)]="usuarioId"
               name="usuarioId"
               required
             ></ion-input>
-          </ion-item>
+          </div>
 
-          <ion-item class="input-field">
-            <ion-label position="floating">Fecha (YYYY-MM-DD)</ion-label>
+          <div class="input-field">
+            <ion-label>Fecha (YYYY-MM-DD)</ion-label>
             <ion-input
               type="text"
               [(ngModel)]="fecha"
               name="fecha"
               required
             ></ion-input>
-          </ion-item>
+          </div>
 
-          <ion-button type="submit" color="primary" shape="round" class="buscar-btn">
+          <ion-button type="submit" class="buscar-btn">
             Buscar
           </ion-button>
         </form>
 
+        <!-- Solo mantener la información básica aquí -->
         <div class="resultado-horario">
           <div class="resultado-row">
             <div class="resultado-item">
@@ -103,46 +96,59 @@
 
       <!-- Nueva sección Listar usuarios con horarios -->
       <div class="horario-section">
-        <h2>Listar usuarios con horarios</h2>
+        <h2 style="text-align: center;">Listar usuarios con horarios</h2>
 
         <form (ngSubmit)="listarUsuarios()" #listarForm="ngForm" class="form-row">
-          <ion-item class="input-field">
-            <ion-label position="floating">Fecha (YYYY-MM-DD)</ion-label>
+          <div class="input-field">
+            <ion-label>Fecha (YYYY-MM-DD)</ion-label>
             <ion-input
               type="text"
               [(ngModel)]="fechaListar"
               name="fechaListar"
               required
             ></ion-input>
-          </ion-item>
+          </div>
 
-          <ion-button type="submit" color="primary" shape="round" class="buscar-btn">
+          <ion-button type="submit" class="buscar-btn">
             Buscar
           </ion-button>
         </form>
 
-        <div class="resultado-lista" *ngIf="usuariosConHorario.length > 0">
-          <div class="resultado-header">
-            <div>ID</div>
-            <div>Correo</div>
-            <div>Empresa</div>
-            <div>Día de la semana</div>
-            <div>Hora de entrada</div>
-            <div>Hora de salida</div>
-            <div>Observación</div>
-          </div>
-
-          <div class="resultado-row" *ngFor="let usuario of usuariosConHorario">
-            <div>{{ usuario.id }}</div>
-            <div>{{ usuario.correo }}</div>
-            <div>{{ usuario.empresa }}</div>
-            <div>{{ usuario.diaSemana }}</div>
-            <div>{{ usuario.horaEntrada }}</div>
-            <div>{{ usuario.horaSalida }}</div>
-            <div>{{ usuario.observacion }}</div>
-          </div>
+        <div class="tabla-horarios">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Correo</th>
+                <th>Empresa</th>
+                <th>Día</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Observación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuariosConHorario">
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.correo}}</td>
+                <td>{{usuario.empresa}}</td>
+                <td>{{usuario.diaSemana}}</td>
+                <td>{{usuario.horaEntrada}}</td>
+                <td>{{usuario.horaSalida}}</td>
+                <td>{{usuario.observacion}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <!-- Botón Nueva jornada movido al final -->
+      <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+        <ion-button class="nueva-jornada-btn" (click)="navegar('http://localhost:8100/nuevajornada')">
+          Nueva jornada
+        </ion-button>
+      </div>
+      
     </div>
   </div>
 </ion-content>

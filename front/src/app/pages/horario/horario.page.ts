@@ -12,6 +12,16 @@ import {
   barChartOutline,
 } from 'ionicons/icons';
 
+interface HorarioDetallado {
+  id: string;
+  correo: string;
+  empresa: string;
+  diaSemana: string;
+  horaEntrada: string;
+  horaSalida: string;
+  observacion: string;
+}
+
 @Component({
   selector: 'app-horario',
   templateUrl: './horario.page.html',
@@ -33,6 +43,8 @@ export class HorarioPage {
     horaSalida: string;
     observacion: string;
   }> = [];
+
+  horarioDetallado: HorarioDetallado | null = null;
 
   constructor(private modalCtrl: ModalController, private router: Router) {
     addIcons({
@@ -70,6 +82,18 @@ export class HorarioPage {
   buscarHorario() {
     console.log('Buscando horario para Usuario ID:', this.usuarioId, 'en fecha:', this.fecha);
     // Implementar la lógica para obtener horario aquí
+
+    // Aquí deberías hacer tu llamada al servicio para obtener los datos
+    // Por ahora simularemos datos de ejemplo
+    this.horarioDetallado = {
+      id: this.usuarioId,
+      correo: 'usuario@ejemplo.com',
+      empresa: 'Empresa Ejemplo',
+      diaSemana: 'Lunes',
+      horaEntrada: '08:00 AM',
+      horaSalida: '05:00 PM',
+      observacion: 'Sin novedades'
+    };
   }
 
   listarUsuarios() {

@@ -5,12 +5,16 @@ $primary-color: #4285F4;
 $secondary-color: #A4BBD3;
 $font-main: 'Poppins', sans-serif;
 
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 :host {
-  font-family: $font-main;
+  font-family: 'Poppins', sans-serif;
 
   ::ng-deep {
     * {
-      font-family: $font-main;
+      font-family: 'Poppins', sans-serif !important;
     }
   }
 }
@@ -149,49 +153,86 @@ $font-main: 'Poppins', sans-serif;
   background: white;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   margin: 40px 0;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 
   h2 {
     margin-bottom: 20px;
+    color: #000000;
     font-weight: 600;
-    font-size: 22px;
-    color: #1d232b;
+    font-size: 32px;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
   }
 
   .form-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
     align-items: flex-end;
-  }
 
-  .input-field {
-    flex: 1;
-    min-width: 220px;
+    .input-field {
+      flex: 1;
+      min-width: 180px;
+      max-width: 300px;
+
+      &::part(native) {
+        padding: 0;
+      }
+
+      ion-label {
+        color: #2d3436;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      ion-input {
+        --padding-start: 12px;
+        --padding-end: 12px;
+        --padding-top: 8px;
+        --padding-bottom: 8px;
+        --placeholder-color: #95a5a6;
+        font-size: 15px;
+        border: 1.5px solid #dfe6e9;
+        border-radius: 6px;
+        background: #fff;
+        margin-top: 4px;
+      }
+    }
   }
 
   ion-button.buscar-btn {
-    height: 48px;
-    min-width: 120px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    align-self: flex-end;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    margin-bottom: 8px;
+    --border-radius: 8px;
+    --background: #2ecc71;
+    --color: white;
+    font-family: 'Poppins', sans-serif;
+    text-transform: none;
+    font-size: 15px;
+
+    &:hover {
+      --background: #27ae60;
+    }
   }
 }
 
 .resultado-horario {
   margin-top: 30px;
-  background: #ffffff;
+  background: #1e3d59;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   width: 100%;
+  font-family: 'Poppins', sans-serif;
 
   .resultado-row {
     display: grid;
@@ -203,46 +244,101 @@ $font-main: 'Poppins', sans-serif;
     p {
       margin: 4px 0 0;
       font-size: 15px;
-      color: #333;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
     }
 
     strong {
       font-size: 14px;
-      color: #555;
+      color: #A4BBD3;
+      font-family: 'Poppins', sans-serif;
     }
   }
 }
 
-/* Nueva sección Listar usuarios con horarios */
-.resultado-lista {
-  margin-top: 30px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 16px;
+/* Estilos para la tabla de horarios */
+.tabla-horarios {
+  * {
+    font-family: 'Poppins', sans-serif !important;
+  }
+  
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;
 
-  .resultado-header {
-    display: contents;
-    div {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e3d59;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #2d4b6b;
+    }
+
+    th {
+      background: #1e3d59;
       font-weight: 600;
+      color: #A4BBD3;
       font-size: 14px;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 8px;
-      color: #555;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    td {
+      font-size: 14px;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    tbody tr:hover {
+      background-color: #2d4b6b;
     }
   }
+}
 
-  .resultado-row {
-    display: contents;
-    div {
-      font-size: 14px;
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-      word-break: break-word;
-      color: #333;
-    }
+/* Eliminar los estilos anteriores que no se usan */
+.resultado-lista,
+.resultado-header,
+.resultado-horario-detallado {
+  display: none;
+}
+
+.nueva-jornada-btn {
+  --background: #f1c40f;
+  --border-radius: 10px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --color: white;
+  font-family: 'Poppins', sans-serif !important;
+  text-transform: none;
+  font-size: 15px;
+
+  &:hover {
+    --background: #f39c12;
+  }
+}
+
+.titulo-horario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7f0ff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0;
+    color: #2a4db7;
+    font-weight: 600;
+    font-size: 2rem;
   }
 }
