@@ -43,7 +43,7 @@ ion-content {
     margin-bottom: 40px;
     width: 100%;
     padding-left: 20px;
-    
+
     .logo {
       width: 50px;
       height: auto;
@@ -73,14 +73,14 @@ ion-content {
       width: 90%;
       margin: 0 0 8px 4px;
       transition: all 0.3s ease;
-      
+
       &::part(native) {
         padding-left: 16px;
       }
 
       ion-icon {
         margin-right: 12px;
-        font-size: 24px; // Ajustado para coincidir con nómina
+        font-size: 24px;
         color: rgba(255, 255, 255, 0.9);
       }
 
@@ -123,7 +123,7 @@ ion-content {
       width: 50px;
       height: 50px;
       border: 2px solid white;
-      
+
       img {
         width: 100%;
         height: 100%;
@@ -143,41 +143,36 @@ ion-content {
   height: 100vh;
 }
 
-.header {
+/* Caja superior azul claro con estilo nómina */
+.header-box {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+  background-color: #e7f0ff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+  margin-bottom: 2rem;
 
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .eliminar-usuario {
-    background-color: #d14242;
-    border: none;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    transform: translateX(10px);
-  }
-
-  .search-input {
-    padding: 0.4rem 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 280px;
-    font-size: 0.9rem;
-    background-color: white;
-    color: black;
+  h1 {
+    margin: 0;
+    color: $dark-color;
+    font-weight: 600;
+    font-size: 2rem;
   }
 }
 
+/* Título secciones */
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-family: $font-main;
+  color: #1D232B;
+}
+
+/* Lista de tarjetas */
 .empleado-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -185,10 +180,10 @@ ion-content {
   margin-top: 1.5rem;
 
   .empleado-card {
-    background: #f3f6fb; // NUEVO color con más contraste
+    background: #f3f6fb;
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid #dbe6f3; // borde sutil para realce
+    border: 1px solid #dbe6f3;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -227,21 +222,50 @@ ion-content {
   }
 }
 
-.titulo-seccion {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #1D232B;
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-  font-family: $font-main;
+/* Barra flotante inferior derecha */
+.footer-actions {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 0.5rem;
+  background-color: white;
+  padding: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+
+  .search-input {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 280px;
+    font-size: 0.9rem;
+    background-color: white;
+    color: black;
+  }
+
+  .eliminar-usuario {
+    background-color: #d14242;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
 }
 
-:host {
-  font-family: $font-main;
+/* Espacio adicional para scroll final */
+.scroll-buffer {
+  height: 120px;
+}
 
+/* Fuente global */
+:host {
   ::ng-deep {
     * {
-      font-family: $font-main;
+      font-family: 'Poppins', sans-serif !important;
     }
   }
 }
@@ -253,5 +277,5 @@ button,
 p,
 h1, h2, h3, h4, h5, h6,
 span {
-  font-family: $font-main !important;
+  font-family: 'Poppins', sans-serif !important;
 }
