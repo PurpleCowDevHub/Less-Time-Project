@@ -1,129 +1,159 @@
-/* Fondo oscuro translúcido detrás del modal */
+@use "sass:color";
+
+// Paleta del diseño general
+$card-bg: #ffffff;
+$primary-bg: #f5f7fa;
+$input-bg: #f1f5f9;
+$button-green: #34c759;
+$button-red: #ff3b30;
+$input-radius: 12px;
+$shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+// Fondo oscuro translúcido detrás del modal
 .fondo-modal {
   --background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden; // ❌ IMPORTANTE: evita scroll adicional
 }
 
-/* Contenedor del modal */
+// Contenedor del modal
 .modal-container {
-  background: #fef3e2;
-  border-radius: 20px;
+  background: $card-bg;
+  border-radius: 16px;
   padding: 2rem;
   max-width: 600px;
   width: 100%;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  max-height: 130vh;
+  max-height: 90vh;
+  box-shadow: $shadow;
   display: flex;
   flex-direction: column;
+  overflow-y: auto; // ✅ scroll solo en el modal
 }
 
-.form-scroll::-webkit-scrollbar-thumb {
+// Estilo del scrollbar dentro del modal
+.modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-container::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 6px;
 }
 
-/* Título */
+// Título
 h2 {
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #1d232b;
   margin-bottom: 1.5rem;
 }
 
-/* Campos del formulario */
+// Campos del formulario
 .form-row {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.2rem;
+
+  label {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  input[type="text"],
+  input[type="time"] {
+    background: $input-bg;
+    border: 1px solid #d0d5dd;
+    border-radius: $input-radius;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+  }
 }
 
-input[type="text"],
-input[type="time"] {
-  background: #d9eafd;
-  border: none;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-}
-
-/* Checkboxes y radios */
-.dias-lista label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
+// Checkboxes y radios
 .dias-lista {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: $button-green;
+  }
 }
 
-/* Horas entrada/salida */
+// Horas entrada/salida
 .horas-dobles {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
+  > div {
+    flex: 1;
+  }
+
+  input {
+    width: 100%;
+  }
 }
 
-.horas-dobles > div {
-  flex: 1;
-}
-
-/* Botones */
+// Botones
 .botones {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+
+  button {
+    padding: 0.6rem 1.8rem;
+    border-radius: $input-radius;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cancelar {
+    background-color: $button-red;
+    color: white;
+  }
+
+  .guardar {
+    background-color: $button-green;
+    color: white;
+  }
 }
 
-.cancelar {
-  background-color: red;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-}
-
-.guardar {
-  background-color: limegreen;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-}
-
-/* Fecha estilo día-mes-año */
+// Fecha estilo día-mes-año
 .fecha-container {
   display: flex;
   justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
-  gap: 8px;
-}
+  gap: 10px;
 
-.entrada-fecha {
-  --background: transparent;
-  --color: #000;
-  height: 38px;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 0 12px;
-  flex: 1;
-  text-align: center;
+  .entrada-fecha {
+    --background: $input-bg;
+    --color: #1d232b;
+    border: 1px solid #d0d5dd;
+    border-radius: $input-radius;
+    height: 40px;
+    padding: 0 12px;
+    text-align: center;
+    font-size: 0.95rem;
+    flex: 1;
 
-  &.entrada-fecha:first-child {
-    flex: 0.8;
+    &.entrada-fecha:first-child {
+      flex: 0.8;
+    }
+
+    &.entrada-fecha:last-child {
+      flex: 1.2;
+    }
   }
-
-  &.entrada-fecha:last-child {
-    flex: 1.2;
-  }
-}
-
-.etiqueta {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
 }
