@@ -40,23 +40,20 @@ interface RegistroPayload {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000'; // URL base del backend
+  private apiUrl = 'http://localhost:8000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Servicios de autenticación
+  // Autenticación
   login(correo: string, contrasena: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
-      correo,
-      contrasena
-    });
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { correo, contrasena });
   }
 
   registrar(usuario: RegistroPayload): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, usuario);
   }
 
-  // Servicios de administración de usuarios
+  // Administración
   obtenerUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/admin/usuarios`);
   }
@@ -69,7 +66,7 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/admin/usuarios/${id}`);
   }
 
-  // Servicios de nómina
+  // Nómina
   crearNomina(
     usuario_id: string,
     horas_trabajadas: number,
@@ -93,5 +90,10 @@ export class UserService {
       usuario_id,
       periodo_pago
     });
+  }
+
+  // 🔵 Obtener métricas para el dashboard
+  obtenerMetricas(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/admin/metrics`);
   }
 }

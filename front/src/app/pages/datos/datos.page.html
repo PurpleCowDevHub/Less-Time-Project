@@ -36,22 +36,18 @@
 
     <!-- Contenido principal -->
     <div class="content-container">
-
-      <!-- Aquí está el título modificado -->
       <div class="titulo-nomina">
         <h1>Resumen de Nómina</h1>
       </div>
 
       <div class="resumen-grid">
         <div class="resumen-row">
-          <!-- Salario Bruto -->
           <div class="resumen-card">
             <h3>Salario Bruto</h3>
             <p>Promedio: {{ data?.salario_bruto_promedio }}</p>
             <p>Sumatoria: {{ data?.salario_bruto_sumatoria }}</p>
           </div>
 
-          <!-- Salario Neto -->
           <div class="resumen-card">
             <h3>Salario Neto</h3>
             <p>Promedio: {{ data?.salario_neto_promedio }}</p>
@@ -60,14 +56,12 @@
         </div>
 
         <div class="resumen-row">
-          <!-- Bonificación -->
           <div class="resumen-card">
             <h3>Bonificación</h3>
             <p>Promedio: {{ data?.bonificacion_promedio }}</p>
             <p>Sumatoria: {{ data?.bonificacion_sumatoria }}</p>
           </div>
 
-          <!-- Horas trabajadas -->
           <div class="resumen-card">
             <h3>Horas Trabajadas</h3>
             <p>Promedio: {{ data?.horas_trabajadas_promedio }}</p>
@@ -76,7 +70,6 @@
         </div>
 
         <div class="resumen-row center-row">
-          <!-- Edad -->
           <div class="resumen-card">
             <h3>Edad</h3>
             <p>Promedio: {{ data?.edad_promedio }}</p>
@@ -84,17 +77,11 @@
           </div>
         </div>
 
-        <!-- Distribución de edades -->
         <div class="resumen-card">
           <h3>Distribución de Edades</h3>
-          <ul>
-            <li *ngFor="let key of edadKeys">
-              {{ key }}: {{ data?.distribucion_edades[key] }}
-            </li>
-          </ul>
+          <canvas id="edadChart"></canvas>
         </div>
 
-        <!-- Ventas Simuladas -->
         <div class="resumen-card ventas">
           <h3>Ventas Simuladas por Mes</h3>
           <table>
