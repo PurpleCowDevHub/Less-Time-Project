@@ -2,20 +2,20 @@
   <div class="modal-container">
     <h2>Nueva jornada</h2>
 
-    <form class="form-scroll">
-      <!-- Usuario o ID -->
+    <form class="form-scroll" (ngSubmit)="guardarJornada()">
+      <!-- Usuario -->
       <div class="form-row">
         <label>Usuario o ID*</label>
-        <input type="text" />
+        <input type="text" [(ngModel)]="usuario" name="usuario" required />
       </div>
 
       <!-- Observación -->
       <div class="form-row">
         <label>Observación*</label>
-        <input type="text" />
+        <input type="text" [(ngModel)]="observacion" name="observacion" />
       </div>
 
-      <!-- Fecha (día - mes - año) -->
+      <!-- Fecha -->
       <div class="form-row">
         <label>Fecha*</label>
         <div class="fecha-container">
@@ -26,10 +26,11 @@
             min="1"
             max="31"
             [(ngModel)]="dia"
-            (ionBlur)="validarDia()">
+            (ionBlur)="validarDia()"
+            name="dia">
           </ion-input>
 
-          <ion-select class="entrada-fecha" [(ngModel)]="mes" placeholder="Mes">
+          <ion-select class="entrada-fecha" [(ngModel)]="mes" placeholder="Mes" name="mes">
             <ion-select-option value="01">Enero</ion-select-option>
             <ion-select-option value="02">Febrero</ion-select-option>
             <ion-select-option value="03">Marzo</ion-select-option>
@@ -51,7 +52,8 @@
             min="1950"
             [max]="maxAnio"
             [(ngModel)]="anio"
-            (ionBlur)="validarAnio()">
+            (ionBlur)="validarAnio()"
+            name="anio">
           </ion-input>
         </div>
       </div>
@@ -60,25 +62,25 @@
       <div class="form-row dias">
         <label>Días de trabajo*</label>
         <div class="dias-lista">
-          <label><input type="checkbox" /> Lunes</label>
-          <label><input type="checkbox" /> Martes</label>
-          <label><input type="checkbox" /> Miércoles</label>
-          <label><input type="checkbox" /> Jueves</label>
-          <label><input type="checkbox" /> Viernes</label>
-          <label><input type="checkbox" /> Sábado</label>
-          <label><input type="checkbox" /> Domingo</label>
+          <label><input type="checkbox" (change)="toggleDia('Lunes', $event)" /> Lunes</label>
+          <label><input type="checkbox" (change)="toggleDia('Martes', $event)" /> Martes</label>
+          <label><input type="checkbox" (change)="toggleDia('Miércoles', $event)" /> Miércoles</label>
+          <label><input type="checkbox" (change)="toggleDia('Jueves', $event)" /> Jueves</label>
+          <label><input type="checkbox" (change)="toggleDia('Viernes', $event)" /> Viernes</label>
+          <label><input type="checkbox" (change)="toggleDia('Sábado', $event)" /> Sábado</label>
+          <label><input type="checkbox" (change)="toggleDia('Domingo', $event)" /> Domingo</label>
         </div>
       </div>
 
-      <!-- Horas entrada y salida (campo texto para ingresar horas) -->
+      <!-- Horas -->
       <div class="form-row horas-dobles">
         <div>
-          <label>Hora de entrada* </label>
-          <input type="text" placeholder="Ej. 08:30" [(ngModel)]="horaEntrada" />
+          <label>Hora de entrada*</label>
+          <input type="text" [(ngModel)]="horaEntrada" name="horaEntrada" placeholder="Ej. 08:30" />
         </div>
         <div>
-          <label>Hora de salida*  </label>
-          <input type="text" placeholder="Ej. 17:00" [(ngModel)]="horaSalida" />
+          <label>Hora de salida*</label>
+          <input type="text" [(ngModel)]="horaSalida" name="horaSalida" placeholder="Ej. 17:00" />
         </div>
       </div>
 
