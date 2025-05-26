@@ -42,9 +42,8 @@ export class PrincipalPage implements OnInit {
     console.log(`Navegando a: ${destino}`);
 
     switch(destino) {
-      case 'metricas':
-        // Ruta interna (Angular/Ionic)
-        this.router.navigate(['/metricas']);
+      case 'datos':
+       window.location.href = 'http://localhost:8100/datos';
         break;
       case 'nomina':
         window.location.href = 'http://localhost:8100/nomina';
@@ -86,3 +85,4 @@ export class PrincipalPage implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+
