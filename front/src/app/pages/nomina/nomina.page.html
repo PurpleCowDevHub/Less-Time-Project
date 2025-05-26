@@ -106,16 +106,16 @@
 <!-- Apartado: Enviar Nómina -->
 <div class="enviar-nomina-dos">
   <h2>Enviar Nómina por Correo</h2>
-
-  <div class="form-grid">
-    <div>
+  
+  <div class="input-grid">
+    <div class="input-group">
       <label class="input-label">ID del Empleado</label>
       <ion-item>
         <ion-input [(ngModel)]="idEnvioNomina" type="text" required></ion-input>
       </ion-item>
     </div>
-
-    <div>
+    
+    <div class="input-group">
       <label class="input-label">Período de pago (Mes y año)</label>
       <ion-item>
         <ion-input [(ngModel)]="periodoPago" type="text" placeholder="Ej: Mayo 2025" required></ion-input>

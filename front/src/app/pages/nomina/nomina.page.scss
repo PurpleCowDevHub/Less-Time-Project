@@ -252,10 +252,10 @@ ion-list {
 
   h2 {
     color: $dark-color;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 2rem;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 2rem;  // Aumentado de 1.6rem a 2rem
   }
 
   .input-grid {
@@ -272,8 +272,8 @@ ion-list {
 
     .input-label {
   color: $dark-color;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 500; // Aseguramos que sea 500
   margin-left: 0.25rem;
 }
 
@@ -297,6 +297,23 @@ ion-list {
       }
     }
   }
+
+  ion-button {
+    width: 40%; // Reducido de 60% a 40%
+    margin: 2rem auto;
+    height: 50px;
+    --border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-transform: none; // Evita las mayúsculas
+    --color: white;
+    color: white;
+    
+    &::part(native) {
+      color: white;
+    }
+  }
 }
 
 
@@ -309,44 +326,75 @@ ion-list {
 
   h2 {
     color: $dark-color;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
   }
 
-  ion-item {
-    --background: #fff;
-    --border-color: #{$input-border};
-    --border-radius: #{$input-radius};
-    --border-width: 1.5px;
-    --border-style: solid;
-    margin-bottom: 1rem;
-    --color: #{$dark-color}; // Añadido color para los inputs
-    
-    &:hover {
-      --border-color: #{$primary-color};
-    }
-
-    ion-label {
-      color: $dark-color;
-      font-weight: 500;
-    }
-
-    ion-input {
-      --padding-start: 1rem;
-      --padding-end: 1rem;
-      font-family: $font-main;
-    }
-  }
-.form-grid {
+  .input-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
 
-    div {
-      display: flex;
-      flex-direction: column;
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .input-label {
+      color: $dark-color;
+      font-size: 1rem;
+      font-weight: 500; // Aseguramos que sea 500
+      margin-left: 0.25rem;
     }
+
+    ion-item {
+      --background: #fff;
+      --border-color: #{$input-border};
+      --border-radius: 8px;
+      --border-width: 1.5px;
+      --border-style: solid;
+      --padding-start: 0.75rem;
+      margin: 0;
+      
+      &:hover {
+        --border-color: #{$primary-color};
+      }
+
+      ion-input {
+        --padding-start: 0;
+        --padding-end: 0.75rem;
+        font-family: $font-main;
+      }
+    }
+  }
+
+  ion-button {
+    width: 40%;
+    margin: 2rem auto;
+    height: 50px;
+    --border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-transform: none;
+    --color: white;
+    color: white;
+    
+    &::part(native) {
+      color: white;
+    }
+  }
+
+  label {
+    color: $dark-color;
+    font-size: 1rem;
+    font-weight: 500; // Aseguramos que sea 500
+    margin-bottom: 0.5rem;
+    display: block;
   }
 }
 
