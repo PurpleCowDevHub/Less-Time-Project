@@ -14,6 +14,13 @@ import {
 } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 import { Chart } from 'chart.js/auto';
+import { addIcons } from 'ionicons';
+import {
+  peopleOutline,
+  calendarOutline,
+  cashOutline,
+  barChartOutline
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-datos',
@@ -39,7 +46,14 @@ export class DatosPage implements OnInit {
   edadKeys: string[] = [];
   ventasKeys: string[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    addIcons({
+      peopleOutline,
+      calendarOutline,
+      cashOutline,
+      barChartOutline
+    });
+  }
 
   ngOnInit() {
     this.userService.obtenerMetricas().subscribe((res) => {
@@ -104,5 +118,9 @@ export class DatosPage implements OnInit {
 
   irAPerfilAdmin() {
     window.location.href = 'http://localhost:8100/perfiladmin';
+  }
+
+  irADatos() {
+    window.location.href = 'http://localhost:8100/datos';
   }
 }
