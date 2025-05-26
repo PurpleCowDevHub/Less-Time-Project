@@ -1,0 +1,142 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-color: #4285F4;
+$secondary-color: #A4BBD3;
+$dark-color: #1D232B;
+$input-border: #e0e0e0;
+$input-radius: 10px;
+$font-main: 'Poppins', sans-serif;
+
+:host {
+  font-family: $font-main;
+  
+  ::ng-deep {
+    * {
+      font-family: $font-main;
+    }
+  }
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: $font-main;
+}
+
+.side-menu {
+  width: 300px;
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    #000000 10%,
+    #4285F4 65%,
+    #A4BBD3 100%
+  );
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Cambiado de flex-start a center
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; // Cambiado de center a flex-start
+  gap: 12px;
+  margin-bottom: 40px;
+  width: 100%;
+  padding-left: 20px; // Añadido para dar un margen izquierdo consistente
+  
+  .logo {
+    width: 50px;
+    height: auto;
+  }
+
+  h2 {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+ion-list {
+  width: 100%;
+  background: transparent !important;
+
+  ion-item {
+    --background: transparent;
+    --border-radius: 10px;
+    --border-width: 1.5px; // Aumentado para hacer el borde más visible
+    --border-style: solid;
+    --border-color: rgba(255, 255, 255, 0.5); // Aumentado la opacidad del borde
+    color: rgba(255, 255, 255, 0.9); // Texto más blanco
+    font-size: 16px;
+    width: 90%;
+    margin: 0 0 8px 4px; // Cambiado: eliminado 'auto' y añadido margen izquierdo
+    transition: all 0.3s ease;
+    
+    &::part(native) {
+      padding-left: 16px;
+    }
+
+    ion-icon {
+      margin-right: 12px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9); // Iconos más blancos
+    }
+
+    &:hover {
+      --background: rgba(255, 255, 255, 0.15);
+      --border-color: rgba(255, 255, 255, 0.8); // Borde más blanco en hover
+      transform: translateX(5px);
+    }
+
+    &.selected {
+      --background: rgba(255, 255, 255, 0.2);
+      --border-color: rgba(255, 255, 255, 1); // Borde completamente blanco cuando está seleccionado
+      font-weight: 500;
+    }
+  }
+}
+
+.bottom-icons {
+  position: absolute;
+  bottom: 10px; // Cambiado de 20px a 10px para bajar más el botón
+  left: 20px;
+  display: flex;
+  align-items: flex-start;
+  width: auto;
+}
+
+.avatar-btn {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  --padding-start: 0;
+  --padding-end: 0;
+  --ion-button-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-avatar {
+    width: 50px; // Aumentar tamaño
+    height: 50px; // Aumentar tamaño
+    border: 2px solid white; // Añadir borde blanco
+    
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<ion-content fullscreen>
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="side-menu">
+      <div class="logo-container" (click)="irAPrincipal()" style="cursor: pointer;">
+        <img src="assets/icon/LT.png" alt="Less Time logo" class="logo" />
+        <h2>Less Time</h2>
+      </div>
+      <ion-list lines="none">
+        <ion-item button (click)="irAPrincipal()">
+          <ion-icon name="home-outline"></ion-icon>
+          Home
+        </ion-item>
+        <ion-item button (click)="irAEmpleados()">
+          <ion-icon name="people-outline"></ion-icon>
+          Empleado
+        </ion-item>
+        <ion-item button (click)="irACalendario()">
+          <ion-icon name="calendar-outline"></ion-icon>
+          Calendario
+        </ion-item>
+        <ion-item button (click)="irANomina()" class="selected">
+          <ion-icon name="cash-outline"></ion-icon>
+          Nomina
+        </ion-item>
+      </ion-list>
+
+      <div class="bottom-icons">
+        <ion-button fill="clear" class="avatar-btn" (click)="irAPerfilAdmin()">
+          <ion-avatar>
+            <img src="assets/icon/avatar.png" alt="Usuario" />
+          </ion-avatar>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -36,8 +36,8 @@
 
     <!-- Contenido principal -->
     <main class="main-content">
+      <!-- Header con buscador y botón -->
       <header class="header">
-        <h1>Lista de Empleados</h1>
         <div class="header-actions">
           <input
             type="text"
@@ -48,6 +48,9 @@
           <button class="eliminar-usuario" (click)="eliminarUsuario()">Eliminar usuario</button>
         </div>
       </header>
+
+      <!-- Título Lista de empleados -->
+      <h1 class="titulo-seccion">Lista de empleados</h1>
 
       <!-- Lista de empleados -->
       <div class="empleado-list">
@@ -62,8 +65,10 @@
         </div>
       </div>
 
-      <h2 class="admin-title">Lista de Administradores</h2>
+      <!-- Título Lista de administradores -->
+      <h1 class="titulo-seccion">Lista de administradores</h1>
 
+      <!-- Lista de administradores -->
       <div class="empleado-list">
         <div *ngFor="let admin of administradores" class="empleado-card">
           <img [src]="admin.foto" alt="foto" class="empleado-foto" />
